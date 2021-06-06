@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@+id/fragment_welcome">
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.tradistonks.app.fragments.FragmentHome"
+        android:label="Home" />
+    <fragment
+        android:id="@+id/fragment_welcome"
+        android:name="com.tradistonks.app.fragments.FragmentWelcome"
+        android:label="Welcome" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.tradistonks.app.fragments.FragmentLogin"
+        android:label="Login" />
+    <fragment
+        android:id="@+id/fragment_register"
+        android:name="com.tradistonks.app.fragments.FragmentRegister"
+        android:label="Register" />
+
+</navigation>
