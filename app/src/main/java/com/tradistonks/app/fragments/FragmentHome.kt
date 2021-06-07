@@ -38,5 +38,3 @@ class FragmentHome : Fragment() {
             InterfaceHome()
         }
     }
-
-}
