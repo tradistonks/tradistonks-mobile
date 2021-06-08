@@ -44,19 +44,39 @@ fun MainMenu() {
                 startDestination = DrawerScreens.Home.route
             ) {
                 composable(DrawerScreens.Home.route) {
-                    Home( openDrawer = { openDrawer() } )
+                    Home(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
                 }
                 composable(DrawerScreens.Account.route) {
-                    Account(openDrawer = { openDrawer() } )
+                    Account(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
                 }
                 composable(DrawerScreens.History.route) {
-                    History( openDrawer = { openDrawer() } )
+                    History(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
                 }
                 composable(DrawerScreens.Strategies.route) {
-                    Strategies( openDrawer = { openDrawer() } )
+                    Strategies(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
                 }
                 composable(DrawerScreens.Dashboard.route) {
-                    Dashboard(openDrawer = { openDrawer() } )
+                    Dashboard(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
                 }
             }
         }
