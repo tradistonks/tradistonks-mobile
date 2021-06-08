@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun Topbar(openDrawer: () -> Unit, mainTitle: String){
-    bar(
+    Bar(
         title = mainTitle,
         buttonIcon = Icons.Filled.Menu,
         onButtonClicked = { openDrawer() }
@@ -16,7 +16,7 @@ fun Topbar(openDrawer: () -> Unit, mainTitle: String){
 }
 
 @Composable
-fun bar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> Unit) {
+fun Bar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> Unit) {
     TopAppBar(
         title = {
             Text(
