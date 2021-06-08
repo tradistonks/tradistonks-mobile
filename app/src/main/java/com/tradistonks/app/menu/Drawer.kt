@@ -1,4 +1,4 @@
-package com.tradistonks.app
+package com.tradistonks.app.menu
 
 
 import androidx.compose.foundation.Image
