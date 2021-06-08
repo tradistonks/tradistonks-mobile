@@ -19,13 +19,17 @@ import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 sealed class DrawerScreens(val title: String, val route: String) {
     object Home : DrawerScreens("Home", "home")
     object Account : DrawerScreens("Account", "account")
-    object Help : DrawerScreens( "Help", "help")
+    object Dashboard : DrawerScreens("Dashboard", "dashboard")
+    object Strategies : DrawerScreens("Strategies", "strategies")
+    object History : DrawerScreens("History", "history")
 }
 
 private val screens = listOf(
     DrawerScreens.Home,
-    DrawerScreens.Account,
-    DrawerScreens.Help
+    DrawerScreens.Dashboard,
+    DrawerScreens.Strategies,
+    DrawerScreens.History,
+    DrawerScreens.Account
 )
 
 @Composable
