@@ -32,10 +32,10 @@ fun Drawer(
             .fillMaxSize()
             .padding(start = 24.dp, top = 48.dp)
     ) {
-        Image(
-            painter = painterResource(R.drawable.notification_bg),
-            contentDescription = "App icon"
-        )
+//        Image(
+//            painter = painterResource(R.drawable.notification_bg),
+//            contentDescription = "App icon"
+//        )
         screens.forEach { screen ->
             Spacer(Modifier.height(24.dp))
             Text(
