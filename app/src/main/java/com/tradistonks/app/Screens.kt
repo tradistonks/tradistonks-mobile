@@ -49,18 +49,52 @@ fun Account(openDrawer: () -> Unit) {
 }
 
 @Composable
-fun Help(navController: NavController) {
+fun Strategies(openDrawer: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopBar(
-            title = "Help",
-            buttonIcon = Icons.Filled.ArrowBack,
-            onButtonClicked = { navController.popBackStack() }
+            title = "Strategies",
+            buttonIcon = Icons.Filled.Menu,
+            onButtonClicked = { openDrawer() }
         )
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Help.", style = MaterialTheme.typography.h4)
+            Text(text = "Strategies.", style = MaterialTheme.typography.h4)
+        }
+    }
+}
+
+@Composable
+fun Dashboard(openDrawer: () -> Unit) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        TopBar(
+            title = "Dashboard",
+            buttonIcon = Icons.Filled.Menu,
+            onButtonClicked = { openDrawer() }
+        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Dashboard.", style = MaterialTheme.typography.h4)
+        }
+    }
+}
+
+@Composable
+fun History(openDrawer: () -> Unit) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        TopBar(
+            title = "History",
+            buttonIcon = Icons.Filled.Menu,
+            onButtonClicked = { openDrawer() }
+        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "History.", style = MaterialTheme.typography.h4)
         }
     }
 }

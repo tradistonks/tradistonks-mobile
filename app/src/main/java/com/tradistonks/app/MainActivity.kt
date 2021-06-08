@@ -71,9 +71,25 @@ fun AppMainScreen() {
                         }
                     )
                 }
-                composable(DrawerScreens.Help.route) {
-                    Help(
-                        navController = navController
+                composable(DrawerScreens.History.route) {
+                    History(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
+                }
+                composable(DrawerScreens.Strategies.route) {
+                    Strategies(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
+                }
+                composable(DrawerScreens.Dashboard.route) {
+                    Dashboard(
+                        openDrawer = {
+                            openDrawer()
+                        }
                     )
                 }
             }
