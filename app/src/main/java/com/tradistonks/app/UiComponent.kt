@@ -17,6 +17,6 @@ fun TopBar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> U
                 Icon(buttonIcon, contentDescription = "")
             }
         },
-        backgroundColor = MaterialTheme.colors.primaryVariant
+        backgroundColor = MaterialTheme.colors.background
     )
 }
