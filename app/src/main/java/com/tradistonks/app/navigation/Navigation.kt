@@ -1,14 +1,15 @@
-package com.tradistonks.app
+package com.tradistonks.app.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.tradistonks.app.R
 import java.security.InvalidParameterException
 
 class Navigation {
 
     enum class Page { Home, Welcome, Login, Register }
 
-    fun Fragment.naviguer(from: Page, to: Page) {
+    fun Fragment.navigate(from: Page, to: Page) {
         if(from == to) {
             throw InvalidParameterException("Impossible de naviguer à $to")
         }

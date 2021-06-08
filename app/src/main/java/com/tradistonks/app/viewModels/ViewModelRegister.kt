@@ -3,9 +3,9 @@ package com.tradistonks.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tradistonks.app.Navigation
-import com.tradistonks.app.Navigation.Page.Register
-import com.tradistonks.app.Navigation.Page.Home
+import com.tradistonks.app.navigation.Navigation
+import com.tradistonks.app.navigation.Navigation.Page.Register
+import com.tradistonks.app.navigation.Navigation.Page.Home
 import com.tradistonks.app.utilities.Events
 
 class ViewModelRegister : ViewModel() {

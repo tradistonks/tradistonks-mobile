@@ -12,8 +12,20 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.google.android.material.navigation.NavigationView
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import androidx.activity.compose.setContent
+import androidx.compose.material.*
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.tradistonks.app.navigation.Account
+import com.tradistonks.app.navigation.Drawer
+import com.tradistonks.app.navigation.DrawerScreens
+import com.tradistonks.app.navigation.Home
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +38,52 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Row(
-        Modifier.padding(5.dp).fillMaxWidth().fillMaxHeight()
-    ) {
-        Column {
-            Text(text = "Hello $name!")
+fun AppMainScreen() {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+        val drawerState = rememberDrawerState(DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+        val openDrawer = {
+            scope.launch {
+                drawerState.open()
+            }
+        }
+        ModalDrawer(
+            drawerState = drawerState,
+            gesturesEnabled = drawerState.isOpen,
+            drawerContent = {
+                Drawer(
+                    onDestinationClicked = { route ->
+                        scope.launch {
+                            drawerState.close()
+                        }
+                        navController.navigate(route) {
+                            popUpTo = navController.graph.startDestinationId
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+        ) {
+            NavHost(
+                navController = navController,
+                startDestination = DrawerScreens.Home.route
+            ) {
+                composable(DrawerScreens.Home.route) {
+                    Home(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
+                }
+                composable(DrawerScreens.Account.route) {
+                    Account(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
+                }
+            }
         }
     }
 }
@@ -40,6 +92,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     TradistonksAndroidTheme {
-        Greeting("Android")
+        AppMainScreen()
     }
 }

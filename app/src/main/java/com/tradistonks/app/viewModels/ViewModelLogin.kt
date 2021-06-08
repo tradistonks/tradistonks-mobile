@@ -3,8 +3,8 @@ package com.tradistonks.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tradistonks.app.Navigation.Page
-import com.tradistonks.app.Navigation.Page.*
+import com.tradistonks.app.navigation.Navigation.Page
+import com.tradistonks.app.navigation.Navigation.Page.*
 import com.tradistonks.app.utilities.Events
 
 class ViewModelLogin : ViewModel() {
