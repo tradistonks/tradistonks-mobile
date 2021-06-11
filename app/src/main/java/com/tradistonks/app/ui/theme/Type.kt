@@ -1,6 +1,7 @@
 package com.tradistonks.app.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -11,8 +12,24 @@ val Typography = Typography(
         body1 = TextStyle(
                 fontFamily = FontFamily.Default,
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp
-        )
+                fontSize = 13.sp
+        ),
+        h1= TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                fontSize = 20.sp
+        ),
+        h2= TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                fontSize = 18.sp
+        ),
+        subtitle1 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp
+        ),
+)
         /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,

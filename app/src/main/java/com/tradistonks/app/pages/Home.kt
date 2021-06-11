@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.BodyFormat
 
 
 @Composable
@@ -23,6 +24,6 @@ fun pageHome(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Home Page content here.")
+        BodyFormat(body = "Home Page content here.")
     }
 }
