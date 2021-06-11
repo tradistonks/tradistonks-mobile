@@ -12,6 +12,8 @@ import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 
+import com.tradistonks.app.components.SubtitleFormat
+
 @Composable
 fun History(openDrawer: () -> Unit) {
     Page(openDrawer, stringResource(R.string.title_page_history), { pageHistory() })
@@ -23,6 +25,6 @@ fun pageHistory(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "History.", style = MaterialTheme.typography.h4)
+        SubtitleFormat(subtitle = "History.")
     }
 }

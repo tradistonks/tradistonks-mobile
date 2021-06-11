@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.SubtitleFormat
 
 @Composable
 fun Strategies(openDrawer: () -> Unit) {
@@ -23,6 +24,6 @@ fun pageStrategies(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Strategies.", style = MaterialTheme.typography.h4)
+        SubtitleFormat(subtitle = "Strategies.")
     }
 }

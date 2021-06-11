@@ -19,9 +19,7 @@ fun Topbar(openDrawer: () -> Unit, mainTitle: String){
 fun Bar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> Unit) {
     TopAppBar(
         title = {
-            Text(
-                text = title
-            )
+            TitleFormat(title = title)
         },
         navigationIcon = {
             IconButton(onClick = { onButtonClicked() } ) {

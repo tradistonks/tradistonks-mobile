@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
 import com.tradistonks.app.menu.Drawer
 import com.tradistonks.app.menu.DrawerScreens
 import com.tradistonks.app.pages.*
-import kotlinx.coroutines.launch
 
 @Composable
 fun MainMenu() {
