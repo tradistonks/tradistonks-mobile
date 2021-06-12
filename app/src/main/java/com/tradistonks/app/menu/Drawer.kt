@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import com.tradistonks.app.ui.theme.textColor
 
 sealed class DrawerScreens(val title: String, val route: String) {
     object Home : DrawerScreens("Home", "home")
@@ -43,7 +44,8 @@ fun Drawer(
             Spacer(Modifier.height(24.dp))
             Text(
                 text = screen.title,
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h1,
+                color = textColor,
                 modifier = Modifier.clickable {
                     onDestinationClicked(screen.route)
                 }
