@@ -3,14 +3,13 @@ package com.tradistonks.app
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
-import androidx.compose.foundation.background
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tradistonks.app.menu.Drawer
 import com.tradistonks.app.menu.DrawerScreens
 import com.tradistonks.app.pages.*
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainMenu() {
@@ -28,7 +27,6 @@ fun MainMenu() {
             gesturesEnabled = drawerState.isOpen,
             drawerContent = {
                 Drawer(
-                    modifier = Modifier.background(MaterialTheme.colors.background),
                     onDestinationClicked = { route ->
                         scope.launch {
                             drawerState.close()

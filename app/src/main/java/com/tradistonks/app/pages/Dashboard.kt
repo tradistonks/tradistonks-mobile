@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.SubtitleFormat
+import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Dashboard(openDrawer: () -> Unit) {
@@ -24,6 +24,11 @@ fun pageDashboard(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        SubtitleFormat(subtitle = "Dashboard.")
+        Text(
+            text = "Dashboard.",
+            style = MaterialTheme.typography.h1,
+            color = textColor
+
+        )
     }
 }
