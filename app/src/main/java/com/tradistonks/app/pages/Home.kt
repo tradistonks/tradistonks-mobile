@@ -1,8 +1,6 @@
 package com.tradistonks.app.pages
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +14,13 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Home(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_home), { pageHome() })
+    val user = null
+    if(user == null){
+        Page(openDrawer, stringResource(R.string.connect), { pageConnexion() })
+    }
+    else{
+        Page(openDrawer, stringResource(R.string.title_page_home), { pageHome() })
+    }
 }
 
 @Composable
