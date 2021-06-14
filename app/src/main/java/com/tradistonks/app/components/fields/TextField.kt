@@ -16,7 +16,8 @@ import androidx.compose.ui.unit.dp
 
 open class TextField(
     private val validator: (String) -> Boolean = { true },
-    private val errorFor: (String) -> String = { "" }
+    private val errorFor: (String) -> String = { "" },
+    text : String = ""
 ) {
     var text: String by mutableStateOf("")
     var isFocusedDirty: Boolean by mutableStateOf(false)
@@ -32,7 +33,7 @@ open class TextField(
     }
 
     fun enableShowErrors() {
-        //l'erreur est affichée seulement si aumoin une fois le text a était en focus
+        //l'erreur est affichée seulement si au moins une fois le text a était en focus
         if (isFocusedDirty) {
             displayErrors = true
         }
