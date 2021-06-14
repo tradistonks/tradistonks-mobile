@@ -17,6 +17,8 @@
     <string name="user_continue">Continue</string>
     <string name="create_account">Create account</string>
     <string name="modify_account">Modify my information</string>
+    <string name="my_profil">My Profil</string>
+    <string name="my_information">My information</string>
     <string name="register">Register</string>
     <string name="dismiss">Dismiss</string>
     <string name="next">Next</string>

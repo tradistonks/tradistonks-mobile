@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -19,6 +18,8 @@ import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
+import com.tradistonks.app.GLOBAL_USER
+import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.ui.theme.textColor
 
 
@@ -33,6 +34,9 @@ fun RegisterContent() {
         val passwordFocusRequest = remember { FocusRequester() }
         val confirmationPasswordFocusRequest = remember { FocusRequester() }
         val emailState = remember { EmailField() }
+        val fieldState = remember { Field() }
+        Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER.username)
+        Spacer(modifier = Modifier.height(16.dp))
         Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() })
 
         Spacer(modifier = Modifier.height(16.dp))
