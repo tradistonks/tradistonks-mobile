@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.ui.theme.textColor
@@ -14,8 +15,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Home(openDrawer: () -> Unit) {
-    val user = null
-    if(user == null){
+    if(GLOBAL_USER == null){
         Page(openDrawer, stringResource(R.string.connect), { pageConnexion() })
     }
     else{

@@ -11,6 +11,7 @@ import com.tradistonks.app.components.Page
 import com.tradistonks.app.components.RegisterContent
 import com.tradistonks.app.components.SignInContent
 
+
 @Composable
 fun Connexion(openDrawer: () -> Unit) {
     Page(openDrawer, stringResource(R.string.connect), { pageConnexion() })
