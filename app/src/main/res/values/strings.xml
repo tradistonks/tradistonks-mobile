@@ -3,6 +3,7 @@
     <string name="title_page_account">Account</string>
     <string name="title_page_home">Home</string>
     <string name="connect">Connect into your account</string>
+    <string name="logout">Logout</string>
     <string name="title_page_strategies">Strategies</string>
     <string name="title_page_history">History</string>
     <string name="title_page_dashboard">Dashboard</string>
@@ -18,6 +19,7 @@
     <string name="create_account">Create account</string>
     <string name="modify_account">Modify my information</string>
     <string name="my_profil">My Profil</string>
+    <string name="run">Run</string>
     <string name="my_information">My information</string>
     <string name="register">Register</string>
     <string name="dismiss">Dismiss</string>

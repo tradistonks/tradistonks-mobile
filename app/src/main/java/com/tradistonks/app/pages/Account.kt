@@ -1,10 +1,7 @@
 package com.tradistonks.app.pages
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.runtime.Composable
@@ -16,6 +13,8 @@ import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.components.form.modifyInfoUserForm
+import com.tradistonks.app.ui.theme.colorPink
+import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
 
 @Composable
@@ -49,7 +48,7 @@ fun displayAccountInfo(){
         Row(modifier = Modifier) {
             Icon(
                 Icons.Outlined.AccountCircle,
-                contentDescription = "Profil",
+                contentDescription = stringResource(id = R.string.my_profil),
                 Modifier.size(50.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -72,9 +71,18 @@ fun displayAccountInfo(){
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
-            modifier = Modifier.width(200.dp),
+            modifier = Modifier.width(300.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorPink)
         ) {
             Text(text = stringResource(id = R.string.modify_account))
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
+            modifier = Modifier.width(300.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorYellow)
+        ) {
+            Text(text = stringResource(id = R.string.logout))
         }
     }
 }

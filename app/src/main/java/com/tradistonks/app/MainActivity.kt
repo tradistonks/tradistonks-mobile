@@ -6,11 +6,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.tradistonks.app.components.Strategy
 import com.tradistonks.app.components.User
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import java.util.*
 
-var GLOBAL_USER = User("Marion","test@live.frrr", Date("12/04/2021"))
+var GLOBAL_USER:User = User("Test","test@live.frrr", Date("12/04/2021"))
+var STRATEGIES_LIST: List<Strategy> = listOf<Strategy>(
+    Strategy("1", "Test", "Sell Actions", "Go", Date(), Date()),
+    Strategy("2", "Test", "Sell", "Java", Date(), Date()),
+    Strategy("3", "Test", "Buy Actions", "Kotlin", Date(), Date()),
+    Strategy("4", "Test", "Buy", "Rust", Date(), Date())
+)
 
 
 class MainActivity : ComponentActivity() {
