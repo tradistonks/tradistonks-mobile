@@ -22,6 +22,8 @@ import com.tradistonks.app.components.ConfirmPasswordState
 import com.tradistonks.app.components.Password
 import com.tradistonks.app.components.PasswordField
 import com.tradistonks.app.components.fields.Field
+import com.tradistonks.app.ui.theme.colorGreen
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
@@ -77,7 +79,8 @@ fun modifyInfoUserForm() {
                 onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = emailState.isValid &&
-                        passwordState.isValid && confirmPasswordState.isValid
+                        passwordState.isValid && confirmPasswordState.isValid,
+                colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen)
             ) {
                 Text(
                     text = stringResource(id = R.string.modify_account)

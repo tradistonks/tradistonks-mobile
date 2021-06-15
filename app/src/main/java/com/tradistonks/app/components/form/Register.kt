@@ -20,6 +20,7 @@ import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
 import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.fields.Field
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
@@ -71,7 +72,8 @@ fun RegisterContent() {
             onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
             modifier = Modifier.fillMaxWidth(),
             enabled = emailState.isValid &&
-                    passwordState.isValid && confirmPasswordState.isValid
+                    passwordState.isValid && confirmPasswordState.isValid,
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorPink)
         ) {
             Text(text = stringResource(id = R.string.create_account))
         }
