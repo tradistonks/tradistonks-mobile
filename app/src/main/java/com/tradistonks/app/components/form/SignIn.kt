@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -19,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
-import androidx.compose.material.Text
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
@@ -50,7 +48,8 @@ fun SignInContent() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            enabled = emailState.isValid && passwordState.isValid
+            enabled = emailState.isValid && passwordState.isValid,
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorPink)
         ) {
             Text(
                 text = stringResource(id = R.string.sign_in)
