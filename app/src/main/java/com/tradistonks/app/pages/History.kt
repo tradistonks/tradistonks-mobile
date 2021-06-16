@@ -33,10 +33,6 @@ fun pageHistory(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = stringResource(id = R.string.title_page_history),
-            style = MaterialTheme.typography.h1,
-            color = textColor
-        )
         LiveDataComponentOrderList(ORDER_LIST)
     }
 }
