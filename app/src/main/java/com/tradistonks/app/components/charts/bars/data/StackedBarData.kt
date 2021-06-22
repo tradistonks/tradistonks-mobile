@@ -1,4 +1,4 @@
-package hu.ma.charts.bars.data
+package com.tradistonks.app.components.charts.bars.data
 
 import androidx.compose.ui.text.AnnotatedString
 

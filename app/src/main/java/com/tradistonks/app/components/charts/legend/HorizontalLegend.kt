@@ -1,4 +1,4 @@
-package hu.ma.charts.legend
+package com.tradistonks.app.components.charts.legend
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,17 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import com.google.accompanist.flowlayout.FlowRow
-import hu.ma.charts.internal.DefaultText
+import com.tradistonks.app.components.charts.internal.DefaultText
 
 @Composable
 fun DrawHorizontalLegend(
   legendEntries: List<LegendEntry>,
   text: @Composable (item: LegendEntry) -> Unit = { DefaultText(text = it.text) },
 ) {
-  FlowRow(
-    mainAxisSpacing = 16.dp,
-    crossAxisSpacing = 8.dp,
+  Row(
+    //mainAxisSpacing = 16.dp,
+    //crossAxisSpacing = 8.dp,
   ) {
     legendEntries.fastForEach { item ->
       Row(verticalAlignment = Alignment.CenterVertically) {

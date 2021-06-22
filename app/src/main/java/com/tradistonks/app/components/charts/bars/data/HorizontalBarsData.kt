@@ -1,7 +1,7 @@
-package hu.ma.charts.bars.data
+package com.tradistonks.app.components.charts.bars.data
 
 import androidx.compose.ui.graphics.Color
-import hu.ma.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.legend.LegendEntry
 
 data class HorizontalBarsData(
   /**

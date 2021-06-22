@@ -1,4 +1,4 @@
-package hu.ma.charts.table
+package com.tradistonks.app.components.charts.table
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.internal.DefaultText
+import com.tradistonks.app.components.charts.internal.DefaultText
 
 @Deprecated(
   "Use TableChart instead",

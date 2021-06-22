@@ -1,12 +1,12 @@
-package hu.ma.charts.pie
+package com.tradistonks.app.components.charts.pie
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Dp
-import hu.ma.charts.ChartShape
-import hu.ma.charts.internal.DEG2RAD
-import hu.ma.charts.internal.FDEG2RAD
-import hu.ma.charts.internal.safeGet
-import hu.ma.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.ChartShape
+import com.tradistonks.app.components.charts.internal.DEG2RAD
+import com.tradistonks.app.components.charts.internal.FDEG2RAD
+import com.tradistonks.app.components.charts.internal.safeGet
+import com.tradistonks.app.components.charts.legend.LegendEntry
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin

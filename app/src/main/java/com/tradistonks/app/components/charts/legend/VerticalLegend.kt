@@ -1,4 +1,4 @@
-package hu.ma.charts.legend
+package com.tradistonks.app.components.charts.legend
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
-import hu.ma.charts.internal.DefaultText
+import com.tradistonks.app.components.charts.internal.DefaultText
 
 @Composable
 fun RowScope.DrawVerticalLegend(

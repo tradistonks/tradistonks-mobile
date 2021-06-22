@@ -1,7 +1,7 @@
-package hu.ma.charts.legend
+package com.tradistonks.app.components.charts.legend
 
 import androidx.compose.ui.text.AnnotatedString
-import hu.ma.charts.ChartShape
+import com.tradistonks.app.components.charts.ChartShape
 
 data class LegendEntry(
   val text: AnnotatedString,

@@ -1,4 +1,4 @@
-package hu.ma.charts.bars
+package com.tradistonks.app.components.charts.bars
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.bars.data.StackedBarData
-import hu.ma.charts.bars.data.StackedBarItem
+import com.tradistonks.app.components.charts.bars.data.StackedBarData
+import com.tradistonks.app.components.charts.bars.data.StackedBarItem
 
 sealed class PopupState {
   object Idle : PopupState()
