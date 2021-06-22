@@ -19,7 +19,13 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Account(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount()})
+    if(GLOBAL_USER!=null){
+        Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount()})
+    }
+    else{
+        Page(openDrawer, stringResource(R.string.title_page_account), { pageConnexion() })
+    }
+
 }
 
 @Composable
@@ -55,13 +61,13 @@ fun displayAccountInfo(){
             Box(){
                 Column() {
                     Text(
-                        text = "Username :" + GLOBAL_USER.username,
+                        text = "Username :" + GLOBAL_USER!!.username,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Email :" + GLOBAL_USER.email,
+                        text = "Email :" + GLOBAL_USER!!.email,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )

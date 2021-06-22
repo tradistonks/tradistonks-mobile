@@ -44,9 +44,9 @@ fun modifyInfoUserForm() {
             val confirmationPasswordFocusRequest = remember { FocusRequester() }
             val emailState = remember { EmailField() }
             val fieldState = remember { Field() }
-            Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER.username)
+            Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER!!.username)
             Spacer(modifier = Modifier.height(16.dp))
-            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER.email)
+            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER!!.email)
             Spacer(modifier = Modifier.height(16.dp))
             val passwordState = remember { PasswordField() }
             Password(

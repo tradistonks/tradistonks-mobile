@@ -12,7 +12,7 @@ import com.tradistonks.app.components.User
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import java.util.*
 
-var GLOBAL_USER:User = User("Test","test@live.frrr", Date("12/04/2021"))
+var GLOBAL_USER: User? = User("Test","test@live.frrr", Date("12/04/2021"))
 var STRATEGIES_LIST: List<Strategy> = listOf<Strategy>(
     Strategy("1", "Test", "Sell Actions", "Go", Date(), Date()),
     Strategy("2", "Test", "Sell", "Java", Date(), Date()),
