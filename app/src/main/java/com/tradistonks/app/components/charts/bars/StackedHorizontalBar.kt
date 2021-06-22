@@ -1,4 +1,4 @@
-package hu.ma.charts.bars
+package com.tradistonks.app.components.charts.bars
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.bars.data.StackedBarItem
+import com.tradistonks.app.components.charts.bars.data.StackedBarItem
 
 internal typealias EntryPathFactory = (entry: EntryDrawShape, size: Size) -> Path
 

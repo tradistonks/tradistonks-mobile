@@ -1,4 +1,4 @@
-package hu.ma.charts
+package com.tradistonks.app.components.charts
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Color

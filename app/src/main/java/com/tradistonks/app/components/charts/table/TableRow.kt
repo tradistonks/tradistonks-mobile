@@ -1,4 +1,4 @@
-package hu.ma.charts.table
+package com.tradistonks.app.components.charts.table
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

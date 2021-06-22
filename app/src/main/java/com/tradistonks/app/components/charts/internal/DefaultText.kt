@@ -1,4 +1,4 @@
-package hu.ma.charts.internal
+package com.tradistonks.app.components.charts.internal
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

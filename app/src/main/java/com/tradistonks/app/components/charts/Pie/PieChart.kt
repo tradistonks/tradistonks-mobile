@@ -1,4 +1,4 @@
-package hu.ma.charts.pie
+package com.tradistonks.app.components.charts.pie
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.legend.DrawVerticalLegend
-import hu.ma.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.legend.DrawVerticalLegend
+import com.tradistonks.app.components.charts.legend.LegendEntry
 
 @Composable
 fun PieChart(

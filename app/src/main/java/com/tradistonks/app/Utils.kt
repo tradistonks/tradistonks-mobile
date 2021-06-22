@@ -1,4 +1,4 @@
-package hu.ma.charts.sample
+package com.tradistonks.app
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -8,6 +8,15 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.tradistonks.app.components.charts.ChartShape
+import com.tradistonks.app.components.charts.bars.data.HorizontalBarsData
+import com.tradistonks.app.components.charts.bars.data.StackedBarData
+import com.tradistonks.app.components.charts.bars.data.StackedBarEntry
+import com.tradistonks.app.components.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.pie.LegendPosition
+import com.tradistonks.app.components.charts.pie.PieChartData
+import com.tradistonks.app.components.charts.pie.PieChartEntry
+import com.tradistonks.app.components.charts.table.TableEntry
 import kotlin.math.roundToInt
 import kotlin.random.Random
 

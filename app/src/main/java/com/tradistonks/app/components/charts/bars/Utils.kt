@@ -1,4 +1,4 @@
-package hu.ma.charts.bars
+package com.tradistonks.app.components.charts.bars
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.geometry.CornerRadius
@@ -8,10 +8,10 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.ChartShape
-import hu.ma.charts.bars.data.HorizontalBarsData
-import hu.ma.charts.internal.safeGet
-import hu.ma.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.ChartShape
+import com.tradistonks.app.components.charts.bars.data.HorizontalBarsData
+import com.tradistonks.app.components.charts.internal.safeGet
+import com.tradistonks.app.components.charts.legend.LegendEntry
 
 internal fun HorizontalBarsData.uniqueBarEntries() =
   bars.asSequence()

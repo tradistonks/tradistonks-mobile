@@ -1,4 +1,4 @@
-package hu.ma.charts.bars
+package com.tradistonks.app.components.charts.bars
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -29,13 +29,13 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import hu.ma.charts.bars.data.HorizontalBarsData
-import hu.ma.charts.bars.data.StackedBarData
-import hu.ma.charts.bars.data.StackedBarItem
-import hu.ma.charts.internal.DefaultText
-import hu.ma.charts.internal.safeGet
-import hu.ma.charts.legend.DrawHorizontalLegend
-import hu.ma.charts.legend.LegendEntry
+import com.tradistonks.app.components.charts.bars.data.HorizontalBarsData
+import com.tradistonks.app.components.charts.bars.data.StackedBarData
+import com.tradistonks.app.components.charts.bars.data.StackedBarItem
+import com.tradistonks.app.components.charts.internal.DefaultText
+import com.tradistonks.app.components.charts.internal.safeGet
+import com.tradistonks.app.components.charts.legend.DrawHorizontalLegend
+import com.tradistonks.app.components.charts.legend.LegendEntry
 import kotlin.math.min
 
 internal val MinimumBarWidth = 24.dp
