@@ -28,7 +28,6 @@ fun pageDashboard(){
             text = "Dashboard.",
             style = MaterialTheme.typography.h1,
             color = textColor
-
         )
     }
 }
