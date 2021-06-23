@@ -26,11 +26,12 @@ import com.tradistonks.app.components.charts.Container
 import com.tradistonks.app.components.charts.ScreenContainer
 import com.tradistonks.app.components.charts.legend.LegendEntry
 import com.tradistonks.app.components.charts.pie.PieChart
+import com.tradistonks.app.components.charts.pie.PieChartData
 import com.tradistonks.app.components.charts.sample.PieSampleData
 import com.tradistonks.app.components.charts.sample.buildValuePercentString
 
 @Composable
-fun PieStyledScreen() {
+fun PieStyledScreenContainer() {
   ScreenContainer {
     items(PieSampleData) { data ->
       Container(
@@ -52,6 +53,28 @@ fun PieStyledScreen() {
     }
   }
 }
+
+
+@Composable
+fun PieStyledScreen(data: PieChartData) {
+    Container(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 16.dp)
+        .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
+        .padding(16.dp)
+        .animateContentSize(),
+      title = "Pie - Legend::${data.legendPosition.name}"
+    ) {
+      PieChart(
+        data = data,
+        legend = { entries ->
+          CustomVerticalLegend(entries = entries)
+        }
+      )
+    }
+}
+
 
 @Composable
 private fun RowScope.CustomVerticalLegend(entries: List<LegendEntry>) {
