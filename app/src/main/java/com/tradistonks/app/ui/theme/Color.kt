@@ -13,7 +13,7 @@ val colorBlue = Color(0xFF11A7A6)
 val textColor = Color(0xFFFFFFFF)
 
 
-private var colors = mutableListOf(
+var colors = mutableListOf(
     colorPurple,
     colorPink,
     colorYellow,

@@ -3,7 +3,6 @@ package com.tradistonks.app.components.charts.sample
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -17,6 +16,7 @@ import com.tradistonks.app.components.charts.legend.LegendEntry
 import com.tradistonks.app.components.charts.pie.LegendPosition
 import com.tradistonks.app.components.charts.pie.PieChartData
 import com.tradistonks.app.components.charts.pie.PieChartEntry
+import com.tradistonks.app.ui.theme.colors
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
@@ -37,17 +37,7 @@ val Categories = listOf(
   "Tricks",
 )
 
-val SimpleColors = listOf(
-  Color.Black,
-  Color.Blue,
-  Color.Yellow,
-  Color.Red,
-  Color.LightGray,
-  Color.Magenta,
-  Color.Cyan,
-  Color.Green,
-  Color.Gray,
-)
+val SimpleColors = colors
 
 internal val TableSampleData = listOf(
   "Without Shape" to (1..6).map {
