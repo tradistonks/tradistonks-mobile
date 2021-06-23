@@ -21,22 +21,6 @@ fun Dashboard(openDrawer: () -> Unit) {
 @Composable
 fun PageDashboard(){
     DashboardContent()
-    /*Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "Dashboard.",
-            style = MaterialTheme.typography.h1,
-            color = textColor
-        )
-        TableStyledScreen()
-        Spacer(modifier = Modifier.height(16.dp))
-        PieStyledScreen()
-        Spacer(modifier = Modifier.height(16.dp))
-        BarsStyledScreen()
-    }*/
-
 }
 
 
@@ -44,6 +28,7 @@ private val defaultSpacerSize = 16.dp
 
 @Composable
 fun DashboardContent( modifier: Modifier = Modifier) {
+    Spacer(Modifier.height(defaultSpacerSize))
     LazyColumn(
         modifier = modifier.padding(horizontal = defaultSpacerSize)
     ) {
