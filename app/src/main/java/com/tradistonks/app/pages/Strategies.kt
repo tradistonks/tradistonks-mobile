@@ -1,6 +1,5 @@
 package com.tradistonks.app.pages
 
-import android.graphics.Paint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +20,6 @@ import com.tradistonks.app.STRATEGIES_LIST
 import com.tradistonks.app.components.Strategy
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
-import com.tradistonks.app.ui.theme.colorYellow
 
 @Composable
 fun Strategies(openDrawer: () -> Unit) {

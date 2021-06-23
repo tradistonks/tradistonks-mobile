@@ -20,9 +20,10 @@ import com.tradistonks.app.components.charts.Container
 import com.tradistonks.app.components.charts.ScreenContainer
 import com.tradistonks.app.components.charts.sample.TableSampleData
 import com.tradistonks.app.components.charts.table.TableChart
+import com.tradistonks.app.components.charts.table.TableEntry
 
 @Composable
-fun TableStyledScreen() {
+fun TableStyledScreenContainer() {
   ScreenContainer {
     items(TableSampleData) { (title, entries) ->
       Container(
@@ -55,5 +56,39 @@ fun TableStyledScreen() {
         )
       }
     }
+  }
+}
+
+
+@Composable
+fun TableStyledScreen(table: Pair<String, List<TableEntry>>) {
+  Container(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(horizontal = 16.dp)
+      .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
+      .padding(16.dp)
+      .animateContentSize(),
+    title = table.first
+  ) {
+    TableChart(
+      modifier = Modifier.fillMaxWidth(),
+      data = table.second,
+      keyText = { key ->
+        Text(
+          text = key ?: AnnotatedString("Placeholder"),
+          style = MaterialTheme.typography.caption.copy(fontSize = 14.sp),
+        )
+      },
+      valueText = { value ->
+        Text(
+          text = value ?: AnnotatedString("99"),
+          style = MaterialTheme.typography.body2,
+        )
+      },
+      divider = {
+        Divider(modifier = Modifier.padding(vertical = 14.dp))
+      },
+    )
   }
 }
