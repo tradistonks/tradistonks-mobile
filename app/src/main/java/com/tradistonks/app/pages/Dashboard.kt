@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.charts.sample.bars.BarsStyledScreen
+import com.tradistonks.app.components.charts.sample.pie.PieStyledScreen
+import com.tradistonks.app.components.charts.sample.table.TableStyledScreen
 import com.tradistonks.app.ui.theme.textColor
 
 @Composable
@@ -29,5 +32,8 @@ fun pageDashboard(){
             style = MaterialTheme.typography.h1,
             color = textColor
         )
+        TableStyledScreen()
+        PieStyledScreen()
+        BarsStyledScreen()
     }
 }
