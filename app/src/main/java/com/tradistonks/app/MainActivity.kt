@@ -37,26 +37,20 @@ var ORDER_LIST: List<Order> = listOf<Order>(
     Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date())
 )
 
+var ACCESS_TOKEN: AccessToken? = null
+
 class MainActivity : ComponentActivity() {
-    private var accessToken: AccessToken? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (accessToken != null) {
-            accessToken = oauth2Client().codeFlow(
-                tokenEndpoint = URI(System.getenv("oauth2_url_token")),
-                code = "sOMec0de",
-                redirectURI = URI(System.getenv("oauth2_client_redirect_url")),
-                clientID = System.getenv("oauth2_client_id"),
-                clientSecret = System.getenv("oauth2_client_secret")
-            )
+        if (ACCESS_TOKEN != null) {
             do {
                 setContent {
                     TradistonksAndroidTheme {
                         MainMenu()
                     }
                 }
-            } while (!accessToken!!.isExpired)
+            } while (!ACCESS_TOKEN!!.isExpired)
         } else {
             setContent {
                 TradistonksAndroidTheme {
