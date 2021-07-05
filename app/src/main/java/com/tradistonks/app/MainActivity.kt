@@ -1,23 +1,30 @@
 package com.tradistonks.app
 
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.tradistonks.app.components.Order
-import com.tradistonks.app.components.Strategy
-import com.tradistonks.app.components.User
+import com.tradistonks.app.components.Page
+import com.tradistonks.app.models.Order
+import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.User
+import com.tradistonks.app.pages.pageConnexion
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import okhttp3.OkHttpClient
+import org.jetbrains.hub.oauth2.client.AccessToken
+import org.jetbrains.hub.oauth2.client.jersey.oauth2Client
+import java.net.URI
+import java.net.URL
 import java.util.*
 
 var GLOBAL_USER: User? = User("Test","test@live.frrr", Date("12/04/2021"))
 var STRATEGIES_LIST: List<Strategy> = listOf<Strategy>(
-    Strategy("1", "Test", "Sell Actions", "Go", Date(), Date()),
-    Strategy("2", "Test", "Sell", "Java", Date(), Date()),
-    Strategy("3", "Test", "Buy Actions", "Kotlin", Date(), Date()),
-    Strategy("4", "Test", "Buy", "Rust", Date(), Date())
+    Strategy("1", "Test", "Sell Actions", "Go", Date(), Date(),Date(), Date()),
+    Strategy("2", "Test", "Sell", "Java", Date(), Date(),Date(), Date()),
+    Strategy("3", "Test", "Buy Actions", "Kotlin", Date(), Date(),Date(), Date()),
+    Strategy("4", "Test", "Buy", "Rust", Date(), Date(),Date(), Date())
 )
 
 var ORDER_LIST: List<Order> = listOf<Order>(
@@ -30,22 +37,44 @@ var ORDER_LIST: List<Order> = listOf<Order>(
     Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date())
 )
 
-
 class MainActivity : ComponentActivity() {
+    private var accessToken: AccessToken? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            TradistonksAndroidTheme {
-                MainMenu()
+        //val url = URL("https://api.tradistonks.qtmsheep.com/")
+        //val stringResponse = url.readText()
+//https://oauth2.tradistonks.qtmsheep.com/oauth2/
+        if (accessToken != null) {
+            accessToken = oauth2Client().codeFlow(
+                //tokenEndpoint = URI("https://oauth2.tradistonks.qtmsheep.com/oauth2/token"),
+                tokenEndpoint = URI("https://hub.jetbrains.com/api/rest/oauth2/token"),
+                code = "sOMec0de",
+                redirectURI = URI(getResources().getString(R.string.oauth2_client_redirect_url)),
+                clientID = getResources().getString(R.string.oauth2_client_id),
+                clientSecret = getResources().getString(R.string.oauth2_client_secret)
+            )
+            do {
+                setContent {
+                    TradistonksAndroidTheme {
+                        MainMenu()
+                    }
+                }
+            } while (!accessToken!!.isExpired)
+        } else {
+            setContent {
+                TradistonksAndroidTheme {
+                    pageConnexion()
+                }
             }
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TradistonksAndroidTheme {
-        MainMenu()
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        TradistonksAndroidTheme {
+            MainMenu()
+        }
     }
 }
