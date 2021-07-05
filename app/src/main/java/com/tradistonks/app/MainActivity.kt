@@ -6,10 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.tradistonks.app.components.Order
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.models.Order
-import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.User
+import com.tradistonks.app.components.Strategy
+import com.tradistonks.app.components.User
 import com.tradistonks.app.pages.pageConnexion
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import okhttp3.OkHttpClient
@@ -42,17 +42,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //val url = URL("https://api.tradistonks.qtmsheep.com/")
-        //val stringResponse = url.readText()
-//https://oauth2.tradistonks.qtmsheep.com/oauth2/
         if (accessToken != null) {
             accessToken = oauth2Client().codeFlow(
-                //tokenEndpoint = URI("https://oauth2.tradistonks.qtmsheep.com/oauth2/token"),
-                tokenEndpoint = URI("https://hub.jetbrains.com/api/rest/oauth2/token"),
+                tokenEndpoint = URI(System.getenv("oauth2_url_token")),
                 code = "sOMec0de",
-                redirectURI = URI(getResources().getString(R.string.oauth2_client_redirect_url)),
-                clientID = getResources().getString(R.string.oauth2_client_id),
-                clientSecret = getResources().getString(R.string.oauth2_client_secret)
+                redirectURI = URI(System.getenv("oauth2_client_redirect_url")),
+                clientID = System.getenv("oauth2_client_id"),
+                clientSecret = System.getenv("oauth2_client_secret")
             )
             do {
                 setContent {
@@ -64,7 +60,7 @@ class MainActivity : ComponentActivity() {
         } else {
             setContent {
                 TradistonksAndroidTheme {
-                    pageConnexion()
+                    NonConnectedMainMenu()
                 }
             }
         }
