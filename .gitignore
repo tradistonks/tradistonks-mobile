@@ -14,7 +14,7 @@
 # generated files
 bin/
 gen/
-
+.env
 # Ignore gradle files
 .gradle/
 build/
