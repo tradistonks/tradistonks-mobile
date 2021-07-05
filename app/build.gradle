@@ -3,6 +3,9 @@ plugins {
     id 'kotlin-android'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdk 30
     buildToolsVersion "30.0.3"
@@ -21,11 +24,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "TRADISTONKSAPIBASEURL", "\"" + localProperties['tradistonksapibaseurl'] + "\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -54,6 +61,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-util:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.3.0-beta01'
+    implementation files('libs\\oauth2-client-kotlin-1.0.2.jar')
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -67,4 +75,10 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
     implementation "androidx.navigation:navigation-compose:2.4.0-alpha02"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.3'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/oauth2-client-kotlin-1.0.2.jar')
 }
