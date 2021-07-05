@@ -15,12 +15,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Home(openDrawer: () -> Unit) {
-    if(GLOBAL_USER == null){
-        Page(openDrawer, stringResource(R.string.connect), { pageConnexion() })
-    }
-    else{
-        Page(openDrawer, stringResource(R.string.title_page_home), { pageHome() })
-    }
+   Page(openDrawer, stringResource(R.string.title_page_home), { pageHome() })
 }
 
 @Composable

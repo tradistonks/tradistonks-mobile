@@ -19,6 +19,7 @@ sealed class DrawerScreens(val title: String, val route: String) {
     object Dashboard : DrawerScreens("Dashboard", "dashboard")
     object Strategies : DrawerScreens("Strategies", "strategies")
     object History : DrawerScreens("History", "history")
+    object Connexion : DrawerScreens("Connexion", "connexion")
 }
 
 private val screens = listOf(
