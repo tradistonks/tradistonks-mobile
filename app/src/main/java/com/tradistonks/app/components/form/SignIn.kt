@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
+import com.tradistonks.app.services.auth.AuthentificationRepository.login
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
@@ -44,7 +45,7 @@ fun SignInContent() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /*onSignInSubmitted(emailState.text, passwordState.text)*/ },
+            onClick = { login(emailState.text, passwordState.text) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
