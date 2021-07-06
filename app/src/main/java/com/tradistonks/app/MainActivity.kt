@@ -42,7 +42,7 @@ var ORDER_LIST: List<Order> = listOf<Order>(
 )
 
 var PREFERENCES: ProfilePreferences? = null
-var ACCESS_TOKEN = PREFERENCES?.token
+var ACCESS_TOKEN = PREFERENCES?.getToken()
 
 class MainActivity : ComponentActivity() {
 

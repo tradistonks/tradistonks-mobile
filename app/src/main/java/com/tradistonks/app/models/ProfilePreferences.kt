@@ -1,19 +1,32 @@
 package com.tradistonks.app.models
 
 import android.content.Context
+import androidx.compose.runtime.collectAsState
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.*
-import com.tradistonks.app.ACCESS_TOKEN
+import com.tradistonks.app.components.Order
+import com.tradistonks.app.components.Strategy
+import com.tradistonks.app.components.User
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 
 class ProfilePreferences {
     var datastore: DataStore<Preferences>? = null
     var token = preferencesKey<String>("token")
+
+    fun getToken(): String {
+        return datastore?.getValueFlow(preferencesKey<String>("token"), "").toString()
+    }
+
+    fun setToken(tokenString: String) {
+        this.token = preferencesKey<String>("token")
+        GlobalScope.launch {
+            datastore?.setValue(token, tokenString)
+        }
+    }
 
     constructor(datastore: DataStore<Preferences>?, token: Preferences.Key<String>) {
         this.datastore = datastore
@@ -31,7 +44,7 @@ class ProfilePreferences {
     fun <T> DataStore<Preferences>.getValueFlow(
         key: Preferences.Key<T>,
         defaultValue: T
-    ): Flow<T> {
+    ): Flow<T>? {
         return this.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -49,4 +62,7 @@ class ProfilePreferences {
             preferences[key] = value
         }
     }
+
+    suspend fun <T> Flow<List<T>>.flattenToList() =
+        flatMapConcat { it.asFlow() }.toList()
 }
