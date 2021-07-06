@@ -62,7 +62,7 @@ fun NonConnectedMainMenu() {
                     Register(
                         openDrawer = {
                             openDrawer()
-                        }
+                        }, navController
                     )
                 }
             }

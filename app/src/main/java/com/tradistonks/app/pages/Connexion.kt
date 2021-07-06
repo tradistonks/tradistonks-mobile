@@ -31,7 +31,7 @@ fun pageConnexion(navController: NavHostController){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        SignInContent()
+        SignInContent(navController)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
