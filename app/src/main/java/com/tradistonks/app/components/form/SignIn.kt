@@ -14,16 +14,20 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
-import com.tradistonks.app.services.auth.AuthentificationRepository.login
+import com.tradistonks.app.models.login.Login
+import com.tradistonks.app.controllers.AuthentificationController
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
-fun SignInContent() {
+fun SignInContent(navController: NavHostController) {
+    val authentificationController:AuthentificationController = AuthentificationController()
+    val login_challenge = "test"
     Text(
         text = stringResource(id = R.string.sign_in),
         style = MaterialTheme.typography.h1,
@@ -45,7 +49,9 @@ fun SignInContent() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /*login(emailState.text, passwordState.text)*/ },
+            onClick = {
+                authentificationController.login(Login(login_challenge, emailState.text, passwordState.text))
+                navController.navigate("home")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),

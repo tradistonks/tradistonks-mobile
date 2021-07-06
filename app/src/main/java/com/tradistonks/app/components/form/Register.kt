@@ -1,11 +1,8 @@
 package com.tradistonks.app.components
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -18,6 +15,7 @@ import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
+import androidx.navigation.NavHostController
 import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.ui.theme.colorPink
@@ -25,7 +23,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
-fun RegisterContent() {
+fun RegisterContent(navController: NavHostController) {
     Text(
         text = stringResource(id = R.string.register),
         style = MaterialTheme.typography.h1,
@@ -69,7 +67,8 @@ fun RegisterContent() {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
+            onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/
+                        navController.navigate("home")},
             modifier = Modifier.fillMaxWidth(),
             enabled = emailState.isValid &&
                     passwordState.isValid && confirmPasswordState.isValid,
