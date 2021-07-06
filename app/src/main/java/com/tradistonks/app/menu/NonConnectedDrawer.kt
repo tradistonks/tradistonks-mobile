@@ -15,7 +15,8 @@ import com.tradistonks.app.ui.theme.textColor
 
 private val screens = listOf(
     DrawerScreens.Home,
-    DrawerScreens.Connexion
+    DrawerScreens.Connexion,
+    DrawerScreens.Register
 )
 
 @Composable
@@ -28,17 +29,18 @@ fun NonConnectedDrawer(
             .fillMaxSize()
             .padding(start = 24.dp, top = 48.dp)
     ) {
-        //Icon(Icons.Rounded.Menu, contentDescription = "Localized description")
         screens.forEach { screen ->
-            Spacer(Modifier.height(24.dp))
-            Text(
-                text = screen.title,
-                style = MaterialTheme.typography.h1,
-                color = textColor,
-                modifier = Modifier.clickable {
-                    onDestinationClicked(screen.route)
-                }
-            )
+            if(screen != DrawerScreens.Register){
+                Spacer(Modifier.height(24.dp))
+                Text(
+                    text = screen.title,
+                    style = MaterialTheme.typography.h1,
+                    color = textColor,
+                    modifier = Modifier.clickable {
+                        onDestinationClicked(screen.route)
+                    }
+                )
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ fun SignInContent() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { login(emailState.text, passwordState.text) },
+            onClick = { /*login(emailState.text, passwordState.text)*/ },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),

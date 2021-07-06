@@ -50,6 +50,13 @@ fun MainMenu() {
                         }
                     )
                 }
+                composable(DrawerScreens.Register.route) {
+                    Register(
+                        openDrawer = {
+                            openDrawer()
+                        }
+                    )
+                }
                 composable(DrawerScreens.Account.route) {
                     Account(
                         openDrawer = {

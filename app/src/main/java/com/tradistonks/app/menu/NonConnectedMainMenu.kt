@@ -55,6 +55,13 @@ fun NonConnectedMainMenu() {
                     Connexion(
                         openDrawer = {
                             openDrawer()
+                        }, navController
+                    )
+                }
+                composable(DrawerScreens.Register.route) {
+                    Register(
+                        openDrawer = {
+                            openDrawer()
                         }
                     )
                 }

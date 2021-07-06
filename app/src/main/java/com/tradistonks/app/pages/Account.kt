@@ -19,13 +19,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun Account(openDrawer: () -> Unit) {
-    if(GLOBAL_USER!=null){
-        Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount()})
-    }
-    else{
-        Page(openDrawer, stringResource(R.string.title_page_account), { pageConnexion() })
-    }
-
+    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount()})
 }
 
 @Composable

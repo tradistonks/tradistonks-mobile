@@ -20,6 +20,7 @@ sealed class DrawerScreens(val title: String, val route: String) {
     object Strategies : DrawerScreens("Strategies", "strategies")
     object History : DrawerScreens("History", "history")
     object Connexion : DrawerScreens("Connexion", "connexion")
+    object Register : DrawerScreens("Register", "register")
 }
 
 private val screens = listOf(
@@ -27,7 +28,8 @@ private val screens = listOf(
     DrawerScreens.Dashboard,
     DrawerScreens.Strategies,
     DrawerScreens.History,
-    DrawerScreens.Account
+    DrawerScreens.Account,
+    DrawerScreens.Register
 )
 
 @Composable
@@ -42,15 +44,17 @@ fun Drawer(
     ) {
         //Icon(Icons.Rounded.Menu, contentDescription = "Localized description")
         screens.forEach { screen ->
-            Spacer(Modifier.height(24.dp))
-            Text(
-                text = screen.title,
-                style = MaterialTheme.typography.h1,
-                color = textColor,
-                modifier = Modifier.clickable {
-                    onDestinationClicked(screen.route)
-                }
-            )
+            if(screen != DrawerScreens.Register){
+                Spacer(Modifier.height(24.dp))
+                Text(
+                    text = screen.title,
+                    style = MaterialTheme.typography.h1,
+                    color = textColor,
+                    modifier = Modifier.clickable {
+                        onDestinationClicked(screen.route)
+                    }
+                )
+            }
         }
     }
 }
