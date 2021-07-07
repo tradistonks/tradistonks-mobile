@@ -9,7 +9,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.tradistonks.app.GLOBAL_USER
+import com.tradistonks.app.MainMenu
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.components.form.modifyInfoUserForm
@@ -18,23 +20,23 @@ import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
 
 @Composable
-fun Account(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount()})
+fun Account(openDrawer: () -> Unit, navController: NavHostController) {
+    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount(navController)})
 }
 
 @Composable
-fun pageAccount(){
+fun pageAccount(navController: NavHostController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        displayAccountInfo()
+        displayAccountInfo(navController)
         //modifyInfoUserForm()
     }
 }
 
 @Composable
-fun displayAccountInfo(){
+fun displayAccountInfo(navController: NavHostController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -70,7 +72,9 @@ fun displayAccountInfo(){
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
+            onClick = {
+                navController.navigate("modifyAccount")
+            },
             modifier = Modifier.width(300.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = colorPink)
         ) {
@@ -78,7 +82,9 @@ fun displayAccountInfo(){
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
+            onClick = {
+
+            },
             modifier = Modifier.width(300.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = colorYellow)
         ) {

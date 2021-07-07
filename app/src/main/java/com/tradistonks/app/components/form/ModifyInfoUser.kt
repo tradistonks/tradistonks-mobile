@@ -17,10 +17,12 @@ import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.TextField
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
+import androidx.navigation.NavHostController
 import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.ConfirmPasswordState
 import com.tradistonks.app.components.Password
 import com.tradistonks.app.components.PasswordField
+import com.tradistonks.app.components.User
 import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.ui.theme.colorPink
@@ -28,8 +30,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
-fun modifyInfoUserForm() {
-
+fun modifyInfoUserForm(navController: NavHostController) {
     Text(
         text = stringResource(id = R.string.my_information),
         style = MaterialTheme.typography.h1,
@@ -76,7 +77,11 @@ fun modifyInfoUserForm() {
 
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/ },
+                onClick = {
+                    GLOBAL_USER!!.email = emailState.text
+                    GLOBAL_USER!!.username = fieldState.text
+                        navController.navigate("account")
+                          },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = emailState.isValid &&
                         passwordState.isValid && confirmPasswordState.isValid,

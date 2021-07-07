@@ -15,7 +15,8 @@ import com.tradistonks.app.ui.theme.textColor
 
 private val screens = listOf(
     DrawerScreens.Connexion,
-    DrawerScreens.Register
+    DrawerScreens.Register,
+    DrawerScreens.Account
 )
 
 @Composable

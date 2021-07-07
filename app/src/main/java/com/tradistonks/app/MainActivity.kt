@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.tradistonks.app.components.Order
 import com.tradistonks.app.components.Strategy
 import com.tradistonks.app.components.User
 import com.tradistonks.app.models.ProfilePreferences
-import com.tradistonks.app.services.auth.AuthentificationRepository
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import java.util.*
 
@@ -33,34 +34,26 @@ var ORDER_LIST: List<Order> = listOf<Order>(
 )
 
 var PREFERENCES: ProfilePreferences? = null
-var ACCESS_TOKEN = PREFERENCES?.getToken()
-
-
+var ACCESS_TOKEN = PREFERENCES?.getToken().toString()
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PREFERENCES = ProfilePreferences(this)
-
-        AuthentificationRepository.displayLoginChallenge()
         super.onCreate(savedInstanceState)
-        if (ACCESS_TOKEN?.equals("") == false || !ACCESS_TOKEN.equals(null)) {
-            setContent {
-                DefaultPreview()
-            }
-        } else {
-            setContent {
-                TradistonksAndroidTheme {
-                    NonConnectedMainMenu()
-                }
+        setContent {
+            displayMenu()
+        }
+    }
+
+    @Composable
+    fun displayMenu(){
+        setContent {
+            TradistonksAndroidTheme {
+                MainMenu()
             }
         }
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-            MainMenu()
-        }
-    }
+
 }

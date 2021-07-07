@@ -1,5 +1,6 @@
 package com.tradistonks.app.components
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -28,6 +30,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 @Composable
 fun SignInContent(navController: NavHostController) {
+    val context = LocalContext.current
     val authentificationController: AuthentificationController = AuthentificationController()
     Text(
         text = stringResource(id = R.string.sign_in),
@@ -52,7 +55,7 @@ fun SignInContent(navController: NavHostController) {
         Button(
             onClick = {
                 authentificationController.login(emailState.text, passwordState.text)
-                    },
+                navController.navigate("account")},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),

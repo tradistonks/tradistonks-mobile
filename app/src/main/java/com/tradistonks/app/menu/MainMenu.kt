@@ -1,5 +1,6 @@
 package com.tradistonks.app
 
+import android.content.Context
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -41,13 +42,13 @@ fun MainMenu() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = DrawerScreens.Strategies.route
+                startDestination = DrawerScreens.Connexion.route
             ) {
                 composable(DrawerScreens.Account.route) {
                     Account(
                         openDrawer = {
                             openDrawer()
-                        }
+                        }, navController
                     )
                 }
                 composable(DrawerScreens.History.route) {
@@ -69,6 +70,20 @@ fun MainMenu() {
                         openDrawer = {
                             openDrawer()
                         }
+                    )
+                }
+                composable(DrawerScreens.Connexion.route) {
+                    Connexion(
+                        openDrawer = {
+                            openDrawer()
+                        }, navController
+                    )
+                }
+                composable(DrawerScreens.ModifyAccount.route) {
+                    ModifyAccount(
+                        openDrawer = {
+                            openDrawer()
+                        }, navController
                     )
                 }
             }

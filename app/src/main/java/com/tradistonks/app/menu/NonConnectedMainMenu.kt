@@ -23,48 +23,30 @@ fun NonConnectedMainMenu() {
                 drawerState.open()
             }
         }
-        ModalDrawer(
-            drawerState = drawerState,
-            gesturesEnabled = drawerState.isOpen,
-            drawerContent = {
-                NonConnectedDrawer(
-                    onDestinationClicked = { route ->
-                        scope.launch {
-                            drawerState.close()
-                        }
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.startDestinationId)
-                            launchSingleTop = true
-                        }
-                    }
+        NavHost(
+            navController = navController,
+            startDestination = DrawerScreens.Connexion.route
+        ) {
+            composable(DrawerScreens.Connexion.route) {
+                Connexion(
+                    openDrawer = {
+                        openDrawer()
+                    }, navController
                 )
             }
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = DrawerScreens.Connexion.route
-            ) {
-                composable(DrawerScreens.Home.route) {
-                    Home(
-                        openDrawer = {
-                            openDrawer()
-                        }
-                    )
-                }
-                composable(DrawerScreens.Connexion.route) {
-                    Connexion(
-                        openDrawer = {
-                            openDrawer()
-                        }, navController
-                    )
-                }
-                composable(DrawerScreens.Register.route) {
-                    Register(
-                        openDrawer = {
-                            openDrawer()
-                        }, navController
-                    )
-                }
+            composable(DrawerScreens.Register.route) {
+                Register(
+                    openDrawer = {
+                        openDrawer()
+                    }, navController
+                )
+            }
+            composable(DrawerScreens.Account.route) {
+                Account(
+                    openDrawer = {
+                        openDrawer()
+                    }, navController
+                )
             }
         }
     }
