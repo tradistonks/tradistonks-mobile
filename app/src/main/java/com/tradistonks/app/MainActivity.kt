@@ -4,24 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.*
-import androidx.lifecycle.Lifecycle
 import com.tradistonks.app.components.Order
 import com.tradistonks.app.components.Strategy
 import com.tradistonks.app.components.User
 import com.tradistonks.app.models.ProfilePreferences
+import com.tradistonks.app.services.auth.AuthentificationRepository
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import java.io.IOException
 import java.util.*
+
 
 var GLOBAL_USER: User? = User("Test","test@live.frrr", Date("12/04/2021"))
 var STRATEGIES_LIST: List<Strategy> = listOf<Strategy>(
@@ -44,13 +35,16 @@ var ORDER_LIST: List<Order> = listOf<Order>(
 var PREFERENCES: ProfilePreferences? = null
 var ACCESS_TOKEN = PREFERENCES?.getToken()
 
+
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PREFERENCES = ProfilePreferences(this)
 
+        AuthentificationRepository.displayLoginChallenge()
         super.onCreate(savedInstanceState)
-        if (ACCESS_TOKEN?.equals("") == true) {
+        if (ACCESS_TOKEN?.equals("") == false || !ACCESS_TOKEN.equals(null)) {
             setContent {
                 DefaultPreview()
             }
