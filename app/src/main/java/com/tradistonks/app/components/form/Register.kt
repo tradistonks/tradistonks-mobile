@@ -18,12 +18,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
 import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.fields.Field
+import com.tradistonks.app.controllers.AuthentificationController
+import com.tradistonks.app.models.login.Login
+import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
 fun RegisterContent(navController: NavHostController) {
+    val authentificationController: AuthentificationController = AuthentificationController()
     Text(
         text = stringResource(id = R.string.register),
         style = MaterialTheme.typography.h1,
@@ -34,7 +38,7 @@ fun RegisterContent(navController: NavHostController) {
         val confirmationPasswordFocusRequest = remember { FocusRequester() }
         val emailState = remember { EmailField() }
         val fieldState = remember { Field() }
-        Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER!!.username)
+        Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = "Username")
         Spacer(modifier = Modifier.height(16.dp))
         Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() })
 
@@ -68,6 +72,7 @@ fun RegisterContent(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/
+                authentificationController.register(Register(emailState.text, fieldState.text, passwordState.text, confirmPasswordState.text))
                         navController.navigate("home")},
             modifier = Modifier.fillMaxWidth(),
             enabled = emailState.isValid &&

@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class AuthentificationController {
 
-    private fun register(data : Register) {
+    fun register(data : Register) {
         AuthentificationRepository.register(data, object : Callback<RegisterResponse> {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 Log.d("tradistonks-register", "Error : ${t.message}")
