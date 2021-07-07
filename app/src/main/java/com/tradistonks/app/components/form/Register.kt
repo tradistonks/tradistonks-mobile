@@ -16,10 +16,8 @@ import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
-import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.fields.Field
-import com.tradistonks.app.controllers.AuthentificationController
-import com.tradistonks.app.models.login.Login
+import com.tradistonks.app.services.auth.AuthentificationController
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
@@ -73,7 +71,7 @@ fun RegisterContent(navController: NavHostController) {
         Button(
             onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/
                 authentificationController.register(Register(emailState.text, fieldState.text, passwordState.text, confirmPasswordState.text))
-                        navController.navigate("home")},
+                        navController.navigate("connexion")},
             modifier = Modifier.fillMaxWidth(),
             enabled = emailState.isValid &&
                     passwordState.isValid && confirmPasswordState.isValid,

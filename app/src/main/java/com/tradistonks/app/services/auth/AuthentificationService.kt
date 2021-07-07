@@ -1,7 +1,6 @@
 package com.tradistonks.app.services.auth
 
 import com.tradistonks.app.models.login.Login
-import com.tradistonks.app.models.login.LoginRequest
 import com.tradistonks.app.models.login.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body

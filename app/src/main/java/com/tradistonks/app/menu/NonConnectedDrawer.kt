@@ -14,7 +14,6 @@ import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import com.tradistonks.app.ui.theme.textColor
 
 private val screens = listOf(
-    DrawerScreens.Home,
     DrawerScreens.Connexion,
     DrawerScreens.Register
 )

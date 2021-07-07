@@ -33,21 +33,22 @@ object AuthentificationRepository {
         call?.enqueue(callback)
     }
 
-    fun login(data: Login, callback: Callback<LoginResponse>) {
-        val call = apiService?.login(data)
+    fun login(email: String, password:String, callback: Callback<LoginResponse>) {
+        retrieveLoginChallenge()
+        val logUser = this.loginChallenge?.let { Login(it, email, password) }
+        val call = logUser?.let { apiService?.login(it) }
         call?.enqueue(callback)
     }
 
-    fun displayLoginChallenge(){
+    fun retrieveLoginChallenge(){
         val thread = Thread {
-            retrieveLoginChallenge()
+            requestLoginChallenge()
         }
         thread.start()
         thread.join()
-        println(this.loginChallenge)
     }
 
-    fun retrieveLoginChallenge(): String? {
+    fun requestLoginChallenge(): String? {
 
         val url = BuildConfig.OAUTH2_URL_CHALLENGE +
                 "client_id=${BuildConfig.OAUTH2_CLIENT_ID}&" +

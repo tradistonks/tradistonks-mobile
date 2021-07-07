@@ -41,15 +41,8 @@ fun MainMenu() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = DrawerScreens.Home.route
+                startDestination = DrawerScreens.Strategies.route
             ) {
-                composable(DrawerScreens.Home.route) {
-                    Home(
-                        openDrawer = {
-                            openDrawer()
-                        }
-                    )
-                }
                 composable(DrawerScreens.Account.route) {
                     Account(
                         openDrawer = {

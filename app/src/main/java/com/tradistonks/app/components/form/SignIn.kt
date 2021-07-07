@@ -2,7 +2,6 @@ package com.tradistonks.app.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,19 +14,21 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.tradistonks.app.MainActivity
+import com.tradistonks.app.MainMenu
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import com.tradistonks.app.models.login.Login
-import com.tradistonks.app.controllers.AuthentificationController
+import com.tradistonks.app.services.auth.AuthentificationController
+import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
 fun SignInContent(navController: NavHostController) {
-    val authentificationController:AuthentificationController = AuthentificationController()
-    val login_challenge = "test"
+    val authentificationController: AuthentificationController = AuthentificationController()
     Text(
         text = stringResource(id = R.string.sign_in),
         style = MaterialTheme.typography.h1,
@@ -50,8 +51,9 @@ fun SignInContent(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                authentificationController.login(Login(login_challenge, emailState.text, passwordState.text))
-                navController.navigate("home")},
+                authentificationController.login(emailState.text, passwordState.text)
+                navController.navigate("strategies")
+                    },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
