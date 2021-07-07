@@ -24,7 +24,6 @@ sealed class DrawerScreens(val title: String, val route: String) {
 }
 
 private val screens = listOf(
-    DrawerScreens.Home,
     DrawerScreens.Dashboard,
     DrawerScreens.Strategies,
     DrawerScreens.History,

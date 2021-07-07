@@ -52,7 +52,6 @@ fun SignInContent(navController: NavHostController) {
         Button(
             onClick = {
                 authentificationController.login(emailState.text, passwordState.text)
-                navController.navigate("strategies")
                     },
             modifier = Modifier
                 .fillMaxWidth()
