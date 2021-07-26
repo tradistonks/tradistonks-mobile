@@ -1,7 +1,6 @@
 package com.tradistonks.app.services.auth
 
 import com.tradistonks.app.models.login.Login
-import com.tradistonks.app.models.login.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -17,5 +16,5 @@ interface AuthentificationService {
 
     @POST("/auth/login")
     @Headers("Content-Type: application/json;charset=UTF-8")
-    fun login(@Body body: Login): Call<LoginResponse>
+    fun login(@Body body: Login): Call<Void>
 }
