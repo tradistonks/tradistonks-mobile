@@ -6,11 +6,12 @@ import android.widget.Toast
 import androidx.navigation.NavHostController
 import com.tradistonks.app.ACCESS_TOKEN
 import com.tradistonks.app.PREFERENCES
-import com.tradistonks.app.models.UserRequest
+import com.tradistonks.app.models.TokenResponse
 import com.tradistonks.app.models.UserResponse
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
 import com.tradistonks.app.repository.AuthentificationRepository
+import com.tradistonks.app.services.helper.AuthentificationHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,22 +50,14 @@ class AuthentificationController{
             ) {
                 Log.d(
                     "tradistonks-login",
-                    "Code ${response.code()}, body = Login, message = ${response.message()}, ${response.headers()}"
+                    "Code ${response.code()}, body = Login, message = ${response.message()}"
                 )
                 if(response.code() == 201){
-                    var token: String? = response.headers()["Set-Cookie"]
-                    token = token!!.substringAfter("yamete_senpai=")
-                    token = token.substringBefore("; Domain=")
-
-                    if(!token.isNullOrEmpty()){
-                        token.let { PREFERENCES?.setToken(it) }
-                        ACCESS_TOKEN = PREFERENCES?.getToken().toString()
-                        Log.d(
-                            "Token ${token}", "Access token ${ACCESS_TOKEN}"
-                        )
-                        //retrieveUser
-                        navController.navigate("strategies")
+                    val cookies: String? = response.headers()["Set-Cookie"]
+                    val tokenResponse = cookies?.let {
+                        AuthentificationHelper.retrieveTokenResponseFromCookies(it)
                     }
+                    tokenResponse?.let { retrieveUser(it, navController) }
                 }else{
                     Toast.makeText(context,"Error in the email or the password", Toast.LENGTH_SHORT).show()
                 }
@@ -72,20 +65,21 @@ class AuthentificationController{
         })
     }
 
-    fun retrieveUser() {
-        AuthentificationRepository.retrieveUser(object : Callback<Void> {
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+    fun retrieveUser(token: TokenResponse, navController: NavHostController) {
+        AuthentificationRepository.retrieveUser(object : Callback<UserResponse> {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.d("tradistonks-user", "Error : ${t.message}")
             }
 
             override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
             ) {
                 Log.d(
                     "tradistonks-user",
-                    "Code ${response.code()}, body = Login, message = ${response.message()}, ${response.headers()}"
+                    "Code ${response.code()}, body = getUsers, message = ${response.message()}, ${response.headers()}"
                 )
+                navController.navigate("strategies")
             }
         })
     }
