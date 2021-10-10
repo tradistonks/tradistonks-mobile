@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
-import com.tradistonks.app.components.fields.TextField
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
@@ -22,10 +21,8 @@ import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.ConfirmPasswordState
 import com.tradistonks.app.components.Password
 import com.tradistonks.app.components.PasswordField
-import com.tradistonks.app.components.User
 import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.ui.theme.colorGreen
-import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
 

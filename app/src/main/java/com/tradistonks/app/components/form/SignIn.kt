@@ -1,6 +1,5 @@
 package com.tradistonks.app.components
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Spacer
@@ -16,14 +15,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.tradistonks.app.MainActivity
-import com.tradistonks.app.MainMenu
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
-import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.services.auth.AuthentificationController
-import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
@@ -54,8 +49,10 @@ fun SignInContent(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                authentificationController.login(emailState.text, passwordState.text)
-                navController.navigate("account")},
+                authentificationController.login(emailState.text,
+                    passwordState.text, context,
+                    navController)
+                },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),

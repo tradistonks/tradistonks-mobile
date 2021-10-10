@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.ORDER_LIST
 import com.tradistonks.app.R
-import com.tradistonks.app.components.Order
+import com.tradistonks.app.models.Order
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorYellow

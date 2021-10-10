@@ -86,6 +86,13 @@ fun MainMenu() {
                         }, navController
                     )
                 }
+                composable(DrawerScreens.Register.route) {
+                    Register(
+                        openDrawer = {
+                            openDrawer()
+                        }, navController
+                    )
+                }
             }
         }
     }

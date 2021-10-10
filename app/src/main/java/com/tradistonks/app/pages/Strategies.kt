@@ -17,7 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.STRATEGIES_LIST
-import com.tradistonks.app.components.Strategy
+import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
 

@@ -1,17 +1,12 @@
 package com.tradistonks.app.models
 
 import android.content.Context
-import androidx.compose.runtime.collectAsState
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.*
-import com.tradistonks.app.components.Order
-import com.tradistonks.app.components.Strategy
-import com.tradistonks.app.components.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.util.*
 
 class ProfilePreferences {
     var datastore: DataStore<Preferences>? = null
