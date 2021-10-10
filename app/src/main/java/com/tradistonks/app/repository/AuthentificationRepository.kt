@@ -4,7 +4,6 @@ import android.net.Uri
 import android.util.Log
 import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.GLOBAL_USER
-import com.tradistonks.app.models.UserRequest
 import com.tradistonks.app.models.UserResponse
 import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.models.register.Register
