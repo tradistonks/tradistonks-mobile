@@ -1,4 +1,4 @@
-package com.tradistonks.app.models
+package com.tradistonks.app.models.responses
 
 import java.util.*
 

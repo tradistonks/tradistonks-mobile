@@ -1,7 +1,6 @@
 package com.tradistonks.app.web.services.strategy
 
 import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 

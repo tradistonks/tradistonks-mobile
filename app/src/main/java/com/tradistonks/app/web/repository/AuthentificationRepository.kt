@@ -1,15 +1,12 @@
 package com.tradistonks.app.repository
 
 import android.net.Uri
-import android.util.Log
+import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
-import com.tradistonks.app.GLOBAL_USER
-import com.tradistonks.app.models.TokenResponse
-import com.tradistonks.app.models.UserResponse
 import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
-import com.tradistonks.app.services.auth.AuthentificationService
+import com.tradistonks.app.web.services.auth.AuthentificationService
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Callback
@@ -77,8 +74,8 @@ object AuthentificationRepository {
             }
         }
 
-    fun retrieveUser(token: TokenResponse, callback: Callback<UserResponse>) {
-        val call = apiService?.getCurrentUser(token.token)
+    fun retrieveUser(token: String, callback: Callback<JsonObject>) {
+        val call = apiService?.getCurrentUser(token)
         call?.enqueue(callback)
     }
 

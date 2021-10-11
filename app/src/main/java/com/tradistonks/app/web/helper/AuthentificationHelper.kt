@@ -3,7 +3,7 @@ package com.tradistonks.app.web.helper
 import android.util.Log
 import com.tradistonks.app.ACCESS_TOKEN
 import com.tradistonks.app.PREFERENCES
-import com.tradistonks.app.models.TokenResponse
+import com.tradistonks.app.models.responses.TokenResponse
 
 class AuthentificationHelper {
     companion object {
@@ -19,7 +19,7 @@ class AuthentificationHelper {
             return expiration.substringBefore("; SameSite=")
         }
 
-        fun retrieveTokenResponseFromCookies(cookies: String): TokenResponse{
+        fun retrieveTokenResponseFromCookies(cookies: String): TokenResponse {
             val token = cookies.let { retrieveTokenFromCookies(it) }
             val expirationDate = retrieveTokenExpirationDateFromCookies(cookies)
             val tokenResponse = TokenResponse(token, expirationDate)

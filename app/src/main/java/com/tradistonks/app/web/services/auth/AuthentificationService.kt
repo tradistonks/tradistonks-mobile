@@ -1,6 +1,6 @@
 package com.tradistonks.app.web.services.auth
 
-import com.tradistonks.app.models.UserResponse
+import com.google.gson.JsonObject
 import com.tradistonks.app.models.login.Login
 import retrofit2.Call
 import com.tradistonks.app.models.register.Register
@@ -19,6 +19,6 @@ interface AuthentificationService {
 
     @GET("/users/me")
     @Headers("Content-Type: application/json;charset=UTF-8")
-    fun getCurrentUser(@Header("Cookie") token: String): Call<UserResponse>
+    fun getCurrentUser(@Header("Cookie") token: String): Call<JsonObject>
 
 }
