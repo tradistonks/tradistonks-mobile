@@ -17,7 +17,6 @@ import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
-import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.components.ConfirmPasswordState
 import com.tradistonks.app.components.Password
 import com.tradistonks.app.components.PasswordField
@@ -46,7 +45,7 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
             val fieldState = remember { Field() }
             Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user!!.username)
             Spacer(modifier = Modifier.height(16.dp))
-            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user!!.email)
+            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user.email)
             Spacer(modifier = Modifier.height(16.dp))
             val passwordState = remember { PasswordField() }
             Password(
@@ -77,8 +76,8 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    GLOBAL_USER!!.email = emailState.text
-                    GLOBAL_USER!!.username = fieldState.text
+                    user.email = emailState.text
+                    user.username = fieldState.text
                         navController.navigate("account")
                           },
                 modifier = Modifier.fillMaxWidth(),

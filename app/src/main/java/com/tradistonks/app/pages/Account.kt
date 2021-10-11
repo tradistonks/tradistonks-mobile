@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.tradistonks.app.GLOBAL_USER
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.ui.theme.colorPink
@@ -63,7 +62,7 @@ fun displayAccountInfo(navController: NavHostController, authController: Authent
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Email :" + user!!.email,
+                        text = "Email :" + user.email,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )
