@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.GLOBAL_USER
+import com.tradistonks.app.models.TokenResponse
 import com.tradistonks.app.models.UserResponse
 import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.models.register.Register
@@ -15,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
-import java.util.*
 
 object AuthentificationRepository {
         private var loginChallenge: String = ""
@@ -39,7 +39,7 @@ object AuthentificationRepository {
 
         fun login(email: String, password:String, callback: Callback<Void>) {
             retrieveLoginChallenge()
-            val login: Login = Login(login_challenge = this.loginChallenge, email = email, password = password)
+            val login = Login(login_challenge = this.loginChallenge, email = email, password = password)
             val call = apiService?.login(login)
             call?.enqueue(callback)
         }
@@ -70,17 +70,15 @@ object AuthentificationRepository {
 
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                val url = response.request.url
-                val uri: Uri = Uri.parse(url.toString())
+                val responseUrl = response.request.url
+                val uri: Uri = Uri.parse(responseUrl.toString())
                 this.loginChallenge = uri.getQueryParameter("login_challenge").toString()
                 return this.loginChallenge
             }
         }
 
-    fun retrieveUser(callback: Callback<UserResponse>) {
-        //{{ _.urlProd }}users/me
-        //+token
-        val call = apiService?.getCurrentUser()
+    fun retrieveUser(token: TokenResponse, callback: Callback<UserResponse>) {
+        val call = apiService?.getCurrentUser(token.token)
         call?.enqueue(callback)
     }
 

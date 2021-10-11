@@ -1,17 +1,15 @@
-package com.tradistonks.app.services.auth
+package com.tradistonks.app.web.services.auth
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavHostController
-import com.tradistonks.app.ACCESS_TOKEN
-import com.tradistonks.app.PREFERENCES
 import com.tradistonks.app.models.TokenResponse
 import com.tradistonks.app.models.UserResponse
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
 import com.tradistonks.app.repository.AuthentificationRepository
-import com.tradistonks.app.services.helper.AuthentificationHelper
+import com.tradistonks.app.web.helper.AuthentificationHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,8 +63,9 @@ class AuthentificationController{
         })
     }
 
+
     fun retrieveUser(token: TokenResponse, navController: NavHostController) {
-        AuthentificationRepository.retrieveUser(object : Callback<UserResponse> {
+        AuthentificationRepository.retrieveUser(token, object : Callback<UserResponse> {
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.d("tradistonks-user", "Error : ${t.message}")
             }

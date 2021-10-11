@@ -18,7 +18,7 @@ import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
-import com.tradistonks.app.services.auth.AuthentificationController
+import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
