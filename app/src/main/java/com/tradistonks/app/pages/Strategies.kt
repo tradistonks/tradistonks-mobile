@@ -1,6 +1,5 @@
 package com.tradistonks.app.pages
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +20,7 @@ import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.web.services.strategy.StrategyController
 
 @Composable
@@ -34,12 +34,12 @@ fun pageStrategies(stratController: StrategyController) {
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        stratController.strategies?.let { LiveDataComponentList(it) }
+        stratController.strategies?.let { LiveDataComponentList(it, stratController) }
     }
 }
 
 @Composable
-fun LiveDataComponentList(strategyList: List<Strategy>) {
+fun LiveDataComponentList(strategyList: List<Strategy>, stratController: StrategyController) {
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -56,6 +56,11 @@ fun LiveDataComponentList(strategyList: List<Strategy>) {
                         Text(
                             text = strategy.name.uppercase(),
                             style = MaterialTheme.typography.h2,
+                            color = colorGreen
+                        )
+                        Text(
+                            text = "",
+                            style = MaterialTheme.typography.body1,
                             color = colorGreen
                         )
                     }
@@ -78,10 +83,17 @@ fun LiveDataComponentList(strategyList: List<Strategy>) {
                             modifier = Modifier.fillMaxSize(),
                             horizontalAlignment = Alignment.End
                         ) {
-                            Icon(
-                                Icons.Outlined.Send,
-                                contentDescription = stringResource(id = R.string.run),
-                            )
+                            Button(
+                                onClick = {
+                                    stratController.runStrategyById(TokenResponse("", ""), strategy._id)
+                                },
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen),
+                            ) {
+                                Icon(
+                                    Icons.Outlined.Send,
+                                    contentDescription = stringResource(id = R.string.run),
+                                )
+                            }
                         }
                     }
                 }

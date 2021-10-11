@@ -29,7 +29,6 @@ fun pageAccount(navController: NavHostController, authController: Authentificati
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         displayAccountInfo(navController, authController)
-        //modifyInfoUserForm()
     }
 }
 

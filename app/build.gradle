@@ -29,7 +29,8 @@ android {
             buildConfigField("String", "OAUTH2_URL_CHALLENGE", "\"" + localProperties['OAUTH2_URL_CHALLENGE'] + "\"")
             buildConfigField("String", "OAUTH2_CLIENT_ID", "\"" + localProperties['OAUTH2_CLIENT_ID'] + "\"")
             buildConfigField("String", "OAUTH2_MOBILE_CLIENT_SECRET", "\"" + localProperties['OAUTH2_MOBILE_CLIENT_SECRET'] + "\"")
-            buildConfigField("String", "OAUTH2_REDIRECT_URL_CHALLENGE", "\"" + localProperties['OAUTH2_MOBILE_LOCAL_REDIRECT_URL'] + "\"")
+            buildConfigField("String", "OAUTH2_MOBILE_CLIENT_ID", "\"" + localProperties['OAUTH2_MOBILE_CLIENT_ID'] + "\"")
+            buildConfigField("String", "OAUTH2_REDIRECT_URL_CHALLENGE", "\"" + localProperties['OAUTH2_REDIRECT_URL_CHALLENGE'] + "\"")
             buildConfigField("String", "OAUTH2_PKCE_STATE", "\"" + localProperties['OAUTH2_PKCE_STATE'] + "\"")
             buildConfigField("String", "OAUTH2_CONSENT_URL", "\"" + localProperties['OAUTH2_CONSENT_URL'] + "\"")
         }
@@ -90,4 +91,5 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
     implementation "com.squareup.okhttp3:okhttp:4.2.2"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:4.2.2"
+
 }

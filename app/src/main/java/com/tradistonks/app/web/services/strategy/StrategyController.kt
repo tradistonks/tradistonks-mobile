@@ -42,7 +42,7 @@ class StrategyController{
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 Log.d(
                     "tradistonks-run",
-                    "Code ${response.code()}, body = getStrategies, message = ${response.message()}}"
+                    "Code ${response.code()}, body = runStrategy, message = ${response.message()}, json = ${response.body()}}"
                 )
             }
 
