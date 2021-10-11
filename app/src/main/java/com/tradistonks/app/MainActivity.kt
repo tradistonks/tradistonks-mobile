@@ -12,6 +12,7 @@ import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import java.util.*
 
 var GLOBAL_USER: User? = User("Test","test@live.frrr", Date("12/04/2021"))
+var TOKEN = "yamete_senpai=s%3AurhXNqMi2dcYlGOR_mIHa7ToHiGeZNdh.%2B4WKQ8bYfJD0z4M2%2B5a7Sw%2FoGM8sGWqQkSFMH7KrVcM"
 var STRATEGIES_LIST: List<Strategy> = listOf<Strategy>(
     Strategy("1", "Test", "Sell Actions", "Go", Date(), Date(),Date(), Date()),
     Strategy("2", "Test", "Sell", "Java", Date(), Date(),Date(), Date()),

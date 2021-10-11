@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
@@ -70,8 +71,7 @@ class AuthentificationController{
 
 
     fun retrieveUser(tokenResponse: TokenResponse, navController: NavHostController) {
-        val token = "yamete_senpai=s%3AurhXNqMi2dcYlGOR_mIHa7ToHiGeZNdh.%2B4WKQ8bYfJD0z4M2%2B5a7Sw%2FoGM8sGWqQkSFMH7KrVcM"
-        AuthentificationRepository.retrieveUser(token, object : Callback<JsonObject> {
+        AuthentificationRepository.retrieveUser(TOKEN, object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.d("tradistonks-user", "Error : ${t.message}")
             }

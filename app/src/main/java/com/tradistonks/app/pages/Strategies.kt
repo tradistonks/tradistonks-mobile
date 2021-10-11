@@ -18,8 +18,11 @@ import androidx.compose.material.icons.outlined.Send
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.STRATEGIES_LIST
 import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
+import com.tradistonks.app.web.services.auth.AuthentificationController
+import com.tradistonks.app.web.services.strategy.StrategyController
 
 @Composable
 fun Strategies(openDrawer: () -> Unit) {
@@ -28,11 +31,13 @@ fun Strategies(openDrawer: () -> Unit) {
 
 @Composable
 fun pageStrategies(){
+    val strategyController: StrategyController = StrategyController()
+    strategyController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""))
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        LiveDataComponentList(STRATEGIES_LIST)
+        strategyController.strategies?.let { LiveDataComponentList(it) }
     }
 }
 
