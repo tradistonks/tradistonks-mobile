@@ -31,14 +31,14 @@ class StrategyController{
     fun runStrategyById(token: TokenResponse, idStrategy: String, navController: NavHostController) {
         StrategyRepository.runStrategyById(token.token, idStrategy, object : Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Log.d("tradistonks-run", "Error : ${t.message}")
+                Log.d(
+                    "tradistonks-run",
+                    "Code ${response.code()}, body = getStrategies, message = ${response.message()}}"
+                )
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d(
-                    "tradistonks-run",
-                    "Code , body = runStrategy, message = }"
-                )
+                Log.d("tradistonks-run", "Error : ${t.message}")
             }
 
         })
