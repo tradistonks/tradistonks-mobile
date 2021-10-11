@@ -20,11 +20,12 @@ import com.tradistonks.app.components.Page
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun History(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_history), { pageHistory() })
+fun History(authController: AuthentificationController, openDrawer: () -> Unit) {
+    Page(authController, openDrawer, stringResource(R.string.title_page_history), { pageHistory() })
 }
 
 @Composable

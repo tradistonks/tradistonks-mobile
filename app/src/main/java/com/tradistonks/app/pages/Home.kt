@@ -10,11 +10,12 @@ import androidx.compose.ui.res.stringResource
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.ui.theme.textColor
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun Home(openDrawer: () -> Unit) {
-   Page(openDrawer, stringResource(R.string.title_page_home), { pageHome() })
+fun Home(authController: AuthentificationController, openDrawer: () -> Unit) {
+   Page(authController, openDrawer, stringResource(R.string.title_page_home), { pageHome() })
 }
 
 @Composable

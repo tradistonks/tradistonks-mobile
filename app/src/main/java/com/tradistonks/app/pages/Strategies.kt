@@ -20,26 +20,27 @@ import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
-import com.tradistonks.app.ui.theme.colorPink
+import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.strategy.StrategyController
 
 @Composable
-fun Strategies(openDrawer: () -> Unit, stratController: StrategyController) {
-    Page(openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(stratController) })
+fun Strategies(openDrawer: () -> Unit, authController: AuthentificationController) {
+    Page(authController, openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(authController) })
 }
 
 @Composable
-fun pageStrategies(stratController: StrategyController) {
+fun pageStrategies(authController: AuthentificationController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        stratController.strategies?.let { LiveDataComponentList(it, stratController) }
+        val stratController = authController.stratController
+        stratController.strategies?.let { LiveDataComponentList(it, authController) }
     }
 }
 
 @Composable
-fun LiveDataComponentList(strategyList: List<Strategy>, stratController: StrategyController) {
+fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -85,6 +86,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, stratController: Strateg
                         ) {
                             Button(
                                 onClick = {
+                                    val stratController = authController.stratController
                                     stratController.runStrategyById(TokenResponse("", ""), strategy._id)
                                 },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen),

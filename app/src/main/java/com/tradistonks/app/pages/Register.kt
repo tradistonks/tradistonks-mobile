@@ -15,7 +15,7 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
 fun Register(openDrawer: () -> Unit, navController: NavHostController, authController: AuthentificationController) {
-    Page(openDrawer, stringResource(R.string.connect), { pageRegister(navController, authController) })
+    Page(authController, openDrawer, stringResource(R.string.connect), { pageRegister(navController, authController) })
 }
 
 @Composable

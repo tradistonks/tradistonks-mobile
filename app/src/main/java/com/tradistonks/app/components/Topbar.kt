@@ -5,18 +5,27 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
-fun Topbar(openDrawer: () -> Unit, mainTitle: String){
-    Bar(
-        title = mainTitle,
-        buttonIcon = Icons.Filled.Menu,
-        onButtonClicked = { openDrawer() }
-    )
+fun Topbar(authController: AuthentificationController, openDrawer: () -> Unit, mainTitle: String){
+    if(authController.user == null){
+        Bar(
+            title = mainTitle,
+            buttonIcon = null
+        ) { }
+    }
+    else{
+        Bar(
+            title = mainTitle,
+            buttonIcon = Icons.Filled.Menu
+        ) { openDrawer() }
+    }
+
 }
 
 @Composable
-fun Bar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> Unit) {
+fun Bar(title: String = "", buttonIcon: ImageVector?, onButtonClicked: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -25,7 +34,9 @@ fun Bar(title: String = "", buttonIcon: ImageVector, onButtonClicked: () -> Unit
         },
         navigationIcon = {
             IconButton(onClick = { onButtonClicked() } ) {
-                Icon(buttonIcon, contentDescription = "")
+                if (buttonIcon != null) {
+                    Icon(buttonIcon, contentDescription = "")
+                }
             }
         },
         backgroundColor = MaterialTheme.colors.background

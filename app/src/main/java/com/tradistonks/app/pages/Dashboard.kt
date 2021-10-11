@@ -12,10 +12,11 @@ import com.tradistonks.app.components.charts.sample.PieSampleData
 import com.tradistonks.app.components.charts.sample.TableSampleData
 import com.tradistonks.app.components.charts.sample.pie.PieStyledScreen
 import com.tradistonks.app.components.charts.sample.table.TableStyledScreen
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
-fun Dashboard(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_dashboard), { PageDashboard() })
+fun Dashboard(authController: AuthentificationController, openDrawer: () -> Unit) {
+    Page(authController, openDrawer, stringResource(R.string.title_page_dashboard), { PageDashboard() })
 }
 
 @Composable

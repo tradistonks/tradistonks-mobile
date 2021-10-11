@@ -23,7 +23,7 @@ fun Connexion(
     navController: NavHostController,
     authController: AuthentificationController
 ) {
-    Page(openDrawer, stringResource(R.string.connect), { pageConnexion(navController, authController) })
+    Page(authController, openDrawer, stringResource(R.string.connect), { pageConnexion(navController, authController) })
 }
 
 @Composable

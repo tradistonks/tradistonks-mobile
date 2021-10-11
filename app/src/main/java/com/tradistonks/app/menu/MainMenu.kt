@@ -37,7 +37,7 @@ fun MainMenu(authController: AuthentificationController, stratController: Strate
                             popUpTo(navController.graph.startDestinationId)
                             launchSingleTop = true
                         }
-                    }
+                    }, authController = authController
                 )
             }
         ) {
@@ -56,21 +56,21 @@ fun MainMenu(authController: AuthentificationController, stratController: Strate
                     History(
                         openDrawer = {
                             openDrawer()
-                        }
+                        }, authController = authController
                     )
                 }
                 composable(DrawerScreens.Strategies.route) {
                     Strategies(
                         openDrawer = {
                             openDrawer()
-                        }, stratController
+                        }, authController = authController
                     )
                 }
                 composable(DrawerScreens.Dashboard.route) {
                     Dashboard(
                         openDrawer = {
                             openDrawer()
-                        }
+                        }, authController = authController
                     )
                 }
                 composable(DrawerScreens.Connexion.route) {

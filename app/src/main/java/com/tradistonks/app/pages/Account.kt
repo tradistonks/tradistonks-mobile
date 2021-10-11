@@ -19,7 +19,7 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
 fun Account(openDrawer: () -> Unit, navController: NavHostController, authController: AuthentificationController) {
-    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount(navController, authController)})
+    Page(authController, openDrawer, stringResource(R.string.title_page_account), { pageAccount(navController, authController)})
 }
 
 @Composable
@@ -81,7 +81,9 @@ fun displayAccountInfo(navController: NavHostController, authController: Authent
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-
+                authController.user = null
+                authController.token = null
+                navController.navigate("connexion")
             },
             modifier = Modifier.width(300.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = colorYellow)

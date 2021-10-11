@@ -19,7 +19,7 @@ fun ModifyAccount(
     navController: NavHostController,
     authController: AuthentificationController
 ) {
-    Page(openDrawer, stringResource(R.string.connect), { pageModifyInfo(navController, authController) })
+    Page(authController, openDrawer, stringResource(R.string.connect), { pageModifyInfo(navController, authController) })
 }
 
 @Composable
