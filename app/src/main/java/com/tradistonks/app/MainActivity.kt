@@ -9,6 +9,8 @@ import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.User
 import com.tradistonks.app.models.ProfilePreferences
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import com.tradistonks.app.web.services.auth.AuthentificationController
+import com.tradistonks.app.web.services.strategy.StrategyController
 import java.util.*
 
 var GLOBAL_USER: User? = User("Test","test@live.frrr", Date("12/04/2021"))
@@ -34,20 +36,25 @@ var PREFERENCES: ProfilePreferences? = null
 var ACCESS_TOKEN = PREFERENCES?.getToken().toString()
 
 class MainActivity : ComponentActivity() {
+    val strategyController: StrategyController = StrategyController()
+    val authentificationController: AuthentificationController = AuthentificationController(strategyController)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
         setContent {
-            displayMenu()
+            displayMenu(authentificationController, strategyController)
         }
     }
 
     @Composable
-    fun displayMenu(){
+    fun displayMenu(
+        authController: AuthentificationController,
+        stratController: StrategyController
+    ) {
         setContent {
             TradistonksAndroidTheme {
-                MainMenu()
+                MainMenu(authController, stratController)
             }
         }
     }

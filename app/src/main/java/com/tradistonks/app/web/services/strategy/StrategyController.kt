@@ -17,27 +17,22 @@ import retrofit2.Response
 class StrategyController{
     var strategies: List<Strategy>? = null
 
-    fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse) {
-        StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+    fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
+        StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<Strategy>>{
+            override fun onFailure(call: Call<List<Strategy>>, t: Throwable) {
                 Log.d("tradistonks-strategies", "Error : ${t.message}")
             }
 
             override fun onResponse(
-                call: Call<JsonObject>,
-                response: Response<JsonObject>
+                call: Call<List<Strategy>>,
+                response: Response<List<Strategy>>
             ) {
-                val json = response.body()
+                strategies = response.body()
                 Log.d(
                     "tradistonks-strategies",
-                    "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $json"
+                    "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $strategies"
                 )
-                val itemType = object : TypeToken<List<Strategy>>() {}.type
-                strategies = Gson().fromJson<List<Strategy>>(json, itemType)
-                Log.d(
-                    "strategies",
-                    "Strategies ${strategies.toString()}"
-                )
+                navController.navigate("strategies")
             }
         })
     }

@@ -1,6 +1,5 @@
 package com.tradistonks.app
 
-import android.content.Context
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -10,10 +9,12 @@ import androidx.navigation.compose.rememberNavController
 import com.tradistonks.app.menu.Drawer
 import com.tradistonks.app.menu.DrawerScreens
 import com.tradistonks.app.pages.*
+import com.tradistonks.app.web.services.auth.AuthentificationController
+import com.tradistonks.app.web.services.strategy.StrategyController
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainMenu() {
+fun MainMenu(authController: AuthentificationController, stratController: StrategyController) {
     val navController = rememberNavController()
     Surface(color = MaterialTheme.colors.background) {
         val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -48,7 +49,7 @@ fun MainMenu() {
                     Account(
                         openDrawer = {
                             openDrawer()
-                        }, navController
+                        }, navController, authController
                     )
                 }
                 composable(DrawerScreens.History.route) {
@@ -62,7 +63,7 @@ fun MainMenu() {
                     Strategies(
                         openDrawer = {
                             openDrawer()
-                        }
+                        }, stratController
                     )
                 }
                 composable(DrawerScreens.Dashboard.route) {
@@ -76,21 +77,21 @@ fun MainMenu() {
                     Connexion(
                         openDrawer = {
                             openDrawer()
-                        }, navController
+                        }, navController, authController
                     )
                 }
                 composable(DrawerScreens.ModifyAccount.route) {
                     ModifyAccount(
                         openDrawer = {
                             openDrawer()
-                        }, navController
+                        }, navController, authController
                     )
                 }
                 composable(DrawerScreens.Register.route) {
                     Register(
                         openDrawer = {
                             openDrawer()
-                        }, navController
+                        }, navController, authController
                     )
                 }
             }

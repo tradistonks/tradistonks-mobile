@@ -1,7 +1,9 @@
 package com.tradistonks.app.repository
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
+import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.strategy.StrategyService
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -21,7 +23,7 @@ object StrategyRepository {
         apiService = retrofit.create(StrategyService::class.java)
     }
 
-    fun retrieveAllStrategiesOfCurrentUser(token: String, callback: Callback<JsonObject>) {
+    fun retrieveAllStrategiesOfCurrentUser(token: String, callback: Callback<List<Strategy>>) {
         val call = apiService?.retrieveAllStrategiesOfCurrentUser(token)
         call?.enqueue(callback)
     }

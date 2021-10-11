@@ -1,5 +1,6 @@
 package com.tradistonks.app.pages
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,28 +17,24 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.ui.unit.dp
-import com.tradistonks.app.STRATEGIES_LIST
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
-import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.strategy.StrategyController
 
 @Composable
-fun Strategies(openDrawer: () -> Unit) {
-    Page(openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies() })
+fun Strategies(openDrawer: () -> Unit, stratController: StrategyController) {
+    Page(openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(stratController) })
 }
 
 @Composable
-fun pageStrategies(){
-    val strategyController: StrategyController = StrategyController()
-    strategyController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""))
+fun pageStrategies(stratController: StrategyController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        strategyController.strategies?.let { LiveDataComponentList(it) }
+        stratController.strategies?.let { LiveDataComponentList(it) }
     }
 }
 
