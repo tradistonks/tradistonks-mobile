@@ -24,10 +24,12 @@ import com.tradistonks.app.components.PasswordField
 import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.ui.theme.textColor
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun modifyInfoUserForm(navController: NavHostController) {
+fun modifyInfoUserForm(navController: NavHostController, authController: AuthentificationController) {
+    val user = authController.user
     Text(
         text = stringResource(id = R.string.my_information),
         style = MaterialTheme.typography.h1,
@@ -42,9 +44,9 @@ fun modifyInfoUserForm(navController: NavHostController) {
             val confirmationPasswordFocusRequest = remember { FocusRequester() }
             val emailState = remember { EmailField() }
             val fieldState = remember { Field() }
-            Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER!!.username)
+            Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user!!.username)
             Spacer(modifier = Modifier.height(16.dp))
-            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = GLOBAL_USER!!.email)
+            Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user!!.email)
             Spacer(modifier = Modifier.height(16.dp))
             val passwordState = remember { PasswordField() }
             Password(

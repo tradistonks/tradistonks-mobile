@@ -10,20 +10,21 @@ import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.components.RegisterContent
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun Register(openDrawer: () -> Unit, navController: NavHostController) {
-    Page(openDrawer, stringResource(R.string.connect), { pageRegister(navController) })
+fun Register(openDrawer: () -> Unit, navController: NavHostController, authController: AuthentificationController) {
+    Page(openDrawer, stringResource(R.string.connect), { pageRegister(navController, authController) })
 }
 
 @Composable
-fun pageRegister(navController: NavHostController){
+fun pageRegister(navController: NavHostController, authController: AuthentificationController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        RegisterContent(navController)
+        RegisterContent(navController, authController)
         Spacer(modifier = Modifier.height(16.dp))
     }
 }

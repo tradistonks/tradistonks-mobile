@@ -12,14 +12,16 @@ import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
 import com.tradistonks.app.models.responses.UserResponse
 import com.tradistonks.app.repository.AuthentificationRepository
+import com.tradistonks.app.web.services.strategy.StrategyController
 import com.tradistonks.app.web.helper.AuthentificationHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthentificationController{
-    private var token: TokenResponse? = null
-    private var user: UserResponse? = null
+class AuthentificationController(var stratController: StrategyController){
+    var token: TokenResponse? = null
+    var user: UserResponse? = null
+
 
     fun register(data : Register) {
         AuthentificationRepository.register(data, object : Callback<RegisterResponse> {
@@ -61,7 +63,7 @@ class AuthentificationController{
                         AuthentificationHelper.retrieveTokenResponseFromCookies(it)
                     }
                     tokenResponse?.let { retrieveUser(it, navController) }
-                    navController.navigate("strategies")
+                    stratController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""), navController)
                 }else{
                     Toast.makeText(context,"Error in the email or the password", Toast.LENGTH_SHORT).show()
                 }

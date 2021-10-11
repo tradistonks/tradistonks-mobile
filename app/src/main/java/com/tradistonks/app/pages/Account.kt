@@ -11,32 +11,32 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.GLOBAL_USER
-import com.tradistonks.app.MainMenu
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.form.modifyInfoUserForm
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
-fun Account(openDrawer: () -> Unit, navController: NavHostController) {
-    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount(navController)})
+fun Account(openDrawer: () -> Unit, navController: NavHostController, authController: AuthentificationController) {
+    Page(openDrawer, stringResource(R.string.title_page_account), { pageAccount(navController, authController)})
 }
 
 @Composable
-fun pageAccount(navController: NavHostController){
+fun pageAccount(navController: NavHostController, authController: AuthentificationController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        displayAccountInfo(navController)
+        displayAccountInfo(navController, authController)
         //modifyInfoUserForm()
     }
 }
 
 @Composable
-fun displayAccountInfo(navController: NavHostController){
+fun displayAccountInfo(navController: NavHostController, authController: AuthentificationController){
+    val user = authController.user
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -57,13 +57,13 @@ fun displayAccountInfo(navController: NavHostController){
             Box(){
                 Column() {
                     Text(
-                        text = "Username :" + GLOBAL_USER!!.username,
+                        text = "Username :" + user!!.username,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Email :" + GLOBAL_USER!!.email,
+                        text = "Email :" + user!!.email,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )

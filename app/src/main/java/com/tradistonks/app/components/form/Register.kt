@@ -24,8 +24,7 @@ import com.tradistonks.app.ui.theme.textColor
 
 
 @Composable
-fun RegisterContent(navController: NavHostController) {
-    val authentificationController: AuthentificationController = AuthentificationController()
+fun RegisterContent(navController: NavHostController, authController: AuthentificationController) {
     Text(
         text = stringResource(id = R.string.register),
         style = MaterialTheme.typography.h1,
@@ -70,7 +69,7 @@ fun RegisterContent(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { /*onSignUpSubmitted(emailState.text, passwordState.text)*/
-                authentificationController.register(Register(emailState.text, fieldState.text, passwordState.text, confirmPasswordState.text))
+                authController.register(Register(emailState.text, fieldState.text, passwordState.text, confirmPasswordState.text))
                         navController.navigate("connexion")},
             modifier = Modifier.fillMaxWidth(),
             enabled = emailState.isValid &&

@@ -10,28 +10,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.RegisterContent
 import com.tradistonks.app.components.SignInContent
-import com.tradistonks.app.menu.Drawer
-import com.tradistonks.app.menu.DrawerScreens
 import com.tradistonks.app.ui.theme.colorPink
+import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun Connexion(openDrawer: () -> Unit, navController: NavHostController) {
-    Page(openDrawer, stringResource(R.string.connect), { pageConnexion(navController) })
+fun Connexion(
+    openDrawer: () -> Unit,
+    navController: NavHostController,
+    authController: AuthentificationController
+) {
+    Page(openDrawer, stringResource(R.string.connect), { pageConnexion(navController, authController) })
 }
 
 @Composable
-fun pageConnexion(navController: NavHostController){
+fun pageConnexion(navController: NavHostController, authController: AuthentificationController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        SignInContent(navController)
+        SignInContent(navController, authController)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
