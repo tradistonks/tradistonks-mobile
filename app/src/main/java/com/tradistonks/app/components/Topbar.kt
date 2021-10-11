@@ -9,19 +9,12 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
 fun Topbar(authController: AuthentificationController, openDrawer: () -> Unit, mainTitle: String){
-    if(authController.user == null){
-        Bar(
-            title = mainTitle,
-            buttonIcon = null
-        ) { }
-    }
-    else{
+    if(authController.user != null){
         Bar(
             title = mainTitle,
             buttonIcon = Icons.Filled.Menu
         ) { openDrawer() }
     }
-
 }
 
 @Composable
