@@ -10,11 +10,12 @@ import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.models.responses.UserResponse
 import com.tradistonks.app.repository.StrategyRepository
+import com.tradistonks.app.web.services.language.LanguageController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class StrategyController{
+class StrategyController(var langController: LanguageController){
     var strategies: List<Strategy>? = null
 
     fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
@@ -32,7 +33,7 @@ class StrategyController{
                     "tradistonks-strategies",
                     "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $strategies"
                 )
-                navController.navigate("strategies")
+                langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
             }
         })
     }

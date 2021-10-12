@@ -41,6 +41,8 @@ fun pageStrategies(authController: AuthentificationController) {
 
 @Composable
 fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
+    var stratController = authController.stratController
+    var langController = stratController.langController
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -69,7 +71,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                         Box{
                             Column(modifier = Modifier){
                                 Text(
-                                    text = "Language: ${strategy.language}",
+                                    text = "Language: ${langController.getNameOfLanguage(strategy.language)}",
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
