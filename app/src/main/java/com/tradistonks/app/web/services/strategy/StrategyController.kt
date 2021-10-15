@@ -3,13 +3,10 @@ package com.tradistonks.app.web.services.strategy
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.gson.reflect.TypeToken
 import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
-import com.tradistonks.app.models.responses.UserResponse
 import com.tradistonks.app.repository.StrategyRepository
 import com.tradistonks.app.web.services.language.LanguageController
 import retrofit2.Call
@@ -40,11 +37,11 @@ class StrategyController(var langController: LanguageController){
         })
     }
 
-    fun runStrategyById(tokenResponse: TokenResponse, idStrategy: String) {
-        loading.value = true
-        StrategyRepository.runStrategyById(TOKEN, idStrategy, object : Callback<JsonObject>{
+    fun runStrategyById(tokenResponse: TokenResponse, strategy: Strategy) {
+        strategy.loading.value = true
+        StrategyRepository.runStrategyById(TOKEN, strategy._id, object : Callback<JsonObject>{
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                loading.value = false
+                strategy.loading.value = false
                 Log.d(
                     "tradistonks-run",
                     "Code ${response.code()}, body = runStrategy, message = ${response.message()}}"
@@ -52,7 +49,7 @@ class StrategyController(var langController: LanguageController){
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                loading.value = false
+                strategy.loading.value = false
                 Log.d("tradistonks-run", "Error : ${t.message}")
             }
 

@@ -44,7 +44,6 @@ fun pageStrategies(authController: AuthentificationController) {
 fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
     val stratController = authController.stratController
     val langController = stratController.langController
-    val loading = stratController.loading.value
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -78,7 +77,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
-                                CircularIndeterminateProgressBar(isDisplayed = loading, Modifier.align(Alignment.CenterHorizontally), colorBlue)
+                                CircularIndeterminateProgressBar(isDisplayed = strategy.loading.value, Modifier.align(Alignment.CenterHorizontally), colorBlue)
                             }
                         }
                         Column(
@@ -87,7 +86,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                         ) {
                             Button(
                                 onClick = {
-                                    stratController.runStrategyById(TokenResponse("", ""), strategy._id)
+                                    stratController.runStrategyById(TokenResponse("", ""), strategy)
                                 },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen),
                             ) {
