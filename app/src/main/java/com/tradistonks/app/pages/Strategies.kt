@@ -1,5 +1,6 @@
 package com.tradistonks.app.pages
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
@@ -41,8 +43,8 @@ fun pageStrategies(authController: AuthentificationController) {
 
 @Composable
 fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
-    var stratController = authController.stratController
-    var langController = stratController.langController
+    val stratController = authController.stratController
+    val langController = stratController.langController
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -88,7 +90,6 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                         ) {
                             Button(
                                 onClick = {
-                                    val stratController = authController.stratController
                                     stratController.runStrategyById(TokenResponse("", ""), strategy._id)
                                 },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen),

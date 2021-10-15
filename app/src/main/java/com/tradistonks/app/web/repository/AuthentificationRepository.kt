@@ -3,9 +3,11 @@ package com.tradistonks.app.repository
 import android.net.Uri
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
+import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.models.responses.UserResponse
 import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.web.services.auth.AuthentificationService
@@ -81,8 +83,8 @@ object AuthentificationRepository {
         call?.enqueue(callback)
     }
 
-    fun updateUser(token: String, idUser: String, newUserInfo: UserUpdateRequest, callback: Callback<JsonObject>) {
-        val call = apiService?.updateUser(token, idUser, newUserInfo)
+    fun updateUser(tokenResponse: TokenResponse, idUser: String, newUserInfo: UserUpdateRequest, callback: Callback<JsonObject>) {
+        val call = apiService?.updateUser(TOKEN, idUser, newUserInfo)
         call?.enqueue(callback)
     }
 

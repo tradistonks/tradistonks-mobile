@@ -22,10 +22,8 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 
-
 @Composable
 fun SignInContent(navController: NavHostController, authController: AuthentificationController) {
-    val context = LocalContext.current
     Text(
         text = stringResource(id = R.string.sign_in),
         style = MaterialTheme.typography.h1,
@@ -49,7 +47,7 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
         Button(
             onClick = {
                 authController.login(emailState.text,
-                    passwordState.text, context,
+                    passwordState.text,
                     navController)
                 },
             modifier = Modifier

@@ -1,5 +1,6 @@
 package com.tradistonks.app.components.form
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 
@@ -31,7 +32,6 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 @Composable
 fun modifyInfoUserForm(navController: NavHostController, authController: AuthentificationController) {
     val user = authController.user
-    val context = LocalContext.current
     Text(
         text = stringResource(id = R.string.my_information),
         style = MaterialTheme.typography.h1,
@@ -80,7 +80,7 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
             Button(
                 onClick = {
                     authController.updateUser(user._id, UserUpdateRequest(fieldState.text,
-                        emailState.text, user.roles), context, navController)
+                        emailState.text, user.roles), navController)
                           },
                 modifier = Modifier.fillMaxWidth(),
                 /*enabled = emailState.isValid &&

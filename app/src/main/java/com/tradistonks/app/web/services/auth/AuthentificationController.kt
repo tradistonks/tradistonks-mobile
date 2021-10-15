@@ -43,7 +43,7 @@ class AuthentificationController(var stratController: StrategyController){
         })
     }
 
-    fun login(email: String, password: String, context: Context, navController: NavHostController){
+    fun login(email: String, password: String, navController: NavHostController){
         AuthentificationRepository.login(email,  password, object : Callback<Void>{
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.d("tradistonks-login", "Error : ${t.message}")
@@ -64,9 +64,9 @@ class AuthentificationController(var stratController: StrategyController){
                     }
                     tokenResponse?.let { retrieveUser(it, navController) }
                     stratController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""), navController)
-                }else{
+                }/*else{
                     Toast.makeText(context,"Error in the email or the password", Toast.LENGTH_SHORT).show()
-                }
+                }*/
             }
         })
     }
@@ -92,12 +92,12 @@ class AuthentificationController(var stratController: StrategyController){
         })
     }
 
-    fun updateUser(idUser: String, newUserInfo: UserUpdateRequest, context: Context, navController: NavHostController){
+    fun updateUser(idUser: String, newUserInfo: UserUpdateRequest, navController: NavHostController){
         Log.d(
             "tradistonks-update",
             "id ${idUser}, newUser = ${newUserInfo}"
         )
-        AuthentificationRepository.updateUser(TOKEN, idUser, newUserInfo, object : Callback<JsonObject>{
+        AuthentificationRepository.updateUser(TokenResponse("", ""), idUser, newUserInfo, object : Callback<JsonObject>{
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.d("tradistonks-update", "Error : ${t.message}")
             }
@@ -108,15 +108,17 @@ class AuthentificationController(var stratController: StrategyController){
             ) {
                 Log.d(
                     "tradistonks-update",
-                    "Code ${response.code()}, body = updateUser, message = ${response.message()}"
+                    "Code ${response.code()}, body = updateUser, message = ${response.message()}, token = ${TOKEN}"
                 )
                 if(response.code() == 200){
                     val json = response.body()
                     user = Gson().fromJson(json, UserResponse::class.java)
                     navController.navigate("account")
+                }/*else if(response.code() == 400){
+                    Toast.makeText(context,"Please verify the email format", Toast.LENGTH_LONG).show()
                 }else{
-                    Toast.makeText(context,"Error during the update of the user", Toast.LENGTH_SHORT).show()
-                }
+                    Toast.makeText(context,"Unknown error", Toast.LENGTH_SHORT).show()
+                }*/
             }
         })
     }
