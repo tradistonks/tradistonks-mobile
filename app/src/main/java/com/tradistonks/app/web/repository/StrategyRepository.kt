@@ -1,22 +1,30 @@
 package com.tradistonks.app.repository
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.strategy.StrategyService
+import okhttp3.OkHttpClient
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 
 object StrategyRepository {
     private var apiService: StrategyService? = null
 
     init {
+        val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(160, TimeUnit.SECONDS)
+            .writeTimeout(160, TimeUnit.SECONDS)
+            .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(
                 BuildConfig.TRADISTONKSAPIBASEURL
             )
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

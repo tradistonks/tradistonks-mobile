@@ -43,7 +43,7 @@ class StrategyController(var langController: LanguageController){
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 Log.d(
                     "tradistonks-run",
-                    "Code ${response.code()}, body = runStrategy, message = ${response.message()}, json = ${response.body()}}"
+                    "Code ${response.code()}, body = runStrategy, message = ${response.message()}}"
                 )
             }
 
