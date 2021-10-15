@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
@@ -21,6 +22,7 @@ import com.tradistonks.app.components.ConfirmPasswordState
 import com.tradistonks.app.components.Password
 import com.tradistonks.app.components.PasswordField
 import com.tradistonks.app.components.fields.Field
+import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
@@ -29,6 +31,7 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 @Composable
 fun modifyInfoUserForm(navController: NavHostController, authController: AuthentificationController) {
     val user = authController.user
+    val context = LocalContext.current
     Text(
         text = stringResource(id = R.string.my_information),
         style = MaterialTheme.typography.h1,
@@ -46,7 +49,7 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
             Field(fieldState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user!!.username)
             Spacer(modifier = Modifier.height(16.dp))
             Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() }, text = user.email)
-            Spacer(modifier = Modifier.height(16.dp))
+            /*Spacer(modifier = Modifier.height(16.dp))
             val passwordState = remember { PasswordField() }
             Password(
                 label = stringResource(id = R.string.password),
@@ -71,18 +74,17 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
                     text = "",
                     style = MaterialTheme.typography.caption
                 )
-            }
+            }*/
 
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    user.email = emailState.text
-                    user.username = fieldState.text
-                        navController.navigate("account")
+                    authController.updateUser(user._id, UserUpdateRequest(fieldState.text,
+                        emailState.text, user.roles), context, navController)
                           },
                 modifier = Modifier.fillMaxWidth(),
-                enabled = emailState.isValid &&
-                        passwordState.isValid && confirmPasswordState.isValid,
+                /*enabled = emailState.isValid &&
+                        passwordState.isValid && confirmPasswordState.isValid,*/
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorGreen)
             ) {
                 Text(

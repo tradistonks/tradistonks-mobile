@@ -5,6 +5,8 @@ import com.tradistonks.app.models.login.Login
 import retrofit2.Call
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.responses.UserResponse
+import com.tradistonks.app.models.user.UserUpdateRequest
 import retrofit2.http.*
 
 interface AuthentificationService {
@@ -20,5 +22,11 @@ interface AuthentificationService {
     @GET("/users/me")
     @Headers("Content-Type: application/json;charset=UTF-8")
     fun getCurrentUser(@Header("Cookie") token: String): Call<JsonObject>
+
+    @PUT("/users/{idUser}")
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    fun updateUser(@Header("Cookie") token: String,
+                   @Path("idUser") idUser: String,
+                   @Body userUpdateRequest: UserUpdateRequest): Call<JsonObject>
 
 }

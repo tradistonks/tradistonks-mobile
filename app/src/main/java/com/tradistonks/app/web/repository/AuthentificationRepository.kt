@@ -6,6 +6,8 @@ import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.models.login.Login
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.responses.UserResponse
+import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.web.services.auth.AuthentificationService
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -76,6 +78,11 @@ object AuthentificationRepository {
 
     fun retrieveUser(token: String, callback: Callback<JsonObject>) {
         val call = apiService?.getCurrentUser(token)
+        call?.enqueue(callback)
+    }
+
+    fun updateUser(token: String, idUser: String, newUserInfo: UserUpdateRequest, callback: Callback<JsonObject>) {
+        val call = apiService?.updateUser(token, idUser, newUserInfo)
         call?.enqueue(callback)
     }
 
