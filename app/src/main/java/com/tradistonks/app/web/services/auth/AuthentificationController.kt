@@ -3,6 +3,7 @@ package com.tradistonks.app.web.services.auth
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -20,12 +21,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AuthentificationController(var stratController: StrategyController){
+    val loading = mutableStateOf(false)
     var token: TokenResponse? = null
     var user: UserResponse? = null
 
     fun register(data : Register) {
+        loading.value = true
         AuthentificationRepository.register(data, object : Callback<RegisterResponse> {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                loading.value = false
                 Log.d("tradistonks-register", "Error : ${t.message}")
             }
 
@@ -33,6 +37,7 @@ class AuthentificationController(var stratController: StrategyController){
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
+                loading.value = false
                 Log.d(
                     "tradistonks-register",
                     "Code ${response.code()}, body = Register, message = ${response.message()}"
@@ -44,8 +49,10 @@ class AuthentificationController(var stratController: StrategyController){
     }
 
     fun login(email: String, password: String, navController: NavHostController){
+        loading.value = true
         AuthentificationRepository.login(email,  password, object : Callback<Void>{
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                loading.value = false
                 Log.d("tradistonks-login", "Error : ${t.message}")
             }
 
@@ -53,6 +60,7 @@ class AuthentificationController(var stratController: StrategyController){
                 call: Call<Void>,
                 response: Response<Void>
             ) {
+                loading.value = false
                 Log.d(
                     "tradistonks-login",
                     "Code ${response.code()}, body = Login, message = ${response.message()}"
@@ -73,8 +81,10 @@ class AuthentificationController(var stratController: StrategyController){
 
 
     fun retrieveUser(tokenResponse: TokenResponse, navController: NavHostController) {
+        loading.value = true
         AuthentificationRepository.retrieveUser(TOKEN, object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loading.value = false
                 Log.d("tradistonks-user", "Error : ${t.message}")
             }
 
@@ -82,6 +92,7 @@ class AuthentificationController(var stratController: StrategyController){
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
             ) {
+                loading.value = false
                 val json = response.body()
                 Log.d(
                     "tradistonks-user",
@@ -93,12 +104,10 @@ class AuthentificationController(var stratController: StrategyController){
     }
 
     fun updateUser(idUser: String, newUserInfo: UserUpdateRequest, navController: NavHostController){
-        Log.d(
-            "tradistonks-update",
-            "id ${idUser}, newUser = ${newUserInfo}"
-        )
+        loading.value = true
         AuthentificationRepository.updateUser(TokenResponse("", ""), idUser, newUserInfo, object : Callback<JsonObject>{
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loading.value = false
                 Log.d("tradistonks-update", "Error : ${t.message}")
             }
 
@@ -106,6 +115,7 @@ class AuthentificationController(var stratController: StrategyController){
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
             ) {
+                loading.value = false
                 Log.d(
                     "tradistonks-update",
                     "Code ${response.code()}, body = updateUser, message = ${response.message()}, token = ${TOKEN}"

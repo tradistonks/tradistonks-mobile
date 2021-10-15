@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
     val languageController: LanguageController = LanguageController()
     val strategyController: StrategyController = StrategyController(languageController)
     val authentificationController: AuthentificationController =
-        AuthentificationController(strategyController, this)
+        AuthentificationController(strategyController)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

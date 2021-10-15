@@ -11,8 +11,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
+import com.tradistonks.app.components.CircularIndeterminateProgressBar
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.components.SignInContent
+import com.tradistonks.app.ui.theme.colorBlue
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
@@ -28,6 +30,7 @@ fun Connexion(
 
 @Composable
 fun pageConnexion(navController: NavHostController, authController: AuthentificationController){
+    val loading = authController.loading.value
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -47,5 +50,6 @@ fun pageConnexion(navController: NavHostController, authController: Authentifica
                 text = "Create a new account"
             )
         }
+        CircularIndeterminateProgressBar(isDisplayed = loading, Modifier.align(Alignment.CenterHorizontally), colorBlue)
     }
 }

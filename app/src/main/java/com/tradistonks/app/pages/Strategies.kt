@@ -1,6 +1,5 @@
 package com.tradistonks.app.pages
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,14 +15,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.tradistonks.app.components.CircularIndeterminateProgressBar
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
+import com.tradistonks.app.ui.theme.colorBlue
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.web.services.auth.AuthentificationController
-import com.tradistonks.app.web.services.strategy.StrategyController
 
 @Composable
 fun Strategies(openDrawer: () -> Unit, authController: AuthentificationController) {
@@ -45,6 +44,7 @@ fun pageStrategies(authController: AuthentificationController) {
 fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
     val stratController = authController.stratController
     val langController = stratController.langController
+    val loading = stratController.loading.value
     LazyColumn(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
@@ -63,11 +63,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                             style = MaterialTheme.typography.h2,
                             color = colorGreen
                         )
-                        Text(
-                            text = "",
-                            style = MaterialTheme.typography.body1,
-                            color = colorGreen
-                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
                     Row() {
                         Box{
@@ -82,6 +78,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
+                                CircularIndeterminateProgressBar(isDisplayed = loading, Modifier.align(Alignment.CenterHorizontally), colorBlue)
                             }
                         }
                         Column(
