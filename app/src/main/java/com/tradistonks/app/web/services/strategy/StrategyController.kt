@@ -3,15 +3,19 @@ package com.tradistonks.app.web.services.strategy
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.responses.RunResultDto
 import com.tradistonks.app.models.responses.TokenResponse
+import com.tradistonks.app.models.responses.UserResponse
 import com.tradistonks.app.repository.StrategyRepository
 import com.tradistonks.app.web.services.language.LanguageController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class StrategyController(var langController: LanguageController){
     var strategies: List<Strategy>? = null
@@ -46,6 +50,21 @@ class StrategyController(var langController: LanguageController){
                     "tradistonks-run",
                     "Code ${response.code()}, body = runStrategy, message = ${response.message()}}"
                 )
+                val json =  response.body()
+                var results: RunResultDto? = null
+                try {
+                    results = Gson().fromJson(json, RunResultDto::class.java)
+                }
+                catch (e: Exception){
+                    Log.d( "Exception",
+                        e.toString()
+                    )
+                }
+                if(results != null){
+                    strategy.hasResults.value = true
+                    strategy.last_run = Date()
+                    strategy.results = results
+                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

@@ -11,17 +11,19 @@ import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.language.LanguageController
 import com.tradistonks.app.web.services.strategy.StrategyController
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
 
 var TOKEN = "yamete_senpai=s%3A5sAQkshwog65AuZxBqZuT214pmi82IL7.g92fGk5%2FQqkzc%2BI9FM5AWqDtJCgLWk626m9Winorsdk"
 var ORDER_LIST: List<Order> = listOf<Order>(
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date()),
-    Order(type =  "buy", symbol = "AAPL",price = 129.64f,quantity = 2, Date())
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time),
+    Order(type =  "Buy", symbol = "BB",quantity = 2, Date().time),
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time),
+    Order(type =  "Sell", symbol = "BB",quantity = 2, Date().time),
+    Order(type =  "Sell", symbol = "AAPL",quantity = 2, Date().time),
+    Order(type =  "Sell", symbol = "AAPL",quantity = 2, Date().time),
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time)
 )
 
 var PREFERENCES: ProfilePreferences? = null

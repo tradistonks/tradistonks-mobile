@@ -21,6 +21,7 @@ import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import java.util.*
 
 
 @Composable
@@ -63,12 +64,12 @@ fun LiveDataComponentOrderList(orderList: List<Order>) {
                         Box{
                             Column(modifier = Modifier){
                                 Text(
-                                    text = "Symbol: ${order.symbol}",
+                                    text = "Type: ${order.type}",
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
                                 Text(
-                                    text = "Date: ${order.created_date}",
+                                    text = "Symbol: ${order.symbol}",
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
@@ -78,24 +79,16 @@ fun LiveDataComponentOrderList(orderList: List<Order>) {
                             modifier = Modifier.fillMaxSize()
                         ) {
                             Text(
-                                text = "Price : ${order.price}",
-                                style = MaterialTheme.typography.body1,
-                                color = textColor
-                            )
-                            Text(
                                 text = "Quantity : ${order.quantity}",
                                 style = MaterialTheme.typography.body1,
                                 color = textColor
                             )
+                            Text(
+                                text = "Date: ${Date(order.timestamp)}",
+                                style = MaterialTheme.typography.body1,
+                                color = textColor
+                            )
                         }
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                        Text(
-                            text = "Total : ${order.quantity * order.price}",
-                            style = MaterialTheme.typography.h2,
-                            color = colorYellow
-                        )
                     }
                 }
             }

@@ -16,7 +16,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.tradistonks.app.components.CircularIndeterminateProgressBar
+import com.tradistonks.app.components.StrategyResultComponent
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.ui.theme.colorBlue
@@ -25,23 +27,31 @@ import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
-fun Strategies(openDrawer: () -> Unit, authController: AuthentificationController) {
-    Page(authController, openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(authController) })
+fun Strategies(
+    openDrawer: () -> Unit,
+    navController: NavHostController,
+    authController: AuthentificationController
+) {
+    Page(authController, openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(navController, authController) })
 }
 
 @Composable
-fun pageStrategies(authController: AuthentificationController) {
+fun pageStrategies(navController: NavHostController, authController: AuthentificationController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
-        stratController.strategies?.let { LiveDataComponentList(it, authController) }
+        stratController.strategies?.let { LiveDataComponentList(it, navController, authController) }
     }
 }
 
 @Composable
-fun LiveDataComponentList(strategyList: List<Strategy>, authController: AuthentificationController) {
+fun LiveDataComponentList(
+    strategyList: List<Strategy>,
+    navController: NavHostController,
+    authController: AuthentificationController
+) {
     val stratController = authController.stratController
     val langController = stratController.langController
     LazyColumn(modifier = Modifier.fillMaxSize(),
@@ -77,6 +87,7 @@ fun LiveDataComponentList(strategyList: List<Strategy>, authController: Authenti
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
+                                StrategyResultComponent(hasResults = strategy.hasResults.value, strategy = strategy, Modifier)
                                 CircularIndeterminateProgressBar(isDisplayed = strategy.loading.value, Modifier.align(Alignment.CenterHorizontally), colorBlue)
                             }
                         }

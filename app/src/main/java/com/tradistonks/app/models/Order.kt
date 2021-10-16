@@ -1,7 +1,6 @@
 package com.tradistonks.app.models
 
-import java.util.*
+import java.sql.Timestamp
 
-data class Order(val type: String, val symbol: String, val price: Float,
-                    val quantity: Int, val created_date: Date){
-}
+data class Order(val type: String, val symbol: String,
+                    val quantity: Int, val timestamp: Long)

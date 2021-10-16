@@ -5,6 +5,8 @@
     <string name="connect">Connect into your account</string>
     <string name="logout">Logout</string>
     <string name="title_page_strategies">Strategies</string>
+    <string name="title_page_strategy_results">Strategy\'s Results</string>
+    <string name="title_page_strategy_summary">Strategy\'s Results Summary</string>
     <string name="title_page_history">History</string>
     <string name="title_page_dashboard">Dashboard</string>
     <string name="sign_in">Sign in</string>

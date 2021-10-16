@@ -63,7 +63,7 @@ fun MainMenu(authController: AuthentificationController, stratController: Strate
                     Strategies(
                         openDrawer = {
                             openDrawer()
-                        }, authController = authController
+                        }, navController, authController = authController
                     )
                 }
                 composable(DrawerScreens.Dashboard.route) {

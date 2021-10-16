@@ -19,6 +19,7 @@ sealed class DrawerScreens(val title: String, val route: String) {
     object Connexion : DrawerScreens("Connexion", "connexion")
     object Register : DrawerScreens("Register", "register")
     object ModifyAccount : DrawerScreens("ModifyAccount", "modifyAccount")
+    object StrategyResultSummary : DrawerScreens("StrategyResultSummary", "strategyResultSummary")
 }
 
 private val screens = listOf(
@@ -28,7 +29,15 @@ private val screens = listOf(
     DrawerScreens.Account,
     DrawerScreens.Register,
     DrawerScreens.Connexion,
-    DrawerScreens.ModifyAccount
+    DrawerScreens.ModifyAccount,
+    DrawerScreens.StrategyResultSummary
+)
+
+private val notDisplayedScreens = listOf(
+    DrawerScreens.Register,
+    DrawerScreens.Connexion,
+    DrawerScreens.ModifyAccount,
+    DrawerScreens.StrategyResultSummary
 )
 
 @Composable
@@ -44,11 +53,8 @@ fun Drawer(
         ) {
             if(authController.user != null){
                 screens.forEach { screen ->
-                    if(screen != DrawerScreens.Register
-                        && screen != DrawerScreens.Connexion
-                        && screen != DrawerScreens.ModifyAccount){
-
-                        Spacer(Modifier.height(24.dp))
+                    if(!notDisplayedScreens.contains(screen) ){
+                        Spacer(Modifier.height(32.dp))
                         Text(
                             text = screen.title,
                             style = MaterialTheme.typography.h1,
