@@ -32,23 +32,30 @@ fun Strategies(
     navController: NavHostController,
     authController: AuthentificationController
 ) {
-    Page(authController, openDrawer, stringResource(R.string.title_page_strategies), { pageStrategies(navController, authController) })
+    Page(authController, openDrawer, stringResource(R.string.title_page_strategies),
+        { pageStrategies(openDrawer, navController, authController) })
 }
 
 @Composable
-fun pageStrategies(navController: NavHostController, authController: AuthentificationController) {
+fun pageStrategies(
+    openDrawer: () -> Unit,
+    navController: NavHostController,
+    authController: AuthentificationController
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
-        stratController.strategies?.let { LiveDataComponentList(it, navController, authController) }
+        stratController.strategies?.let { LiveDataComponentList(it,
+            openDrawer, navController, authController) }
     }
 }
 
 @Composable
 fun LiveDataComponentList(
     strategyList: List<Strategy>,
+    openDrawer: () -> Unit,
     navController: NavHostController,
     authController: AuthentificationController
 ) {
@@ -87,8 +94,10 @@ fun LiveDataComponentList(
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
-                                StrategyResultComponent(hasResults = strategy.hasResults.value, strategy = strategy, Modifier)
-                                CircularIndeterminateProgressBar(isDisplayed = strategy.loading.value, Modifier.align(Alignment.CenterHorizontally), colorBlue)
+                                StrategyResultComponent(hasResults = strategy.hasResults.value,
+                                    strategy = strategy, Modifier, navController)
+                                CircularIndeterminateProgressBar(isDisplayed = strategy.loading.value,
+                                    Modifier.align(Alignment.CenterHorizontally), colorBlue)
                             }
                         }
                         Column(

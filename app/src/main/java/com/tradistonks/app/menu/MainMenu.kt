@@ -3,11 +3,15 @@ package com.tradistonks.app
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.google.gson.Gson
 import com.tradistonks.app.menu.Drawer
 import com.tradistonks.app.menu.DrawerScreens
+import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.pages.*
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.strategy.StrategyController
@@ -93,6 +97,16 @@ fun MainMenu(authController: AuthentificationController, stratController: Strate
                             openDrawer()
                         }, navController, authController
                     )
+                }
+                composable(DrawerScreens.StrategyResultSummary.route + "/{strategy}",
+                arguments = listOf(
+                        navArgument("strategy") { type = NavType.StringType }
+                        )
+                ) { backStackEntry ->
+                backStackEntry.arguments?.getString("strategy")?.let { json ->
+                    val strategy = Gson().fromJson(json, Strategy::class.java)
+                    pageStrategyResultSummary(strategy = strategy)
+                    }
                 }
             }
         }
