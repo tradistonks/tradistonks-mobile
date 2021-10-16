@@ -20,6 +20,7 @@ sealed class DrawerScreens(val title: String, val route: String) {
     object Register : DrawerScreens("Register", "register")
     object ModifyAccount : DrawerScreens("ModifyAccount", "modifyAccount")
     object StrategyResultSummary : DrawerScreens("StrategyResultSummary", "strategyResultSummary")
+    object StrategyResult : DrawerScreens("StrategyResult", "strategyResult")
 }
 
 private val screens = listOf(
@@ -30,14 +31,16 @@ private val screens = listOf(
     DrawerScreens.Register,
     DrawerScreens.Connexion,
     DrawerScreens.ModifyAccount,
-    DrawerScreens.StrategyResultSummary
+    DrawerScreens.StrategyResultSummary,
+    DrawerScreens.StrategyResult
 )
 
 private val notDisplayedScreens = listOf(
     DrawerScreens.Register,
     DrawerScreens.Connexion,
     DrawerScreens.ModifyAccount,
-    DrawerScreens.StrategyResultSummary
+    DrawerScreens.StrategyResultSummary,
+    DrawerScreens.StrategyResult
 )
 
 @Composable

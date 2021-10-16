@@ -22,13 +22,18 @@ fun StrategyResultComponent(
         navController.navigate("strategyResultSummary/$strategyJson")
     }
 
+    fun navigateToStrategyResults(strategy: Strategy) {
+        val strategyJson = Gson().toJson(strategy)
+        navController.navigate("strategyResult/$strategyJson")
+    }
+
     if (hasResults) {
         Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = modifier,
         ) {
             TextButton(onClick = {
-
+                navigateToStrategyResults(strategy)
             }) {
                 Text("See all results")
             }

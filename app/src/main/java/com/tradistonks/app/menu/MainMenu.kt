@@ -98,14 +98,28 @@ fun MainMenu(authController: AuthentificationController, stratController: Strate
                         }, navController, authController
                     )
                 }
-                composable(DrawerScreens.StrategyResultSummary.route + "/{strategy}",
+                composable(DrawerScreens.StrategyResult.route + "/{strategy}",
                 arguments = listOf(
                         navArgument("strategy") { type = NavType.StringType }
                         )
                 ) { backStackEntry ->
                 backStackEntry.arguments?.getString("strategy")?.let { json ->
                     val strategy = Gson().fromJson(json, Strategy::class.java)
-                    pageStrategyResultSummary(strategy = strategy)
+                    StrategyResultSummary(openDrawer = {
+                        openDrawer()
+                    }, authController, strategy = strategy)
+                    }
+                }
+                composable(DrawerScreens.StrategyResultSummary.route + "/{strategy}",
+                    arguments = listOf(
+                        navArgument("strategy") { type = NavType.StringType }
+                    )
+                ) { backStackEntry ->
+                    backStackEntry.arguments?.getString("strategy")?.let { json ->
+                        val strategy = Gson().fromJson(json, Strategy::class.java)
+                        StrategyResult(openDrawer = {
+                            openDrawer()
+                        }, navController, authController, strategy = strategy)
                     }
                 }
             }
