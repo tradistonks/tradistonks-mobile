@@ -1,26 +1,20 @@
-package com.tradistonks.app.pages
+package com.tradistonks.app.components.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.charts.sample.PieSampleData
-import com.tradistonks.app.components.charts.sample.TableSampleData
 import com.tradistonks.app.components.charts.sample.pie.PieStyledScreen
-import com.tradistonks.app.components.charts.sample.table.TableStyledScreen
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.helper.PieChartHelper
 import com.tradistonks.app.web.services.auth.AuthentificationController
-import java.util.*
 
 @Composable
 fun StrategyResultSummary(

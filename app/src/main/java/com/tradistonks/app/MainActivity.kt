@@ -40,18 +40,17 @@ class MainActivity : ComponentActivity() {
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
         setContent {
-            displayMenu(authentificationController, strategyController)
+            displayMenu(authentificationController)
         }
     }
 
     @Composable
     fun displayMenu(
-        authController: AuthentificationController,
-        stratController: StrategyController
+        authController: AuthentificationController
     ) {
         setContent {
             TradistonksAndroidTheme {
-                MainMenu(authController, stratController)
+                MainMenu(authController)
             }
         }
     }

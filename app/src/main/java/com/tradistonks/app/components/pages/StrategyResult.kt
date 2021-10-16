@@ -1,4 +1,4 @@
-package com.tradistonks.app.pages
+package com.tradistonks.app.components.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

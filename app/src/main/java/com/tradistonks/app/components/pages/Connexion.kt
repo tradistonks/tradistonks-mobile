@@ -1,6 +1,9 @@
-package com.tradistonks.app.pages
+package com.tradistonks.app.components.pages
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,29 +13,43 @@ import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.CircularIndeterminateProgressBar
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.form.modifyInfoUserForm
+import com.tradistonks.app.components.SignInContent
 import com.tradistonks.app.ui.theme.colorBlue
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
 
 @Composable
-fun ModifyAccount(
+fun Connexion(
     openDrawer: () -> Unit,
     navController: NavHostController,
     authController: AuthentificationController
 ) {
-    Page(authController, openDrawer, stringResource(R.string.connect), { pageModifyInfo(navController, authController) })
+    Page(authController, openDrawer, stringResource(R.string.connect), { pageConnexion(navController, authController) })
 }
 
 @Composable
-fun pageModifyInfo(navController: NavHostController, authController: AuthentificationController){
+fun pageConnexion(navController: NavHostController, authController: AuthentificationController){
     val loading = authController.loading.value
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        modifyInfoUserForm(navController, authController)
+        SignInContent(navController, authController)
         Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
+                navController.navigate("register")
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorPink)
+        ) {
+            Text(
+                text = "Create a new account"
+            )
+        }
         CircularIndeterminateProgressBar(isDisplayed = loading, Modifier.align(Alignment.CenterHorizontally), colorBlue)
     }
 }

@@ -1,16 +1,12 @@
 package com.tradistonks.app.web.helper
 
-import android.util.Log
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.text.AnnotatedString
-import com.tradistonks.app.ACCESS_TOKEN
-import com.tradistonks.app.PREFERENCES
 import com.tradistonks.app.components.charts.pie.LegendPosition
 import com.tradistonks.app.components.charts.pie.PieChartData
 import com.tradistonks.app.components.charts.pie.PieChartEntry
 import com.tradistonks.app.components.charts.sample.SimpleColors
 import com.tradistonks.app.models.Order
-import com.tradistonks.app.models.responses.TokenResponse
 import java.util.stream.Collectors
 
 class PieChartHelper {
@@ -24,12 +20,11 @@ class PieChartHelper {
 
         fun retrievePieChartDataByType(orders: List<Order>, categories: List<String>, type: String): List<PieChartData>{
             val data = retrieveSumsOfTypeBySymbol(orders, categories, type)
-            val total = data.sum()
             return LegendPosition.values().map {
                 PieChartData(
                     entries = data.mapIndexed { idx, value ->
                         PieChartEntry(
-                            value = value/total*100,
+                            value = value.toFloat(),
                             label = AnnotatedString(categories[idx])
                         )
                     },

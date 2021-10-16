@@ -63,7 +63,7 @@ internal val PieSampleData = LegendPosition.values().map {
   PieChartData(
     entries = listOf(430f, 240f, 140f, 60f, 50f).mapIndexed { idx, value ->
       PieChartEntry(
-        value = value.toDouble(),
+        value = value,
         label = AnnotatedString(Categories[idx])
       )
     },
