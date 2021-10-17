@@ -46,9 +46,8 @@ fun pageStrategyResult(
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
         Spacer(Modifier.height(defaultSpacerSize))
-        //MyLineChartStrategy(Modifier)
         LineChartScreenContent(lineChartDataList)
         Spacer(Modifier.height(defaultSpacerSize))
-
+        NavigateButtonStrategies(navController)
     }
 }
