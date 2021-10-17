@@ -34,19 +34,7 @@ fun DashboardContent( modifier: Modifier = Modifier) {
         modifier = modifier.padding(horizontal = defaultSpacerSize)
     ) {
         item {
-            TableStyledScreen(TableSampleData[1])
-            Spacer(Modifier.height(defaultSpacerSize))
-        }
-        item {
-            PieStyledScreen(PieSampleData[0], "test")
-            Spacer(Modifier.height(defaultSpacerSize))
-        }
-        item {
-            PieStyledScreen(PieSampleData[0], "test")
-            Spacer(Modifier.height(defaultSpacerSize))
-        }
-        item {
-            PieStyledScreen(PieSampleData[0], "test")
+            TableStyledScreen(TableSampleData[1], "")
             Spacer(Modifier.height(defaultSpacerSize))
         }
     }

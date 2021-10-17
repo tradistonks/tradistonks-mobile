@@ -61,7 +61,7 @@ fun TableStyledScreenContainer() {
 
 
 @Composable
-fun TableStyledScreen(table: Pair<String, List<TableEntry>>) {
+fun TableStyledScreen(table: Pair<String, List<TableEntry>>, title: String) {
   Container(
     modifier = Modifier
       .fillMaxWidth()
@@ -69,7 +69,7 @@ fun TableStyledScreen(table: Pair<String, List<TableEntry>>) {
       .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
       .padding(16.dp)
       .animateContentSize(),
-    title = table.first
+    title = title
   ) {
     TableChart(
       modifier = Modifier.fillMaxWidth(),
