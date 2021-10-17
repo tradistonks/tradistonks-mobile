@@ -1,17 +1,19 @@
 package com.tradistonks.app.components.pages
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.charts.line.MyLineChartStrategy
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.auth.AuthentificationController
+
+private val defaultSpacerSize = 16.dp
 
 @Composable
 fun StrategyResult(
@@ -34,6 +36,9 @@ fun pageStrategyResult(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
+        Spacer(Modifier.height(defaultSpacerSize))
+        MyLineChartStrategy()
+        Spacer(Modifier.height(defaultSpacerSize))
 
     }
 }

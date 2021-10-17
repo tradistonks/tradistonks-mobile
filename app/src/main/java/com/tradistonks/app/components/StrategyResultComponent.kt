@@ -43,7 +43,7 @@ fun StrategyResultComponent(
             TextButton(onClick = {
                 navigateToStrategySummary(strategyId)
             }) {
-                Text("See resume")
+                Text("See orders resume")
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

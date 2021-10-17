@@ -85,7 +85,7 @@ fun DisplayMainTitleStrategySummary(strategyName: String){
         Text(
             text = strategyName.uppercase(),
             style = MaterialTheme.typography.h1,
-            color = colorBlue,
+            color = colorWhite,
             textAlign = TextAlign.Center,
         )
         Spacer(Modifier.height(defaultSpacerSize))
