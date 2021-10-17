@@ -56,7 +56,7 @@ fun PieStyledScreenContainer() {
 
 
 @Composable
-fun PieStyledScreen(data: PieChartData) {
+fun PieStyledScreen(data: PieChartData, title:String) {
     Container(
       modifier = Modifier
         .fillMaxWidth()
@@ -64,7 +64,7 @@ fun PieStyledScreen(data: PieChartData) {
         .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
         .padding(16.dp)
         .animateContentSize(),
-      title = "Pie - Legend::${data.legendPosition.name}"
+      title = title
     ) {
       PieChart(
         data = data,

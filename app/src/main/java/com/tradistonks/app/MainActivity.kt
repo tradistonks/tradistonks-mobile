@@ -17,13 +17,13 @@ import java.util.*
 
 var TOKEN = "yamete_senpai=s%3A5sAQkshwog65AuZxBqZuT214pmi82IL7.g92fGk5%2FQqkzc%2BI9FM5AWqDtJCgLWk626m9Winorsdk"
 var ORDER_LIST: List<Order> = listOf<Order>(
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time),
-    Order(type =  "Buy", symbol = "BB",quantity = 2, Date().time),
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time),
-    Order(type =  "Sell", symbol = "BB",quantity = 2, Date().time),
-    Order(type =  "Sell", symbol = "AAPL",quantity = 2, Date().time),
-    Order(type =  "Sell", symbol = "AAPL",quantity = 2, Date().time),
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2, Date().time)
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time),
+    Order(type =  "Buy", symbol = "BB",quantity = 2.0, Date().time),
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time),
+    Order(type =  "Sell", symbol = "BB",quantity = 2.0, Date().time),
+    Order(type =  "Sell", symbol = "AAPL",quantity = 2.0, Date().time),
+    Order(type =  "Sell", symbol = "AAPL",quantity = 2.0, Date().time),
+    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time)
 )
 
 var PREFERENCES: ProfilePreferences? = null

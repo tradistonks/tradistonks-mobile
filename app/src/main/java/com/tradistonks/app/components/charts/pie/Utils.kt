@@ -7,6 +7,7 @@ import com.tradistonks.app.components.charts.internal.DEG2RAD
 import com.tradistonks.app.components.charts.internal.FDEG2RAD
 import com.tradistonks.app.components.charts.internal.safeGet
 import com.tradistonks.app.components.charts.legend.LegendEntry
+import com.tradistonks.app.ui.theme.pieChartColors
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin

@@ -5,8 +5,8 @@ import androidx.compose.ui.text.AnnotatedString
 import com.tradistonks.app.components.charts.pie.LegendPosition
 import com.tradistonks.app.components.charts.pie.PieChartData
 import com.tradistonks.app.components.charts.pie.PieChartEntry
-import com.tradistonks.app.components.charts.sample.SimpleColors
 import com.tradistonks.app.models.Order
+import com.tradistonks.app.ui.theme.colors
 import java.util.stream.Collectors
 
 class PieChartHelper {
@@ -28,7 +28,7 @@ class PieChartHelper {
                             label = AnnotatedString(categories[idx])
                         )
                     },
-                    colors = SimpleColors,
+                    colors = colors,
                     legendPosition = it,
                     legendShape = CircleShape,
                 )
@@ -44,13 +44,14 @@ class PieChartHelper {
                             order.type == type }
                         .filter { order ->
                             order.symbol == category}
-                        .map(Order::quantity).sum().toDouble())
+                        .map(Order::quantity).sum())
             }
             return results
         }
 
         fun retrieveLegendOfData(orders: List<Order>): List<String> {
-            return orders.stream().map(Order::symbol).collect(Collectors.toList())
+            return orders.stream().map(Order::symbol).distinct()
+                .collect(Collectors.toList())
         }
     }
 }

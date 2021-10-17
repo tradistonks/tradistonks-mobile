@@ -30,6 +30,7 @@ private val defaultSpacerSize = 16.dp
 fun pageStrategyResultSummary(
     strategy: Strategy
 ) {
+    Spacer(Modifier.height(defaultSpacerSize))
     LazyColumn(
         modifier = Modifier.padding(horizontal = defaultSpacerSize)
     ) {
@@ -37,21 +38,11 @@ fun pageStrategyResultSummary(
         val buyData = pieDataStrategy["Buy"]
         val sellData = pieDataStrategy["Sell"]
         item {
-            Text(
-                text = "Buy Pourcentage for each currency",
-                style = MaterialTheme.typography.h2,
-                color = textColor
-            )
-            PieStyledScreen(buyData!![0])
+            PieStyledScreen(buyData!![0], "Buy Pourcentage")
             Spacer(Modifier.height(defaultSpacerSize))
         }
         item {
-            Text(
-                text = "Sell Pourcentage for each currency",
-                style = MaterialTheme.typography.h2,
-                color = textColor
-            )
-            PieStyledScreen(sellData!![0])
+            PieStyledScreen(sellData!![0], "Sell Pourcentage")
             Spacer(Modifier.height(defaultSpacerSize))
         }
         /*item {

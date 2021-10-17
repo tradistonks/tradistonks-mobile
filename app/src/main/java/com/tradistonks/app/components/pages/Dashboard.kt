@@ -38,15 +38,15 @@ fun DashboardContent( modifier: Modifier = Modifier) {
             Spacer(Modifier.height(defaultSpacerSize))
         }
         item {
-            PieStyledScreen(PieSampleData[0])
+            PieStyledScreen(PieSampleData[0], "test")
             Spacer(Modifier.height(defaultSpacerSize))
         }
         item {
-            PieStyledScreen(PieSampleData[0])
+            PieStyledScreen(PieSampleData[0], "test")
             Spacer(Modifier.height(defaultSpacerSize))
         }
         item {
-            PieStyledScreen(PieSampleData[0])
+            PieStyledScreen(PieSampleData[0], "test")
             Spacer(Modifier.height(defaultSpacerSize))
         }
     }

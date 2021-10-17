@@ -94,8 +94,15 @@ fun LiveDataComponentList(
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
+                                if(strategy.hasResults.value){
+                                    Text(
+                                        text = "Last run: ${strategy.last_run}",
+                                        style = MaterialTheme.typography.body1,
+                                        color = textColor
+                                    )
+                                }
                                 StrategyResultComponent(hasResults = strategy.hasResults.value,
-                                    strategy = strategy, Modifier, navController)
+                                    strategyId = strategy._id, Modifier, navController)
                                 CircularIndeterminateProgressBar(isDisplayed = strategy.loading.value,
                                     Modifier.align(Alignment.CenterHorizontally), colorBlue)
                             }

@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.StrategyResponse
 import com.tradistonks.app.models.responses.RunResultDto
 import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.models.responses.UserResponse
@@ -16,22 +17,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import java.util.stream.Collectors
 
 class StrategyController(var langController: LanguageController){
     var strategies: List<Strategy>? = null
     val loading = mutableStateOf(false)
 
+    fun getStrategyById(strategyId: String): Strategy{
+        return strategies!!.first { s -> s._id == strategyId }
+    }
+
     fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
-        StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<Strategy>>{
-            override fun onFailure(call: Call<List<Strategy>>, t: Throwable) {
+        StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<StrategyResponse>>{
+            override fun onFailure(call: Call<List<StrategyResponse>>, t: Throwable) {
                 Log.d("tradistonks-strategies", "Error : ${t.message}")
             }
 
             override fun onResponse(
-                call: Call<List<Strategy>>,
-                response: Response<List<Strategy>>
+                call: Call<List<StrategyResponse>>,
+                response: Response<List<StrategyResponse>>
             ) {
-                strategies = response.body()
+                var responseStrategies = response.body()
+                strategies = responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
+                    Collectors.toList())
                 Log.d(
                     "tradistonks-strategies",
                     "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $strategies"
@@ -54,6 +62,7 @@ class StrategyController(var langController: LanguageController){
                 var results: RunResultDto? = null
                 try {
                     results = Gson().fromJson(json, RunResultDto::class.java)
+                    //println(results.toString())
                 }
                 catch (e: Exception){
                     Log.d( "Exception",
@@ -62,7 +71,6 @@ class StrategyController(var langController: LanguageController){
                 }
                 if(results != null){
                     strategy.hasResults.value = true
-                    strategy.last_run = Date()
                     strategy.results = results
                 }
             }

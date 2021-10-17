@@ -21,6 +21,7 @@ import androidx.compose.ui.util.fastForEachIndexed
 import com.tradistonks.app.components.charts.internal.FDEG2RAD
 import com.tradistonks.app.components.charts.internal.FLOAT_EPSILON
 import com.tradistonks.app.components.charts.internal.safeGet
+import com.tradistonks.app.ui.theme.colors
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
@@ -74,7 +75,7 @@ internal fun PieChartRenderer(
 
     fractions.fastForEachIndexed { idx, sliceAngle ->
       val piecePaint = Paint().apply {
-        color = composeColors.safeGet(idx).toArgb()
+        color = colors.safeGet(idx).toArgb()
         isAntiAlias = true
       }
       var innerRadius = userInnerRadius

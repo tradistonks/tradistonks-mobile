@@ -98,25 +98,25 @@ fun MainMenu(authController: AuthentificationController) {
                         }, navController, authController
                     )
                 }
-                composable(DrawerScreens.StrategyResult.route + "/{strategy}",
+                composable(DrawerScreens.StrategyResultSummary.route + "/{strategyId}",
                 arguments = listOf(
-                        navArgument("strategy") { type = NavType.StringType }
+                        navArgument("strategyId") { type = NavType.StringType }
                         )
                 ) { backStackEntry ->
-                backStackEntry.arguments?.getString("strategy")?.let { json ->
-                    val strategy = Gson().fromJson(json, Strategy::class.java)
-                    StrategyResultSummary(openDrawer = {
-                        openDrawer()
-                    }, authController, strategy = strategy)
+                backStackEntry.arguments?.getString("strategyId")?.let { id ->
+                        val strategy = authController.stratController.getStrategyById(strategyId = id)
+                        StrategyResultSummary(openDrawer = {
+                            openDrawer()
+                        }, authController, strategy = strategy)
                     }
                 }
-                composable(DrawerScreens.StrategyResultSummary.route + "/{strategy}",
+                composable(DrawerScreens.StrategyResult.route + "/{strategyId}",
                     arguments = listOf(
-                        navArgument("strategy") { type = NavType.StringType }
+                        navArgument("strategyId") { type = NavType.StringType }
                     )
                 ) { backStackEntry ->
-                    backStackEntry.arguments?.getString("strategy")?.let { json ->
-                        val strategy = Gson().fromJson(json, Strategy::class.java)
+                    backStackEntry.arguments?.getString("strategyId")?.let { id ->
+                        val strategy = authController.stratController.getStrategyById(strategyId = id)
                         StrategyResult(openDrawer = {
                             openDrawer()
                         }, navController, authController, strategy = strategy)
