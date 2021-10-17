@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
@@ -40,7 +41,8 @@ private val notDisplayedScreens = listOf(
     DrawerScreens.Connexion,
     DrawerScreens.ModifyAccount,
     DrawerScreens.StrategyResultSummary,
-    DrawerScreens.StrategyResult
+    DrawerScreens.StrategyResult,
+    DrawerScreens.Dashboard
 )
 
 @Composable
@@ -57,11 +59,11 @@ fun Drawer(
             if(authController.user != null){
                 screens.forEach { screen ->
                     if(!notDisplayedScreens.contains(screen) ){
-                        Spacer(Modifier.height(32.dp))
+                        Spacer(Modifier.height(42.dp))
                         Text(
                             text = screen.title,
-                            style = MaterialTheme.typography.h1,
-                            color = textColor,
+                            style = MaterialTheme.typography.h6,
+                            color = colorPink,
                             modifier = Modifier.clickable {
                                 onDestinationClicked(screen.route)
                             }
