@@ -18,16 +18,14 @@ data class LineChartData(
       return min to max
     }
 
-  internal val maxYValue: Float =
+  internal var maxYValue: Float =
     yMinMax.second + ((yMinMax.second - yMinMax.first) * padBy / 100f)
-  internal val minYValue: Float
-    get() {
-      return if (startAtZero) {
+  internal var minYValue: Float =
+      if (startAtZero) {
         0f
       } else {
         yMinMax.first - ((yMinMax.second - yMinMax.first) * padBy / 100f)
       }
-    }
   internal val yRange = maxYValue - minYValue
 
 }

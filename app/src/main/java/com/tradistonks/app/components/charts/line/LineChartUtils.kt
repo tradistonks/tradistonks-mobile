@@ -73,10 +73,16 @@ object LineChartUtils {
     drawableArea: Rect,
     lineChartData: LineChartData,
     point: Point,
+    totalNbLabels: Int,
+    minValueData: Float,
+    maxValueData: Float,
+    maxValueCanvas: Float,
+    minValueCanvas: Float,
     index: Int
   ): Offset {
-    val x = (index.toFloat() / (lineChartData.points.size - 1))
-    val y = ((point.value - lineChartData.minYValue) / lineChartData.yRange)
+    println("calculateLinePath => index : $index point $point")
+    val x = (index.toFloat() / (totalNbLabels - 1))
+    val y = ((point.value - minValueCanvas) / (maxValueCanvas - minValueCanvas))
 
     return Offset(
       x = (x * drawableArea.width) + drawableArea.left,
@@ -108,10 +114,16 @@ object LineChartUtils {
   fun calculateLinePath(
     drawableArea: Rect,
     lineChartData: LineChartData,
-    transitionProgress: Float
+    transitionProgress: Float,
+    minValueData: Float,
+    maxValueData: Float,
+    maxValueCanvas: Float,
+    minValueCanvas: Float,
+    totalNbLabels: Int
   ): Path = Path().apply {
     var prevPointLocation: Offset? = null
     lineChartData.points.forEachIndexed { index, point ->
+      println("calculateLinePath => index : $index point $point")
       withProgress(
         index = index,
         transitionProgress = transitionProgress,
@@ -121,7 +133,12 @@ object LineChartUtils {
           drawableArea = drawableArea,
           lineChartData = lineChartData,
           point = point,
-          index = index
+          index = index,
+          minValueData = minValueData,
+          maxValueData = maxValueData,
+          maxValueCanvas = maxValueCanvas,
+          minValueCanvas = minValueCanvas,
+          totalNbLabels = totalNbLabels
         )
 
         if (index == 0) {
@@ -148,7 +165,12 @@ object LineChartUtils {
 
   fun calculateFillPath(drawableArea: Rect,
                         lineChartData: LineChartData,
-                        transitionProgress: Float
+                        transitionProgress: Float,
+                        minValueData : Float,
+                        maxValueData : Float,
+                        maxValueCanvas : Float,
+                        minValueCanvas : Float,
+                        totalNbLabels: Int
   ): Path = Path().apply {
 
     // we start from the bottom left
@@ -165,7 +187,12 @@ object LineChartUtils {
           drawableArea = drawableArea,
           lineChartData = lineChartData,
           point = point,
-          index = index
+          index = index,
+          minValueData = minValueData,
+          maxValueData = maxValueData,
+          maxValueCanvas = maxValueCanvas,
+          minValueCanvas = minValueCanvas,
+          totalNbLabels = totalNbLabels
         )
 
         if (index == 0) {

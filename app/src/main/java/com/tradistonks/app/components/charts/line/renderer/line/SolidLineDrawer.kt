@@ -4,10 +4,11 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.tradistonks.app.ui.theme.colorYellow
 
 data class SolidLineDrawer(
   val thickness: Dp = 3.dp,
-  val color: Color = Color.Cyan
+  val color: Color
 ) : LineDrawer {
   private val paint = Paint().apply {
     this.color = this@SolidLineDrawer.color

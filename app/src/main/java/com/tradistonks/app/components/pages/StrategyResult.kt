@@ -9,7 +9,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.charts.line.LineChartData
+import com.tradistonks.app.components.charts.line.LineChartScreenContent
 import com.tradistonks.app.components.charts.line.MyLineChartStrategy
+import com.tradistonks.app.components.charts.line.Point
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
@@ -31,13 +34,20 @@ fun pageStrategyResult(
     navController: NavHostController,
     authController: AuthentificationController
 ) {
+    val lineChartDataList = listOf(
+        LineChartData(points = listOf(Point(1f,"Label 1"), Point(3f,"Label 2"), Point(3f,"Label 3"))),
+        LineChartData(points = listOf(Point(0.5f,"Label 1"), Point(6f,"Label 2"))),
+        LineChartData(points = listOf(Point(2f,"Label 1"), Point(0.5f,"Label 2"))),
+        LineChartData(points = listOf(Point(3f,"Label 1"), Point(4f,"Label 2")))
+    )
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
         Spacer(Modifier.height(defaultSpacerSize))
-        MyLineChartStrategy()
+        //MyLineChartStrategy(Modifier)
+        LineChartScreenContent(lineChartDataList)
         Spacer(Modifier.height(defaultSpacerSize))
 
     }

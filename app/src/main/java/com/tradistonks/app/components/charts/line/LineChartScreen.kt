@@ -9,12 +9,18 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tradistonks.app.components.charts.line.renderer.animation.simpleChartAnimation
+import com.tradistonks.app.components.charts.line.renderer.xaxis.SimpleXAxisDrawer
+import com.tradistonks.app.components.charts.line.renderer.yaxis.SimpleYAxisDrawer
+import com.tradistonks.app.ui.theme.Margins
 import com.tradistonks.app.ui.theme.Margins.horizontal
 import com.tradistonks.app.ui.theme.Margins.vertical
 import com.tradistonks.app.ui.theme.Margins.verticalLarge
+import com.tradistonks.app.ui.theme.colors
+import java.util.stream.Collectors
 
 @Composable
-fun LineChartScreen() {
+fun LineChartScreen(lineChartDataList: List<LineChartData>) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -26,11 +32,11 @@ fun LineChartScreen() {
                 title = { Text(text = "Line Chart") }
             )
         },
-    ) { LineChartScreenContent() }
+    ) { LineChartScreenContent(lineChartDataList) }
 }
 
 @Composable
-fun LineChartScreenContent() {
+fun LineChartScreenContent(lineChartDataList: List<LineChartData>) {
     val lineChartDataModel = LineChartDataModel()
 
     Column(
@@ -39,8 +45,8 @@ fun LineChartScreenContent() {
             vertical = vertical
         )
     ) {
-        LineChartRow(lineChartDataModel)
-        HorizontalOffsetSelector(lineChartDataModel)
+        LineChartRow(lineChartDataList, lineChartDataModel)
+        //HorizontalOffsetSelector(lineChartDataModel)
         OffsetProgress(lineChartDataModel)
     }
 }
@@ -101,20 +107,22 @@ fun OffsetProgress(lineChartDataModel: LineChartDataModel) {
 }
 
 @Composable
-fun LineChartRow(lineChartDataModel: LineChartDataModel) {
+fun LineChartRow(lineChartDataList: List<LineChartData>, lineChartDataModel: LineChartDataModel) {
+    val listPoints: List<List<Point>> = lineChartDataList.stream().map{ l -> l.points}.collect(Collectors.toList())
+    val points: List<Point> = listPoints.flatMap { it.toList() }
+    val labels: List<String> = points.stream().map(Point::label).distinct().collect(Collectors.toList())
+
     Box(
         modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
     ) {
         LineChart(
-            lineChartData = lineChartDataModel.lineChartData,
+            colors = colors,
+            labels = labels,
+            allPoints = points,
+            lineChartDataList = lineChartDataList,
             horizontalOffset = lineChartDataModel.horizontalOffset,
-            pointDrawer = lineChartDataModel.pointDrawer
         )
     }
 }
-
-@Preview
-@Composable
-fun LineChartPreview() = LineChartScreen()

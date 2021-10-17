@@ -13,14 +13,15 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tradistonks.app.components.charts.line.toLegacyInt
+import com.tradistonks.app.ui.theme.colorWhite
 
 class SimpleXAxisDrawer(
   private val labelTextSize: TextUnit = 12.sp,
-  private val labelTextColor: Color = Color.Black,
+  private val labelTextColor: Color = colorWhite,
   /** 1 means we draw everything. 2 means we draw every other, and so on. */
   private val labelRatio: Int = 1,
   private val axisLineThickness: Dp = 1.dp,
-  private val axisLineColor: Color = Color.Black
+  private val axisLineColor: Color = colorWhite
 ) : XAxisDrawer {
   private val axisLinePaint = Paint().apply {
     isAntiAlias = true

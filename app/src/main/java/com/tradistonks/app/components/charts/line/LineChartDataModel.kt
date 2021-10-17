@@ -6,28 +6,16 @@ import com.tradistonks.app.components.charts.line.renderer.point.FilledCircularP
 import com.tradistonks.app.components.charts.line.renderer.point.HollowCircularPointDrawer
 import com.tradistonks.app.components.charts.line.renderer.point.NoPointDrawer
 import com.tradistonks.app.components.charts.line.renderer.point.PointDrawer
+import com.tradistonks.app.ui.theme.colorRed
 
 class LineChartDataModel {
-    var lineChartData by mutableStateOf(
-        LineChartData(
-            points = listOf(
-                Point(randomYValue(), "Label1"),
-                Point(randomYValue(), "Label2"),
-                Point(randomYValue(), "Label3"),
-                Point(randomYValue(), "Label4"),
-                Point(randomYValue(), "Label5"),
-                Point(randomYValue(), "Label6"),
-                Point(randomYValue(), "Label7")
-            )
-        )
-    )
     var horizontalOffset by mutableStateOf(5f)
     var pointDrawerType by mutableStateOf(PointDrawerType.Filled)
     val pointDrawer: PointDrawer
         get() {
             return when (pointDrawerType) {
                 PointDrawerType.None -> NoPointDrawer
-                PointDrawerType.Filled -> FilledCircularPointDrawer()
+                PointDrawerType.Filled -> FilledCircularPointDrawer(color = colorRed)
                 PointDrawerType.Hollow -> HollowCircularPointDrawer()
             }
         }
