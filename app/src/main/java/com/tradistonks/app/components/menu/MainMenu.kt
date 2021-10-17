@@ -107,7 +107,7 @@ fun MainMenu(authController: AuthentificationController) {
                         val strategy = authController.stratController.getStrategyById(strategyId = id)
                         StrategyResultSummary(openDrawer = {
                             openDrawer()
-                        }, authController, strategy = strategy)
+                        }, authController, strategy = strategy, navController)
                     }
                 }
                 composable(DrawerScreens.StrategyResult.route + "/{strategyId}",

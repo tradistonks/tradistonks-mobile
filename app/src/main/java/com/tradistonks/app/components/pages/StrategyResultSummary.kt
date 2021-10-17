@@ -2,23 +2,22 @@ package com.tradistonks.app.components.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
-import com.tradistonks.app.components.charts.sample.TableSampleData
 import com.tradistonks.app.components.charts.sample.pie.PieStyledScreen
 import com.tradistonks.app.components.charts.sample.table.TableStyledScreen
 import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.ui.theme.colorBlue
-import com.tradistonks.app.ui.theme.colorGreen
-import com.tradistonks.app.ui.theme.textColor
+import com.tradistonks.app.ui.theme.*
 import com.tradistonks.app.web.helper.ChartHelper
 import com.tradistonks.app.web.helper.PieChartHelper
 import com.tradistonks.app.web.helper.TableChartHelper
@@ -28,15 +27,17 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 fun StrategyResultSummary(
     openDrawer: () -> Unit,
     authController: AuthentificationController,
-    strategy: Strategy
+    strategy: Strategy,
+    navController: NavHostController
 ) {
-    Page(authController, openDrawer, stringResource(R.string.title_page_strategy_summary), { pageStrategyResultSummary(strategy) })
+    Page(authController, openDrawer, stringResource(R.string.title_page_strategy_summary), { pageStrategyResultSummary(strategy, navController) })
 }
 private val defaultSpacerSize = 16.dp
 
 @Composable
 fun pageStrategyResultSummary(
-    strategy: Strategy
+    strategy: Strategy,
+    navController: NavHostController
 ) {
     Spacer(Modifier.height(defaultSpacerSize))
     LazyColumn(
@@ -68,7 +69,7 @@ fun pageStrategyResultSummary(
         }
         item {
             PieStyledScreen(sellData!![0], "Sell Pourcentage")
-            Spacer(Modifier.height(defaultSpacerSize))
+            NavigateButtonStrategies(navController)
         }
     }
 }
@@ -114,4 +115,23 @@ fun DisplaySecondaryTitleStrategySummary(){
         )
         Spacer(Modifier.height(defaultSpacerSize))
     }
+}
+
+@Composable
+fun NavigateButtonStrategies(navController: NavHostController){
+
+    Spacer(Modifier.height(defaultSpacerSize))
+    Button(
+        onClick = {
+            navController.navigate("strategies")
+        },
+        colors = ButtonDefaults.buttonColors(backgroundColor = colorWhite),
+    ) {
+        Icon(
+            Icons.Outlined.KeyboardArrowLeft,
+            contentDescription = "",
+            tint = colorBlack
+        )
+    }
+    Spacer(Modifier.height(defaultSpacerSize))
 }
