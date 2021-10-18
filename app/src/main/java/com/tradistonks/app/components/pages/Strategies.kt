@@ -65,6 +65,7 @@ fun LiveDataComponentList(
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(items = strategyList, itemContent = { strategy ->
+            Spacer(modifier = Modifier.height(16.dp))
             Card(
                 border = BorderStroke(1.dp, colorGreen),
                 shape = RoundedCornerShape(4.dp),

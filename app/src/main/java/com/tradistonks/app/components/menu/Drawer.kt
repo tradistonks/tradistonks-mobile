@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.ui.theme.colorPink
+import com.tradistonks.app.ui.theme.colorWhite
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
@@ -63,7 +64,7 @@ fun Drawer(
                         Text(
                             text = screen.title,
                             style = MaterialTheme.typography.h6,
-                            color = colorPink,
+                            color = colorWhite,
                             modifier = Modifier.clickable {
                                 onDestinationClicked(screen.route)
                             }

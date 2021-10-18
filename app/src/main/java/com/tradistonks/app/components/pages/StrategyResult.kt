@@ -15,6 +15,7 @@ import com.tradistonks.app.components.charts.line.MyLineChartStrategy
 import com.tradistonks.app.components.charts.line.Point
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import java.util.*
 
 private val defaultSpacerSize = 16.dp
 
@@ -35,10 +36,10 @@ fun pageStrategyResult(
     authController: AuthentificationController
 ) {
     val lineChartDataList = listOf(
-        LineChartData(points = listOf(Point(1f,"Label 1"), Point(3f,"Label 2"), Point(3f,"Label 3"))),
-        LineChartData(points = listOf(Point(0.5f,"Label 1"), Point(6f,"Label 2"))),
-        LineChartData(points = listOf(Point(2f,"Label 1"), Point(0.5f,"Label 2"))),
-        LineChartData(points = listOf(Point(3f,"Label 1"), Point(4f,"Label 2")))
+        LineChartData(points = listOf(Point(1f, "label 1"), Point(3f,"label 2"), Point(3f,"label 3"))),
+        LineChartData(points = listOf(Point(0.5f,"label 1"), Point(6f,"label 2"))),
+        /*LineChartData(points = listOf(Point(2f,"Label 1"), Point(0.5f,"Label 2"))),
+        LineChartData(points = listOf(Point(3f,"Label 1"), Point(4f,"Label 2")))*/
     )
     Column(
         modifier = Modifier.fillMaxSize(),

@@ -17,6 +17,7 @@ import com.tradistonks.app.ui.theme.Margins.horizontal
 import com.tradistonks.app.ui.theme.Margins.vertical
 import com.tradistonks.app.ui.theme.Margins.verticalLarge
 import com.tradistonks.app.ui.theme.colors
+import com.tradistonks.app.web.helper.LineChartHelper
 import java.util.stream.Collectors
 
 @Composable
@@ -110,7 +111,13 @@ fun OffsetProgress(lineChartDataModel: LineChartDataModel) {
 fun LineChartRow(lineChartDataList: List<LineChartData>, lineChartDataModel: LineChartDataModel) {
     val listPoints: List<List<Point>> = lineChartDataList.stream().map{ l -> l.points}.collect(Collectors.toList())
     val points: List<Point> = listPoints.flatMap { it.toList() }
-    val labels: List<String> = points.stream().map(Point::label).distinct().collect(Collectors.toList())
+
+    lateinit var labels: List<String>
+    if(LineChartHelper.isTimeStampValid(points[0].label)){
+        labels = LineChartHelper.createNumericLabels(points, 5, true)
+    }else{
+        labels = LineChartHelper.createNumericLabels(points, 5, false)
+    }
 
     Box(
         modifier = Modifier
