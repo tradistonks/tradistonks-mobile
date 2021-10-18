@@ -21,7 +21,8 @@ class SimpleXAxisDrawer(
   /** 1 means we draw everything. 2 means we draw every other, and so on. */
   private val labelRatio: Int = 1,
   private val axisLineThickness: Dp = 1.dp,
-  private val axisLineColor: Color = colorWhite
+  private val axisLineColor: Color = colorWhite,
+  private val orientation: Int = 45
 ) : XAxisDrawer {
   private val axisLinePaint = Paint().apply {
     isAntiAlias = true
@@ -83,7 +84,10 @@ class SimpleXAxisDrawer(
           val x = drawableArea.left + (labelIncrements * (index))
           val y = drawableArea.bottom
 
+          canvas.nativeCanvas.save()
+          canvas.nativeCanvas.rotate(-80f, x, y)
           canvas.nativeCanvas.drawText(label, x, y, labelPaint)
+          canvas.nativeCanvas.restore()
         }
       }
     }

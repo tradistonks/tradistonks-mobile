@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import com.tradistonks.app.components.charts.line.Point
 import com.tradistonks.app.models.Order
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.ProfilePreferences
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import com.tradistonks.app.web.helper.LineChartHelper
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.language.LanguageController
 import com.tradistonks.app.web.services.strategy.StrategyController
@@ -34,7 +36,6 @@ class MainActivity : ComponentActivity() {
     val strategyController: StrategyController = StrategyController(languageController)
     val authentificationController: AuthentificationController =
         AuthentificationController(strategyController)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PREFERENCES = ProfilePreferences(this)

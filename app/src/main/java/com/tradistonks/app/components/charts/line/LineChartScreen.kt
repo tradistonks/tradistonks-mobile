@@ -1,53 +1,94 @@
 package com.tradistonks.app.components.charts.line
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.tradistonks.app.components.charts.line.renderer.animation.simpleChartAnimation
-import com.tradistonks.app.components.charts.line.renderer.xaxis.SimpleXAxisDrawer
-import com.tradistonks.app.components.charts.line.renderer.yaxis.SimpleYAxisDrawer
-import com.tradistonks.app.ui.theme.Margins
+import androidx.compose.ui.unit.sp
+import com.tradistonks.app.components.charts.ChartShape
+import com.tradistonks.app.components.charts.Container
+import com.tradistonks.app.components.charts.internal.safeGet
+import com.tradistonks.app.components.charts.legend.LegendChartLineEntry
 import com.tradistonks.app.ui.theme.Margins.horizontal
 import com.tradistonks.app.ui.theme.Margins.vertical
 import com.tradistonks.app.ui.theme.Margins.verticalLarge
 import com.tradistonks.app.ui.theme.colors
+import com.tradistonks.app.web.helper.LineChartHelper
+
 import java.util.stream.Collectors
 
 @Composable
-fun LineChartScreen(lineChartDataList: List<LineChartData>) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = { ChartScreenStatus.navigateHome() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Go back to home")
-                    }
-                },
-                title = { Text(text = "Line Chart") }
-            )
-        },
-    ) { LineChartScreenContent(lineChartDataList) }
+fun LineChartScreenContentTimestamp(
+    lineChartDataTimestampList: List<LineChartDataWithTimestamp>,
+    points: ArrayList<PointWithTimestampLabel>,
+    symbols: MutableList<String>
+) {
+    val lineChartDataModel =
+        com.tradistonks.app.components.charts.line.LineChartDataModel()
+    Container(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .border(BorderStroke(1.dp, Color.LightGray), shape = RoundedCornerShape(16.dp))
+            .padding(16.dp)
+            .animateContentSize(),
+        title = "All Results"
+    ) {
+        LineChartTimestampRow(lineChartDataTimestampList, points, lineChartDataModel)
+        Spacer(Modifier.height(50.dp))
+        OffsetProgress(lineChartDataModel)
+
+        val entries = createEntriesForLegend(symbols)
+        CustomVerticalLegend(entries)
+    }
 }
 
-@Composable
-fun LineChartScreenContent(lineChartDataList: List<LineChartData>) {
-    val lineChartDataModel = LineChartDataModel()
-
-    Column(
-        modifier = Modifier.padding(
-            horizontal = horizontal,
-            vertical = vertical
+fun createEntriesForLegend(symbolsList: List<String>): List<LegendChartLineEntry> =
+    symbolsList.mapIndexed { index, item ->
+        LegendChartLineEntry(
+            text = item,
+            shape = ChartShape(
+                color = colors.safeGet(index),
+                shape = CircleShape,
+                size = 8.dp,
+            )
         )
-    ) {
-        LineChartRow(lineChartDataList, lineChartDataModel)
-        //HorizontalOffsetSelector(lineChartDataModel)
-        OffsetProgress(lineChartDataModel)
+    }
+@Composable
+private fun CustomVerticalLegend(entries: List<LegendChartLineEntry>) {
+    Column {
+        entries.forEachIndexed { idx, item ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(vertical = 14.dp)
+            ) {
+                Box(
+                    Modifier
+                        .requiredSize(item.shape.size)
+                        .background(item.shape.color, item.shape.shape)
+                )
+
+                Spacer(modifier = Modifier.requiredSize(8.dp))
+                Text(
+                    text = item.text,
+                    style = MaterialTheme.typography.caption.copy(fontSize = 14.sp),
+                )
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            if (idx != entries.lastIndex)
+                Divider()
+        }
     }
 }
 
@@ -107,22 +148,29 @@ fun OffsetProgress(lineChartDataModel: LineChartDataModel) {
 }
 
 @Composable
-fun LineChartRow(lineChartDataList: List<LineChartData>, lineChartDataModel: LineChartDataModel) {
-    val listPoints: List<List<Point>> = lineChartDataList.stream().map{ l -> l.points}.collect(Collectors.toList())
-    val points: List<Point> = listPoints.flatMap { it.toList() }
-    val labels: List<String> = points.stream().map(Point::label).distinct().collect(Collectors.toList())
+fun LineChartTimestampRow(
+    lineChartDataTimestampList: List<LineChartDataWithTimestamp>,
+    points: ArrayList<PointWithTimestampLabel>,
+    lineChartDataModel: LineChartDataModel
+) {
+    lineChartDataModel.pointDrawerType = LineChartDataModel.PointDrawerType.None
+    val labels: List<String> = LineChartHelper.createLineChartLabelsTimestamp(points, step= 5)
+    val minAndMaxLabels = LineChartHelper.findMinMaxOfLabelsLong(points.map(PointWithTimestampLabel::timestamp))
 
     Box(
         modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
     ) {
-        LineChart(
+        LineChartTimestamp(
             colors = colors,
             labels = labels,
             allPoints = points,
-            lineChartDataList = lineChartDataList,
+            pointDrawer = lineChartDataModel.pointDrawer,
+            lineChartDataList = lineChartDataTimestampList,
             horizontalOffset = lineChartDataModel.horizontalOffset,
+            minValueLabelData = minAndMaxLabels.first.toFloat(),
+            maxValueLabelData = minAndMaxLabels.second.toFloat()
         )
     }
 }

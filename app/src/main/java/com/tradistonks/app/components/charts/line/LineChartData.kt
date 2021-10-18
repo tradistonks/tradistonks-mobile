@@ -30,5 +30,37 @@ data class LineChartData(
 
 }
 
+data class LineChartDataWithTimestamp(
+  val points: List<PointWithTimestampLabel>,
+  /** This is percentage we pad yValue by.**/
+  val padBy: Float = 20f,
+  val startAtZero: Boolean = false
+) {
+  init {
+    require(padBy in 0f..100f)
+  }
+
+  private val yMinMax: Pair<Float, Float>
+    get() {
+      val min = points.minByOrNull { it.value.toFloat() }?.value ?: 0f
+      val max = points.maxByOrNull { it.value.toFloat() }?.value ?: 0f
+
+      return min.toFloat() to max.toFloat()
+    }
+
+  internal var maxYValue: Float =
+    yMinMax.second + ((yMinMax.second - yMinMax.first) * padBy / 100f)
+  internal var minYValue: Float =
+    if (startAtZero) {
+      0f
+    } else {
+      yMinMax.first - ((yMinMax.second - yMinMax.first) * padBy / 100f)
+    }
+  internal val yRange = maxYValue - minYValue
+
+}
+
 
 data class Point(val value: Float, val label: String)
+
+data class PointWithTimestampLabel(val label: String, val value: Number, val timestamp: Long)

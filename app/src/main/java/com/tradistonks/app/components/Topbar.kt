@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.sp
 import com.tradistonks.app.web.services.auth.AuthentificationController
 
 @Composable
@@ -22,7 +23,8 @@ fun Bar(title: String = "", buttonIcon: ImageVector?, onButtonClicked: () -> Uni
     TopAppBar(
         title = {
             Text(
-                text = title
+                text = title,
+                fontSize =  20.sp
             )
         },
         navigationIcon = {
