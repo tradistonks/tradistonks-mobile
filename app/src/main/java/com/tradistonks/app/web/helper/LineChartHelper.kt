@@ -119,5 +119,10 @@ class LineChartHelper {
             return dateList
         }
 
+        fun createLabelTimestamp(value: Long): String {
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            return sdf.format(Date(value * 1000))
+        }
+
     }
 }

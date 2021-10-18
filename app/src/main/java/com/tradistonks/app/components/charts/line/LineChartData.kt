@@ -63,4 +63,4 @@ data class LineChartDataWithTimestamp(
 
 data class Point(val value: Float, val label: String)
 
-data class PointWithTimestampLabel(val value: Number, val timestamp: Long)
+data class PointWithTimestampLabel(val label: String, val value: Number, val timestamp: Long)

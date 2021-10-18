@@ -1,20 +1,38 @@
 package com.tradistonks.app.components.pages
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.components.charts.Container
+import com.tradistonks.app.components.charts.legend.LegendChartLineEntry
+import com.tradistonks.app.components.charts.legend.LegendEntry
 import com.tradistonks.app.components.charts.line.*
-import com.tradistonks.app.components.charts.line.LineChartScreenContent
+import com.tradistonks.app.components.charts.pie.PieChart
+import com.tradistonks.app.components.charts.sample.buildValuePercentString
 import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.web.helper.LineChartHelper
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import java.time.Instant
 import java.util.*
+import java.util.stream.Collector
+import java.util.stream.Collectors
+import kotlin.collections.ArrayList
 
 private val defaultSpacerSize = 16.dp
 
@@ -34,29 +52,25 @@ fun pageStrategyResult(
     navController: NavHostController,
     authController: AuthentificationController
 ) {
-    val lineChartDataList = listOf(
-        LineChartData(points = listOf(Point(1f, "label 1"), Point(3f,"label 2"), Point(3f,"label 3"))),
-        LineChartData(points = listOf(Point(0.5f,"label 1"), Point(6f,"label 2"))),
-        /*LineChartData(points = listOf(Point(2f,"Label 1"), Point(0.5f,"Label 2"))),
-        LineChartData(points = listOf(Point(3f,"Label 1"), Point(4f,"Label 2")))*/
-    )
-    val lineChartDataWithTimestampList = listOf(
-        LineChartDataWithTimestamp(points = listOf(PointWithTimestampLabel(1, 1632340800), PointWithTimestampLabel(3,1634131800), PointWithTimestampLabel(3,1634131800))),
-        LineChartDataWithTimestamp(points = listOf(PointWithTimestampLabel(0.5,1634132100), PointWithTimestampLabel(6,1634132100))),
-    )
+    val pnl = strategy.results!!.pnl!!
+    val timestamps = pnl.keys
+    val lineChartDataWithTimestampList: ArrayList<LineChartDataWithTimestamp> = ArrayList()
+    val points: ArrayList<PointWithTimestampLabel> = ArrayList()
 
-    println(lineChartDataWithTimestampList.toString())
+    for (i in timestamps.indices) {
+        val timestamp = timestamps.elementAt(i)
 
-    /*Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        val stratController = authController.stratController
-        Spacer(Modifier.height(defaultSpacerSize))
-        LineChartScreenContent(lineChartDataList)
-        Spacer(Modifier.height(defaultSpacerSize))
-        NavigateButtonStrategies(navController)
-    }*/
+        for (symbol in pnl.getValue(timestamp)) {
+            points.add(PointWithTimestampLabel(symbol.key, symbol.value, timestamp.toLong()))
+        }
+    }
+    val symbols = points.stream().map(PointWithTimestampLabel::label).distinct().collect(Collectors.toList())
+
+    points.map(PointWithTimestampLabel::timestamp).sortedDescending().reversed()
+    for(symbol in symbols){
+        lineChartDataWithTimestampList.add(LineChartDataWithTimestamp(
+            points.stream().filter { point-> point.label == symbol }.collect(Collectors.toList())))
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -64,8 +78,10 @@ fun pageStrategyResult(
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
         Spacer(Modifier.height(defaultSpacerSize))
-        LineChartScreenContentTimestamp(lineChartDataWithTimestampList)
+        LineChartScreenContentTimestamp(lineChartDataWithTimestampList, points, symbols)
         Spacer(Modifier.height(defaultSpacerSize))
-        NavigateButtonStrategies(navController)
+    }
+    Column(modifier = Modifier.padding(horizontal = defaultSpacerSize)){
+        NavigateButtonStrategies(navController = navController)
     }
 }

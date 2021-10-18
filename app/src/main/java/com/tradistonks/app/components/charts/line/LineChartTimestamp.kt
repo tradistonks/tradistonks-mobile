@@ -35,6 +35,7 @@ import com.tradistonks.app.components.charts.line.renderer.yaxis.YAxisDrawer
 fun LineChartTimestamp(
   colors: List<Color>,
   labels: List<String>,
+  pointDrawer: PointDrawer,
   allPoints: List<PointWithTimestampLabel>,
   lineChartDataList: List<LineChartDataWithTimestamp>,
   modifier: Modifier = Modifier,
@@ -50,7 +51,6 @@ fun LineChartTimestamp(
     "Horizontal offset is the % offset from sides, " +
             "and should be between 0%-25%"
   }
-  println(allPoints.toString())
 
   val maxValueCanvas: Float = lineChartDataList.map(LineChartDataWithTimestamp::maxYValue).sortedDescending()[0]
   val minValueCanvas: Float = lineChartDataList.map(LineChartDataWithTimestamp::minYValue).sortedDescending().reversed()[0]
@@ -71,7 +71,7 @@ fun LineChartTimestamp(
     drawIntoCanvas { canvas ->
       for (index in lineChartDataList.indices) {
         val color = colors[index]
-        val pointDrawer: PointDrawer = FilledCircularPointDrawer(color = color)
+        //val pointDrawer: PointDrawer = FilledCircularPointDrawer(color = color)
         val minValueData = lineChartDataList[0].minYValue
         val maxValueData = lineChartDataList[0].maxYValue
 
@@ -115,7 +115,6 @@ fun LineChartTimestamp(
         canvas = canvas,
         drawableArea = yAxisDrawableArea
       )
-
 
       yAxisDrawer.drawAxisLabels(
         drawScope = this,

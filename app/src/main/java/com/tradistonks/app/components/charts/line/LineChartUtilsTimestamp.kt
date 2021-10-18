@@ -65,7 +65,7 @@ object LineChartUtilsTimestamp {
     return Rect(
       left = 0f,
       top = 0f,
-      bottom = size.height - xAxisLabelSize - label.length/ 2,
+      bottom = size.height - xAxisLabelSize,
       right = right
     )
   }
