@@ -1,6 +1,5 @@
-package com.tradistonks.app.models.responses
+package com.tradistonks.app.models.responses.strategy
 
-import com.tradistonks.app.components.charts.pie.PieChartData
 import com.tradistonks.app.models.Order
 
 data class RunResultDto(

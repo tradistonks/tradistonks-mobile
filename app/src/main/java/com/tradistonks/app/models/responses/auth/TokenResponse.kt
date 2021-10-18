@@ -1,4 +1,4 @@
-package com.tradistonks.app.models.responses
+package com.tradistonks.app.models.responses.auth
 
 import java.util.*
 

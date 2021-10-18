@@ -2,7 +2,7 @@ package com.tradistonks.app.models
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.tradistonks.app.models.responses.RunResultDto
+import com.tradistonks.app.models.responses.strategy.RunResultDto
 import java.util.*
 
 data class Strategy (

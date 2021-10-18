@@ -20,7 +20,7 @@ import androidx.navigation.NavHostController
 import com.tradistonks.app.components.CircularIndeterminateProgressBar
 import com.tradistonks.app.components.StrategyResultComponent
 import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.responses.TokenResponse
+import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.ui.theme.colorBlue
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorGreen

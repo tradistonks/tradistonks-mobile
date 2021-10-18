@@ -8,9 +8,8 @@ import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.StrategyResponse
-import com.tradistonks.app.models.responses.RunResultDto
-import com.tradistonks.app.models.responses.TokenResponse
-import com.tradistonks.app.models.responses.UserResponse
+import com.tradistonks.app.models.responses.auth.TokenResponse
+import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.repository.StrategyRepository
 import com.tradistonks.app.web.services.language.LanguageController
 import retrofit2.Call

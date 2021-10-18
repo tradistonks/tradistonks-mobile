@@ -3,7 +3,7 @@ package com.tradistonks.app.web.helper
 import android.util.Log
 import com.tradistonks.app.ACCESS_TOKEN
 import com.tradistonks.app.PREFERENCES
-import com.tradistonks.app.models.responses.TokenResponse
+import com.tradistonks.app.models.responses.auth.TokenResponse
 
 class AuthentificationHelper {
     companion object {

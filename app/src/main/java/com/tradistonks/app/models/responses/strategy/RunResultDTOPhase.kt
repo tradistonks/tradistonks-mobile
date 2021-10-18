@@ -1,4 +1,4 @@
-package com.tradistonks.app.models.responses
+package com.tradistonks.app.models.responses.strategy
 
 data class RunResultDTOPhase(
     val name: String,

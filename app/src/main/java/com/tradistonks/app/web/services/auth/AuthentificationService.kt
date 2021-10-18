@@ -5,9 +5,8 @@ import com.tradistonks.app.models.login.Login
 import retrofit2.Call
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
-import com.tradistonks.app.models.responses.AuthCallbackDto
-import com.tradistonks.app.models.responses.ConsentResponseDto
-import com.tradistonks.app.models.responses.UserResponse
+import com.tradistonks.app.models.responses.auth.AuthCallbackDto
+import com.tradistonks.app.models.responses.auth.ConsentResponseDto
 import com.tradistonks.app.models.user.UserUpdateRequest
 import retrofit2.http.*
 

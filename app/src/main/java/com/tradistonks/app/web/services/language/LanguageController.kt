@@ -2,13 +2,10 @@ package com.tradistonks.app.web.services.language
 
 import android.util.Log
 import androidx.navigation.NavHostController
-import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
-import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.Language
-import com.tradistonks.app.models.responses.TokenResponse
+import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.repository.LanguageRepository
-import com.tradistonks.app.repository.StrategyRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

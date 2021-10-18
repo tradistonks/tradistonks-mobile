@@ -8,10 +8,10 @@ import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
-import com.tradistonks.app.models.responses.TokenResponse
 import com.tradistonks.app.models.register.Register
 import com.tradistonks.app.models.register.RegisterResponse
-import com.tradistonks.app.models.responses.UserResponse
+import com.tradistonks.app.models.responses.auth.TokenResponse
+import com.tradistonks.app.models.responses.auth.UserResponse
 import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.repository.AuthentificationRepository
 import com.tradistonks.app.web.services.strategy.StrategyController
