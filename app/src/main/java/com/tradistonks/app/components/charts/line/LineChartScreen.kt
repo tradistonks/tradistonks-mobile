@@ -7,18 +7,14 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tradistonks.app.components.charts.line.renderer.animation.simpleChartAnimation
-import com.tradistonks.app.components.charts.line.renderer.xaxis.SimpleXAxisDrawer
-import com.tradistonks.app.components.charts.line.renderer.yaxis.SimpleYAxisDrawer
-import com.tradistonks.app.ui.theme.Margins
 import com.tradistonks.app.ui.theme.Margins.horizontal
 import com.tradistonks.app.ui.theme.Margins.vertical
 import com.tradistonks.app.ui.theme.Margins.verticalLarge
 import com.tradistonks.app.ui.theme.colors
 import com.tradistonks.app.web.helper.LineChartHelper
 import java.util.stream.Collectors
+import com.tradistonks.app.components.charts.line.LineChartDataModel
 
 @Composable
 fun LineChartScreen(lineChartDataList: List<LineChartData>) {
@@ -34,6 +30,23 @@ fun LineChartScreen(lineChartDataList: List<LineChartData>) {
             )
         },
     ) { LineChartScreenContent(lineChartDataList) }
+}
+
+
+@Composable
+fun LineChartScreenContentTimestamp(lineChartDataTimestampList: List<LineChartDataWithTimestamp>) {
+    val lineChartDataModel = LineChartDataModel()
+
+    Column(
+        modifier = Modifier.padding(
+            horizontal = horizontal,
+            vertical = vertical
+        )
+    ) {
+        LineChartTimestampRow(lineChartDataTimestampList, lineChartDataModel)
+        //HorizontalOffsetSelector(lineChartDataModel)
+        OffsetProgress(lineChartDataModel)
+    }
 }
 
 @Composable
@@ -111,13 +124,7 @@ fun OffsetProgress(lineChartDataModel: LineChartDataModel) {
 fun LineChartRow(lineChartDataList: List<LineChartData>, lineChartDataModel: LineChartDataModel) {
     val listPoints: List<List<Point>> = lineChartDataList.stream().map{ l -> l.points}.collect(Collectors.toList())
     val points: List<Point> = listPoints.flatMap { it.toList() }
-
-    lateinit var labels: List<String>
-    if(LineChartHelper.isTimeStampValid(points[0].label)){
-        labels = LineChartHelper.createNumericLabels(points, 5, true)
-    }else{
-        labels = LineChartHelper.createNumericLabels(points, 5, false)
-    }
+    val labels: List<String> = points.stream().map(Point::label).distinct().collect(Collectors.toList())
 
     Box(
         modifier = Modifier
@@ -129,7 +136,30 @@ fun LineChartRow(lineChartDataList: List<LineChartData>, lineChartDataModel: Lin
             labels = labels,
             allPoints = points,
             lineChartDataList = lineChartDataList,
+            horizontalOffset = lineChartDataModel.horizontalOffset
+        )
+    }
+}
+
+@Composable
+fun LineChartTimestampRow(lineChartDataTimestampList: List<LineChartDataWithTimestamp>, lineChartDataModel: LineChartDataModel) {
+    val listPoints: List<List<PointWithTimestampLabel>> = lineChartDataTimestampList.stream().map{ l -> l.points}.collect(Collectors.toList())
+    val points: List<PointWithTimestampLabel> = listPoints.flatMap { it.toList() }
+    val labels: List<String> = LineChartHelper.createLineChartLabelsTimestamp(points, step= 5)
+    val minAndMaxLabels = LineChartHelper.findMinMaxOfLabelsLong(points.map(PointWithTimestampLabel::timestamp))
+
+    Box(
+        modifier = Modifier
+            .height(250.dp)
+            .fillMaxWidth()
+    ) {
+        LineChartTimestamp(
+            colors = colors,
+            labels = labels,
+            allPoints = points,
+            lineChartDataList = lineChartDataTimestampList,
             horizontalOffset = lineChartDataModel.horizontalOffset,
+            minAndMaxLabelValue = minAndMaxLabels
         )
     }
 }

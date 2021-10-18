@@ -2,6 +2,7 @@ package com.tradistonks.app.web.helper
 
 import android.R.bool
 import com.tradistonks.app.components.charts.line.Point
+import com.tradistonks.app.components.charts.line.PointWithTimestampLabel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,6 +13,17 @@ import kotlin.math.roundToInt
 
 class LineChartHelper {
     companion object {
+
+        fun createLineChartLabels(points: List<Point>): List<String>{
+            if(isTimeStampValid(points[0].label)){
+                return createNumericLabels(points, 5, true)
+            }else if(points[0].label.toDoubleOrNull() != null){
+                return createNumericLabels(points, 5, false)
+            }else{
+                return points.stream().map(Point::label).distinct().collect(Collectors.toList())
+            }
+        }
+
         fun createNumericLabels(points: List<Point>, step: Int, toDate: Boolean): List<String>{
             val labels: List<String> = points.stream().map(Point::label).distinct().collect(Collectors.toList())
 
@@ -24,9 +36,7 @@ class LineChartHelper {
                         number -> Date(number).toString()
                 }.collect(Collectors.toList())
                 return dateList
-            }
-
-            if(points[0].label.toDoubleOrNull() != null){
+            }else{
                 val numericLabels: List<Double> = labels.map(String::toDouble)
                 val minAndMaxNumericLabels: Pair<Double, Double> = findMinMaxOfLabelsDouble(numericLabels)
                 val LabelsFromInterval: List<Double> = createNumericalLabelsFromIntervalDouble(min= minAndMaxNumericLabels.first,
@@ -34,8 +44,6 @@ class LineChartHelper {
 
                 return LabelsFromInterval.map(Double::toString)
             }
-
-            return labels
         }
 
         fun findIntervalForLabelsDouble(min: Double, max: Double, step: Int): Double {
@@ -76,6 +84,7 @@ class LineChartHelper {
             return Pair(minValue, maxValue)
         }
 
+
         fun Double.roundTo(numFractionDigits: Int): Double {
             val factor = 10.0.pow(numFractionDigits.toDouble())
             return (this * factor).roundToInt() / factor
@@ -89,6 +98,17 @@ class LineChartHelper {
             } catch (e: ParseException) {
                 return false
             }
+        }
+
+        fun createLineChartLabelsTimestamp(points: List<PointWithTimestampLabel>, step: Int): List<String> {
+            val labels = points.stream().map(PointWithTimestampLabel::timestamp).distinct().collect(Collectors.toList())
+            val minAndMaxNumericLabels: Pair<Long, Long> = findMinMaxOfLabelsLong(labels)
+            val LabelsFromInterval: List<Long> = createNumericalLabelsFromIntervalLong(min= minAndMaxNumericLabels.first,
+                max= minAndMaxNumericLabels.second, step = step)
+            val dateList: List<String> =  LabelsFromInterval.stream().map{
+                    number -> Date(number).toString()
+            }.collect(Collectors.toList())
+            return dateList
         }
 
     }
