@@ -13,6 +13,7 @@ import com.tradistonks.app.components.charts.line.*
 import com.tradistonks.app.components.charts.line.LineChartScreenContent
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import java.time.Instant
 import java.util.*
 
 private val defaultSpacerSize = 16.dp
@@ -40,9 +41,11 @@ fun pageStrategyResult(
         LineChartData(points = listOf(Point(3f,"Label 1"), Point(4f,"Label 2")))*/
     )
     val lineChartDataWithTimestampList = listOf(
-        LineChartDataWithTimestamp(points = listOf(PointWithTimestampLabel(1, Date().time), PointWithTimestampLabel(3,1634131800), PointWithTimestampLabel(3,1634131800))),
+        LineChartDataWithTimestamp(points = listOf(PointWithTimestampLabel(1, 1632340800), PointWithTimestampLabel(3,1634131800), PointWithTimestampLabel(3,1634131800))),
         LineChartDataWithTimestamp(points = listOf(PointWithTimestampLabel(0.5,1634132100), PointWithTimestampLabel(6,1634132100))),
     )
+
+    println(lineChartDataWithTimestampList.toString())
 
     /*Column(
         modifier = Modifier.fillMaxSize(),

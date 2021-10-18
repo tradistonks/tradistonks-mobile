@@ -37,12 +37,13 @@ fun LineChartTimestamp(
   labels: List<String>,
   allPoints: List<PointWithTimestampLabel>,
   lineChartDataList: List<LineChartDataWithTimestamp>,
-  minAndMaxLabelValue: Pair<Long, Long>,
   modifier: Modifier = Modifier,
   animation: AnimationSpec<Float> = simpleChartAnimation(),
   lineShader: LineShader = NoLineShader,
   xAxisDrawer: XAxisDrawer = SimpleXAxisDrawer(),
   yAxisDrawer: YAxisDrawer = SimpleYAxisDrawer(),
+  minValueLabelData: Float,
+  maxValueLabelData: Float,
   horizontalOffset: Float = 5f
 ) {
   check(horizontalOffset in 0f..25f) {
@@ -76,7 +77,8 @@ fun LineChartTimestamp(
 
       val yAxisDrawableArea = calculateYAxisDrawableArea(
         xAxisLabelSize = xAxisDrawer.requiredHeight(this),
-        size = size
+        size = size,
+        label = labels[0]
       )
       val xAxisDrawableArea = calculateXAxisDrawableArea(
         yAxisWidth = yAxisDrawableArea.width,
@@ -136,7 +138,9 @@ fun LineChartTimestamp(
             maxValueData = lineChartDataList[0].maxYValue,
             maxValueCanvas = maxValueCanvas,
             minValueCanvas = minValueCanvas,
-            totalNbLabels = labels.count()
+            totalNbLabels = labels.count(),
+            minValueLabelData =  minValueLabelData,
+            maxValueLabelData =  maxValueLabelData,
           )
         )
 
@@ -151,7 +155,9 @@ fun LineChartTimestamp(
             maxValueData = lineChartDataList[0].maxYValue,
             maxValueCanvas = maxValueCanvas,
             minValueCanvas = minValueCanvas,
-            totalNbLabels = labels.count()
+            totalNbLabels = labels.count(),
+            minValueLabelData = minValueLabelData,
+            maxValueLabelData = maxValueLabelData
           )
         )
 
@@ -173,7 +179,9 @@ fun LineChartTimestamp(
                 maxValueData = lineChartDataList[0].maxYValue,
                 maxValueCanvas = maxValueCanvas,
                 minValueCanvas = minValueCanvas,
-                totalNbLabels = labels.count()
+                totalNbLabels = labels.count(),
+                minValueLabelData = minValueLabelData,
+                maxValueLabelData = maxValueLabelData
               )
             )
           }

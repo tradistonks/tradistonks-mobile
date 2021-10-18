@@ -44,6 +44,7 @@ fun LineChartScreenContentTimestamp(lineChartDataTimestampList: List<LineChartDa
         )
     ) {
         LineChartTimestampRow(lineChartDataTimestampList, lineChartDataModel)
+        Spacer(Modifier.height(50.dp))
         //HorizontalOffsetSelector(lineChartDataModel)
         OffsetProgress(lineChartDataModel)
     }
@@ -159,7 +160,8 @@ fun LineChartTimestampRow(lineChartDataTimestampList: List<LineChartDataWithTime
             allPoints = points,
             lineChartDataList = lineChartDataTimestampList,
             horizontalOffset = lineChartDataModel.horizontalOffset,
-            minAndMaxLabelValue = minAndMaxLabels
+            minValueLabelData = minAndMaxLabels.first.toFloat(),
+            maxValueLabelData = minAndMaxLabels.second.toFloat()
         )
     }
 }

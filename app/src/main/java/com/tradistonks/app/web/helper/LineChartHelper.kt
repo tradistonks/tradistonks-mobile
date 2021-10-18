@@ -3,8 +3,14 @@ package com.tradistonks.app.web.helper
 import android.R.bool
 import com.tradistonks.app.components.charts.line.Point
 import com.tradistonks.app.components.charts.line.PointWithTimestampLabel
+import java.sql.Timestamp
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.stream.Collectors
 import kotlin.math.pow
@@ -101,12 +107,14 @@ class LineChartHelper {
         }
 
         fun createLineChartLabelsTimestamp(points: List<PointWithTimestampLabel>, step: Int): List<String> {
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
             val labels = points.stream().map(PointWithTimestampLabel::timestamp).distinct().collect(Collectors.toList())
             val minAndMaxNumericLabels: Pair<Long, Long> = findMinMaxOfLabelsLong(labels)
             val LabelsFromInterval: List<Long> = createNumericalLabelsFromIntervalLong(min= minAndMaxNumericLabels.first,
                 max= minAndMaxNumericLabels.second, step = step)
             val dateList: List<String> =  LabelsFromInterval.stream().map{
-                    number -> Date(number).toString()
+                    number ->
+                sdf.format(Date(number * 1000))
             }.collect(Collectors.toList())
             return dateList
         }

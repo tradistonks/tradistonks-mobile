@@ -56,7 +56,8 @@ object LineChartUtilsTimestamp {
 
   fun Density.calculateYAxisDrawableArea(
     xAxisLabelSize: Float,
-    size: Size
+    size: Size,
+    label: String
   ): Rect {
     // Either 50dp or 10% of the chart width.
     val right = minOf(50.dp.toPx(), size.width * 10f / 100f)
@@ -64,7 +65,7 @@ object LineChartUtilsTimestamp {
     return Rect(
       left = 0f,
       top = 0f,
-      bottom = size.height - xAxisLabelSize,
+      bottom = size.height - xAxisLabelSize - label.length/ 2,
       right = right
     )
   }
@@ -78,10 +79,11 @@ object LineChartUtilsTimestamp {
     maxValueData: Float,
     maxValueCanvas: Float,
     minValueCanvas: Float,
+    minValueLabelData: Float,
+    maxValueLabelData: Float,
     index: Int
   ): Offset {
-    println("calculateLinePath => index : $index point $point")
-    val x = (index.toFloat() / (totalNbLabels - 1))
+    val x = ((point.timestamp - minValueLabelData) / (maxValueLabelData - minValueLabelData))
     val y = ((point.value.toFloat() - minValueCanvas) / (maxValueCanvas - minValueCanvas))
 
     return Offset(
@@ -119,7 +121,9 @@ object LineChartUtilsTimestamp {
     maxValueData: Float,
     maxValueCanvas: Float,
     minValueCanvas: Float,
-    totalNbLabels: Int
+    totalNbLabels: Int,
+    minValueLabelData: Float,
+    maxValueLabelData: Float,
   ): Path = Path().apply {
     var prevPointLocation: Offset? = null
     lineChartData.points.forEachIndexed { index, point ->
@@ -137,7 +141,9 @@ object LineChartUtilsTimestamp {
           maxValueData = maxValueData,
           maxValueCanvas = maxValueCanvas,
           minValueCanvas = minValueCanvas,
-          totalNbLabels = totalNbLabels
+          totalNbLabels = totalNbLabels,
+          minValueLabelData = minValueLabelData,
+          maxValueLabelData = maxValueLabelData
         )
 
         if (index == 0) {
@@ -169,7 +175,9 @@ object LineChartUtilsTimestamp {
                         maxValueData : Float,
                         maxValueCanvas : Float,
                         minValueCanvas : Float,
-                        totalNbLabels: Int
+                        totalNbLabels: Int,
+                        minValueLabelData: Float,
+                        maxValueLabelData: Float,
   ): Path = Path().apply {
 
     // we start from the bottom left
@@ -191,7 +199,9 @@ object LineChartUtilsTimestamp {
           maxValueData = maxValueData,
           maxValueCanvas = maxValueCanvas,
           minValueCanvas = minValueCanvas,
-          totalNbLabels = totalNbLabels
+          totalNbLabels = totalNbLabels,
+          minValueLabelData = minValueLabelData,
+          maxValueLabelData = maxValueLabelData
         )
 
         if (index == 0) {
