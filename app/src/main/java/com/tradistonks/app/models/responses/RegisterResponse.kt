@@ -1,4 +1,4 @@
-package com.tradistonks.app.models.register
+package com.tradistonks.app.models.responses
 
 import java.io.Serializable
 

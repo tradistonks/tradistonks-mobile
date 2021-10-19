@@ -1,29 +1,21 @@
 package com.tradistonks.app.components.form
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 
 import androidx.compose.material.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
 import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
-import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
-import com.tradistonks.app.components.ConfirmPasswordState
-import com.tradistonks.app.components.Password
-import com.tradistonks.app.components.PasswordField
 import com.tradistonks.app.components.fields.Field
-import com.tradistonks.app.models.user.UserUpdateRequest
+import com.tradistonks.app.models.requests.UserUpdateRequest
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController

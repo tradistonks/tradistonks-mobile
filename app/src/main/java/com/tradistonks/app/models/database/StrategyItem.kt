@@ -10,9 +10,8 @@ import com.tradistonks.app.database.ResultsConverter
 import com.tradistonks.app.models.responses.strategy.RunResultDto
 import java.util.*
 
-@Entity(tableName = "user")
-@TypeConverters(ResultsConverter::class)
-data class StrategyDatabase(
+@Entity(tableName = "strategies")
+data class StrategyItem(
     @PrimaryKey
     val _id: String,
     @ColumnInfo(name = "user")
@@ -35,6 +34,7 @@ data class StrategyDatabase(
     var last_run: Date?,
     @ColumnInfo(name = "hasResults")
     var hasResults: MutableState<Boolean>,
+    @TypeConverters(ResultsConverter::class)
     @ColumnInfo(name = "results")
     var results: RunResultDto?
 

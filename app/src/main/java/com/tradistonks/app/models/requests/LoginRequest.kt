@@ -1,4 +1,4 @@
-package com.tradistonks.app.models.login
+package com.tradistonks.app.models.requests
 
 import com.google.gson.annotations.SerializedName
 

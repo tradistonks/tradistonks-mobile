@@ -1,13 +1,13 @@
 package com.tradistonks.app.web.services.auth
 
 import com.google.gson.JsonObject
-import com.tradistonks.app.models.login.Login
+import com.tradistonks.app.models.requests.Login
 import retrofit2.Call
-import com.tradistonks.app.models.register.Register
-import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.Register
+import com.tradistonks.app.models.responses.RegisterResponse
 import com.tradistonks.app.models.responses.auth.AuthCallbackDto
 import com.tradistonks.app.models.responses.auth.ConsentResponseDto
-import com.tradistonks.app.models.user.UserUpdateRequest
+import com.tradistonks.app.models.requests.UserUpdateRequest
 import retrofit2.http.*
 
 interface AuthentificationService {

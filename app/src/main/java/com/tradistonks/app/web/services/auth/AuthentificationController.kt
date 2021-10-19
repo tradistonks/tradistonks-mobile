@@ -8,19 +8,24 @@ import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
-import com.tradistonks.app.models.register.Register
-import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.Register
+import com.tradistonks.app.models.requests.UserUpdateRequest
+import com.tradistonks.app.models.responses.RegisterResponse
 import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.models.responses.auth.UserResponse
-import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.repository.AuthentificationRepository
 import com.tradistonks.app.web.services.strategy.StrategyController
 import com.tradistonks.app.web.helper.AuthentificationHelper
+import com.tradistonks.app.web.repository.room.AppDatabase
+import com.tradistonks.app.web.repository.room.RoomUserRepository
+import com.tradistonks.app.web.repository.room.UserDatabaseDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthentificationController(var stratController: StrategyController){
+class AuthentificationController(var stratController: StrategyController, var userDao: UserDatabaseDao){
     val loading = mutableStateOf(false)
     var token: TokenResponse? = null
     var user: UserResponse? = null
@@ -99,6 +104,9 @@ class AuthentificationController(var stratController: StrategyController){
                     "Code ${response.code()}, body = getUsers, message = ${json}}"
                 )
                 user = Gson().fromJson(json, UserResponse::class.java)
+                user!!.token = TOKEN
+                //userDao.insert(user!!)
+                //println(userDao.getAll())
             }
         })
     }

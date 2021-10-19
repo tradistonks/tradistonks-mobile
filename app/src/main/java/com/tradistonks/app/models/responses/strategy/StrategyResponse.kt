@@ -1,6 +1,7 @@
-package com.tradistonks.app.models
+package com.tradistonks.app.models.responses.strategy
 
 import androidx.compose.runtime.mutableStateOf
+import com.tradistonks.app.models.Strategy
 import java.util.*
 
 data class StrategyResponse(
@@ -9,7 +10,7 @@ data class StrategyResponse(
     val updated_date: Date, val created_date: Date
 ){
 
-    fun toStrategy(): Strategy{
+    fun toStrategy(): Strategy {
         return Strategy(_id, user, name, language, from,
             to, updated_date, created_date,
             loading= mutableStateOf(false), last_run = Date(),

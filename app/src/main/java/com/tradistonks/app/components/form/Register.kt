@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavHostController
 import com.tradistonks.app.components.fields.Field
 import com.tradistonks.app.web.services.auth.AuthentificationController
-import com.tradistonks.app.models.register.Register
+import com.tradistonks.app.models.Register
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
 

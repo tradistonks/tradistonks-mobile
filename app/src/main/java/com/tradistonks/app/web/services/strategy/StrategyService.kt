@@ -1,9 +1,7 @@
 package com.tradistonks.app.web.services.strategy
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.StrategyResponse
+import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import retrofit2.Call
 import retrofit2.http.*
 

@@ -4,11 +4,11 @@ import android.net.Uri
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.TOKEN
-import com.tradistonks.app.models.login.Login
-import com.tradistonks.app.models.register.Register
-import com.tradistonks.app.models.register.RegisterResponse
+import com.tradistonks.app.models.Register
+import com.tradistonks.app.models.requests.Login
+import com.tradistonks.app.models.requests.UserUpdateRequest
+import com.tradistonks.app.models.responses.RegisterResponse
 import com.tradistonks.app.models.responses.auth.TokenResponse
-import com.tradistonks.app.models.user.UserUpdateRequest
 import com.tradistonks.app.web.services.auth.AuthentificationService
 import okhttp3.OkHttpClient
 import okhttp3.Request

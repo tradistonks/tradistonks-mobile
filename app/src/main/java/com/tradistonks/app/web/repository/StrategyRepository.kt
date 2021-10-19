@@ -2,8 +2,7 @@ package com.tradistonks.app.repository
 
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
-import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.StrategyResponse
+import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import com.tradistonks.app.web.services.strategy.StrategyService
 import okhttp3.OkHttpClient
 import retrofit2.Callback

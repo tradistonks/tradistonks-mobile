@@ -7,18 +7,18 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.TOKEN
 import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.StrategyResponse
 import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.models.responses.strategy.RunResultDto
+import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import com.tradistonks.app.repository.StrategyRepository
+import com.tradistonks.app.web.repository.room.UserDatabaseDao
 import com.tradistonks.app.web.services.language.LanguageController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import java.util.stream.Collectors
 
-class StrategyController(var langController: LanguageController){
+class StrategyController(var langController: LanguageController, val strategyDao: UserDatabaseDao){
     var strategies: List<Strategy>? = null
     val loading = mutableStateOf(false)
 
@@ -26,7 +26,7 @@ class StrategyController(var langController: LanguageController){
         return strategies!!.first { s -> s._id == strategyId }
     }
 
-    fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
+    suspend fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
         StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<StrategyResponse>>{
             override fun onFailure(call: Call<List<StrategyResponse>>, t: Throwable) {
                 Log.d("tradistonks-strategies", "Error : ${t.message}")
