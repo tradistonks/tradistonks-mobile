@@ -20,7 +20,10 @@ import com.tradistonks.app.web.repository.room.AppDatabase
 import com.tradistonks.app.web.repository.room.RoomUserRepository
 import com.tradistonks.app.web.repository.room.UserDatabaseDao
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Unconfined
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +56,7 @@ class AuthentificationController(var stratController: StrategyController, var us
         })
     }
 
-    fun login(email: String, password: String, navController: NavHostController){
+    suspend fun login(email: String, password: String, navController: NavHostController){
         loading.value = true
         AuthentificationRepository.login(email,  password, object : Callback<Void>{
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -75,17 +78,17 @@ class AuthentificationController(var stratController: StrategyController, var us
                     val tokenResponse = cookies?.let {
                         AuthentificationHelper.retrieveTokenResponseFromCookies(it)
                     }
-                    tokenResponse?.let { retrieveUser(it, navController) }
-                    stratController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""), navController)
-                }/*else{
-                    Toast.makeText(context,"Error in the email or the password", Toast.LENGTH_SHORT).show()
-                }*/
+                    GlobalScope.launch(Unconfined) {
+                        tokenResponse?.let { retrieveUser(it, navController) }
+                        stratController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""), navController)
+                    }
+                }
             }
         })
     }
 
 
-    fun retrieveUser(tokenResponse: TokenResponse, navController: NavHostController) {
+    suspend fun retrieveUser(tokenResponse: TokenResponse, navController: NavHostController) {
         loading.value = true
         AuthentificationRepository.retrieveUser(TOKEN, object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -111,7 +114,7 @@ class AuthentificationController(var stratController: StrategyController, var us
         })
     }
 
-    fun updateUser(idUser: String, newUserInfo: UserUpdateRequest, navController: NavHostController){
+    suspend fun updateUser(idUser: String, newUserInfo: UserUpdateRequest, navController: NavHostController){
         loading.value = true
         AuthentificationRepository.updateUser(TokenResponse("", ""), idUser, newUserInfo, object : Callback<JsonObject>{
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

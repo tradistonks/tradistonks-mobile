@@ -33,13 +33,14 @@ var PREFERENCES: ProfilePreferences? = null
 var ACCESS_TOKEN = PREFERENCES?.getToken().toString()
 
 class MainActivity : ComponentActivity() {
-    val db = AppDatabase.getInstance(this)
-    val languageController: LanguageController = LanguageController()
-    val strategyController: StrategyController = StrategyController(languageController, db.strategyDao())
-    val authentificationController: AuthentificationController =
-        AuthentificationController(strategyController, db.userDao())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val db = AppDatabase.getInstance(this)
+        val languageController: LanguageController = LanguageController()
+        val strategyController: StrategyController = StrategyController(languageController, db.strategyDao())
+        val authentificationController: AuthentificationController =
+            AuthentificationController(strategyController, db.userDao())
+
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
         setContent {

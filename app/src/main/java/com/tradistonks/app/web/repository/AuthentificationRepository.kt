@@ -37,7 +37,7 @@ object AuthentificationRepository {
             call?.enqueue(callback)
         }
 
-        fun login(email: String, password:String, callback: Callback<Void>) {
+        suspend fun login(email: String, password:String, callback: Callback<Void>) {
             retrieveLoginChallenge()
             val login = Login(login_challenge = this.loginChallenge, email = email, password = password)
             val call = apiService?.login(login)
@@ -77,12 +77,12 @@ object AuthentificationRepository {
             }
         }
 
-    fun retrieveUser(token: String, callback: Callback<JsonObject>) {
+    suspend fun retrieveUser(token: String, callback: Callback<JsonObject>) {
         val call = apiService?.getCurrentUser(token)
         call?.enqueue(callback)
     }
 
-    fun updateUser(tokenResponse: TokenResponse, idUser: String, newUserInfo: UserUpdateRequest, callback: Callback<JsonObject>) {
+    suspend fun updateUser(tokenResponse: TokenResponse, idUser: String, newUserInfo: UserUpdateRequest, callback: Callback<JsonObject>) {
         val call = apiService?.updateUser(TOKEN, idUser, newUserInfo)
         call?.enqueue(callback)
     }

@@ -55,13 +55,13 @@ fun displayAccountInfo(navController: NavHostController, authController: Authent
             Box(){
                 Column() {
                     Text(
-                        text = "Username :" + user!!.username,
+                        text = "Username : " + user!!.username,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Email :" + user.email,
+                        text = "Email : " + user.email,
                         style = MaterialTheme.typography.h2,
                         color = textColor
                     )

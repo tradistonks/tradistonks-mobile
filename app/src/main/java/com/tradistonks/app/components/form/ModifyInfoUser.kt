@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.material.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
@@ -19,11 +20,13 @@ import com.tradistonks.app.models.requests.UserUpdateRequest
 import com.tradistonks.app.ui.theme.colorGreen
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun modifyInfoUserForm(navController: NavHostController, authController: AuthentificationController) {
     val user = authController.user
+    val coroutineScope = rememberCoroutineScope()
     Text(
         text = stringResource(id = R.string.my_information),
         style = MaterialTheme.typography.h1,
@@ -71,9 +74,11 @@ fun modifyInfoUserForm(navController: NavHostController, authController: Authent
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    authController.updateUser(user._id, UserUpdateRequest(fieldState.text,
-                        emailState.text, user.roles), navController)
-                          },
+                    coroutineScope.launch {
+                        authController.updateUser(user._id, UserUpdateRequest(fieldState.text,
+                            emailState.text, user.roles), navController)
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 /*enabled = emailState.isValid &&
                         passwordState.isValid && confirmPasswordState.isValid,*/

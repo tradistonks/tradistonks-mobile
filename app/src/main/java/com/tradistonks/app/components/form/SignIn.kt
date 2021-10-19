@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -21,9 +22,12 @@ import com.tradistonks.app.components.fields.EmailField
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignInContent(navController: NavHostController, authController: AuthentificationController) {
+    val coroutineScope = rememberCoroutineScope()
+
     Text(
         text = stringResource(id = R.string.sign_in),
         style = MaterialTheme.typography.h1,
@@ -46,9 +50,11 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                authController.login(emailState.text,
-                    passwordState.text,
-                    navController)
+                coroutineScope.launch {
+                    authController.login(emailState.text,
+                        passwordState.text,
+                        navController)
+                    }
                 },
             modifier = Modifier
                 .fillMaxWidth()
