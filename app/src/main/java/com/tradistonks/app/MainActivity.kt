@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import com.tradistonks.app.components.charts.line.Point
+import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Order
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.ProfilePreferences
@@ -14,20 +15,11 @@ import com.tradistonks.app.web.repository.room.AppDatabase
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.web.services.language.LanguageController
 import com.tradistonks.app.web.services.strategy.StrategyController
+import java.io.File
+import java.io.FileInputStream
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
-
-var TOKEN = "yamete_senpai=s%3A5sAQkshwog65AuZxBqZuT214pmi82IL7.g92fGk5%2FQqkzc%2BI9FM5AWqDtJCgLWk626m9Winorsdk"
-var ORDER_LIST: List<Order> = listOf<Order>(
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time),
-    Order(type =  "Buy", symbol = "BB",quantity = 2.0, Date().time),
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time),
-    Order(type =  "Sell", symbol = "BB",quantity = 2.0, Date().time),
-    Order(type =  "Sell", symbol = "AAPL",quantity = 2.0, Date().time),
-    Order(type =  "Sell", symbol = "AAPL",quantity = 2.0, Date().time),
-    Order(type =  "Buy", symbol = "AAPL",quantity = 2.0, Date().time)
-)
 
 var PREFERENCES: ProfilePreferences? = null
 var ACCESS_TOKEN = PREFERENCES?.getToken().toString()
@@ -35,6 +27,7 @@ var ACCESS_TOKEN = PREFERENCES?.getToken().toString()
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         val db = AppDatabase.getInstance(this)
         val languageController: LanguageController = LanguageController()
         val strategyController: StrategyController = StrategyController(languageController, db.strategyDao())

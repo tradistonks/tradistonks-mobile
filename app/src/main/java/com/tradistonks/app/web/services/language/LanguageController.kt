@@ -2,7 +2,7 @@ package com.tradistonks.app.web.services.language
 
 import android.util.Log
 import androidx.navigation.NavHostController
-import com.tradistonks.app.TOKEN
+import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Language
 import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.repository.LanguageRepository

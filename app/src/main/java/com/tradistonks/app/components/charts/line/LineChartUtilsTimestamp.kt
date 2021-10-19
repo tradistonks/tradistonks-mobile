@@ -49,15 +49,14 @@ object LineChartUtilsTimestamp {
     return Rect(
       left = xAxisDrawableArea.left + horizontalOffset,
       top = xAxisDrawableArea.top,
-      bottom = xAxisDrawableArea.bottom,
+      bottom = xAxisDrawableArea.bottom + 50,
       right = xAxisDrawableArea.right - horizontalOffset
     )
   }
 
   fun Density.calculateYAxisDrawableArea(
     xAxisLabelSize: Float,
-    size: Size,
-    label: String
+    size: Size
   ): Rect {
     // Either 50dp or 10% of the chart width.
     val right = minOf(50.dp.toPx(), size.width * 10f / 100f)

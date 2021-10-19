@@ -7,7 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.tradistonks.app.TOKEN
+import com.tradistonks.app.BuildConfig
+import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Register
 import com.tradistonks.app.models.requests.UserUpdateRequest
 import com.tradistonks.app.models.responses.RegisterResponse
@@ -28,9 +29,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class AuthentificationController(var stratController: StrategyController, var userDao: UserDatabaseDao){
     val loading = mutableStateOf(false)
-    var token: TokenResponse? = null
     var user: UserResponse? = null
 
     fun register(data : Register) {

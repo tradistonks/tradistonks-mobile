@@ -109,7 +109,7 @@ fun HorizontalOffsetSelector(lineChartDataModel: LineChartDataModel) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = horizontal, vertical = vertical)
+                .padding(horizontal = horizontal + 5.dp, vertical = vertical)
                 .align(CenterVertically)
         ) {
             LineChartDataModel.PointDrawerType.values().forEach { type ->
@@ -154,7 +154,7 @@ fun LineChartTimestampRow(
     lineChartDataModel: LineChartDataModel
 ) {
     lineChartDataModel.pointDrawerType = LineChartDataModel.PointDrawerType.None
-    val labels: List<String> = LineChartHelper.createLineChartLabelsTimestamp(points, step= 5)
+    val labels: List<String> = LineChartHelper.createLineChartLabelsTimestamp(points, step= 8)
     val minAndMaxLabels = LineChartHelper.findMinMaxOfLabelsLong(points.map(PointWithTimestampLabel::timestamp))
 
     Box(

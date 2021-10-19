@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.tradistonks.app.ORDER_LIST
 import com.tradistonks.app.R
 import com.tradistonks.app.models.Order
 import com.tradistonks.app.components.Page
@@ -35,7 +34,7 @@ fun pageHistory(){
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        LiveDataComponentOrderList(ORDER_LIST)
+        //LiveDataComponentOrderList(ORDER_LIST)
     }
 }
 

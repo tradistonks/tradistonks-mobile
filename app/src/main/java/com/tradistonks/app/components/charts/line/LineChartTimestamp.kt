@@ -5,12 +5,14 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.unit.dp
 import com.tradistonks.app.components.charts.line.LineChartUtilsTimestamp.calculateDrawableArea
 import com.tradistonks.app.components.charts.line.LineChartUtilsTimestamp.calculateFillPath
 import com.tradistonks.app.components.charts.line.LineChartUtilsTimestamp.calculateLinePath
@@ -67,7 +69,7 @@ fun LineChartTimestamp(
     }
   }
 
-  Canvas(modifier = modifier.fillMaxSize()) {
+  Canvas(modifier = modifier.fillMaxSize().padding(horizontal = 5.dp)) {
     drawIntoCanvas { canvas ->
       for (index in lineChartDataList.indices) {
         val color = colors[index]
@@ -77,8 +79,7 @@ fun LineChartTimestamp(
 
       val yAxisDrawableArea = calculateYAxisDrawableArea(
         xAxisLabelSize = xAxisDrawer.requiredHeight(this),
-        size = size,
-        label = labels[0]
+        size = size
       )
       val xAxisDrawableArea = calculateXAxisDrawableArea(
         yAxisWidth = yAxisDrawableArea.width,

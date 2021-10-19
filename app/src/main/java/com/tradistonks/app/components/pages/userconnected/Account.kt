@@ -82,7 +82,6 @@ fun displayAccountInfo(navController: NavHostController, authController: Authent
         Button(
             onClick = {
                 authController.user = null
-                authController.token = null
                 navController.navigate("connexion")
             },
             modifier = Modifier.width(300.dp),

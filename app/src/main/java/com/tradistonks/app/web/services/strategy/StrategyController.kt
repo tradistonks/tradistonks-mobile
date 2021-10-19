@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import com.google.android.material.circularreveal.CircularRevealHelper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.tradistonks.app.TOKEN
+import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.models.responses.strategy.RunResultDto

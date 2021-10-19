@@ -3,7 +3,7 @@ package com.tradistonks.app.repository
 import android.net.Uri
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig
-import com.tradistonks.app.TOKEN
+import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Register
 import com.tradistonks.app.models.requests.Login
 import com.tradistonks.app.models.requests.UserUpdateRequest

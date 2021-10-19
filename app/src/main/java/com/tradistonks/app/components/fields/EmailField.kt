@@ -6,10 +6,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import java.util.regex.Pattern
 import com.tradistonks.app.R
 // Considere un email valide s'il y a quelque text avant et après à "@"
@@ -30,6 +33,7 @@ private fun isEmailValid(email: String): Boolean {
 }
 
 
+@ExperimentalComposeUiApi
 @Composable
 fun Email(
     emailState: TextField = remember { EmailField() },
@@ -60,7 +64,8 @@ fun Email(
             },
         textStyle = MaterialTheme.typography.body2,
         isError = emailState.showErrors(),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction,
+            keyboardType = KeyboardType.Email),
         keyboardActions = KeyboardActions(
             onDone = {
                 onImeAction()

@@ -57,7 +57,7 @@ fun pageStrategyResult(
     val lineChartDataWithTimestampList: ArrayList<LineChartDataWithTimestamp> = ArrayList()
     val points: ArrayList<PointWithTimestampLabel> = ArrayList()
 
-    for (i in timestamps.indices) {
+    for (i in 1..timestamps.size step 100) {
         val timestamp = timestamps.elementAt(i)
 
         for (symbol in pnl.getValue(timestamp)) {

@@ -29,6 +29,7 @@ android {
 
     buildTypes {
         debug {
+            buildConfigField("String", "TOKEN", "\"" + localProperties['TOKEN'] + "\"")
             buildConfigField("String", "TRADISTONKSAPIBASEURL", "\"" + localProperties['tradistonksapibaseurl'] + "\"")
             buildConfigField("String", "OAUTH2_URL_CHALLENGE", "\"" + localProperties['OAUTH2_URL_CHALLENGE'] + "\"")
             buildConfigField("String", "OAUTH2_CLIENT_ID", "\"" + localProperties['OAUTH2_CLIENT_ID'] + "\"")
