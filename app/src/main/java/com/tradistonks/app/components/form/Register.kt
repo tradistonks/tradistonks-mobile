@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.material.*
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -21,7 +22,6 @@ import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.models.Register
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.textColor
-
 
 @Composable
 fun RegisterContent(navController: NavHostController, authController: AuthentificationController) {

@@ -33,7 +33,6 @@ private fun isEmailValid(email: String): Boolean {
 }
 
 
-@ExperimentalComposeUiApi
 @Composable
 fun Email(
     emailState: TextField = remember { EmailField() },

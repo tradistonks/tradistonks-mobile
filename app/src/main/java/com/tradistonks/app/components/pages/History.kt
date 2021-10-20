@@ -14,32 +14,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tradistonks.app.R
+import com.tradistonks.app.components.pages.StrategyResult
 import com.tradistonks.app.models.Order
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.stream.Collectors
 
 
 @Composable
 fun History(authController: AuthentificationController, openDrawer: () -> Unit) {
-    Page(authController, openDrawer, stringResource(R.string.title_page_history), { pageHistory() })
+    Page(authController, openDrawer, stringResource(R.string.title_page_history), { pageHistory(authController) })
 }
 
 @Composable
-fun pageHistory(){
+fun pageHistory(authController: AuthentificationController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        //LiveDataComponentOrderList(ORDER_LIST)
+        val stratController = authController.stratController
+        var orders = stratController.getAllOrdersFromStrategies()
+        LiveDataComponentOrderList(orders)
     }
 }
 
 @Composable
 fun LiveDataComponentOrderList(orderList: List<Order>) {
+    val sdf = SimpleDateFormat("dd/MM/yyyy")
     LazyColumn(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),) {
         items(items = orderList, itemContent = { order ->
@@ -61,15 +69,10 @@ fun LiveDataComponentOrderList(orderList: List<Order>) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Row() {
                         Box{
-                            Column(modifier = Modifier){
+                            Column(modifier = Modifier.width(160.dp)){
                                 Text(
-                                    text = "Type: ${order.type}",
-                                    style = MaterialTheme.typography.body1,
-                                    color = textColor
-                                )
-                                Text(
-                                    text = "Symbol: ${order.symbol}",
-                                    style = MaterialTheme.typography.body1,
+                                    text = "Symbol: ${order.symbol} ",
+                                    style = MaterialTheme.typography.h2,
                                     color = textColor
                                 )
                             }
@@ -83,7 +86,7 @@ fun LiveDataComponentOrderList(orderList: List<Order>) {
                                 color = textColor
                             )
                             Text(
-                                text = "Date: ${Date(order.timestamp)}",
+                                text = "Date: ${sdf.format(Date(order.timestamp * 1000))}",
                                 style = MaterialTheme.typography.body1,
                                 color = textColor
                             )

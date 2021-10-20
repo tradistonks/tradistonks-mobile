@@ -32,8 +32,6 @@ private fun isFieldValid(text: String): Boolean {
     return Pattern.matches(FIELD_VALIDATION_REGEX, text)
 }
 
-
-@ExperimentalComposeUiApi
 @Composable
 fun Field(
     fieldState: TextField = remember { Field() },

@@ -103,5 +103,14 @@ class StrategyController(var langController: LanguageController, val strategyDao
 
     }
 
+    fun getAllOrdersFromStrategies(): List<Order> {
+        val results: List<RunResultDto> = strategies!!.stream().filter(Objects::nonNull)
+            .map(Strategy::results).filter(Objects::nonNull).collect(Collectors.toList()) as List<RunResultDto>
+        val orders: ArrayList<Order> =
+            results.stream().map(RunResultDto::orders).flatMap { it?.stream() }.collect(Collectors.toList()) as ArrayList<Order>
+         orders.stream().map(Order::timestamp).sorted()
+        return orders
+    }
+
 
 }

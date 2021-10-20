@@ -75,13 +75,12 @@ fun pageStrategyResult(
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally)
+    {
         val stratController = authController.stratController
         Spacer(Modifier.height(defaultSpacerSize))
         LineChartScreenContentTimestamp(lineChartDataWithTimestampList, points, symbols)
         Spacer(Modifier.height(defaultSpacerSize))
-    }
-    Column(modifier = Modifier.padding(horizontal = defaultSpacerSize)){
         NavigateButtonStrategies(navController = navController)
     }
 }
