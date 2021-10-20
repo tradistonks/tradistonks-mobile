@@ -3,15 +3,17 @@ package com.tradistonks.app.web.services.strategy
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
-import com.google.android.material.circularreveal.CircularRevealHelper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.tradistonks.app.BuildConfig.TOKEN
+import com.tradistonks.app.models.Order
 import com.tradistonks.app.models.Strategy
+import com.tradistonks.app.models.database.StrategyItem
 import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import com.tradistonks.app.repository.StrategyRepository
+import com.tradistonks.app.web.repository.room.RoomStrategyRepository
 import com.tradistonks.app.web.repository.room.StrategyDatabaseDao
 import com.tradistonks.app.web.services.language.LanguageController
 import kotlinx.coroutines.Dispatchers
@@ -20,11 +22,13 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import java.util.stream.Collectors
 
 class StrategyController(var langController: LanguageController, val strategyDao: StrategyDatabaseDao){
     var strategies: List<Strategy>? = null
     val loading = mutableStateOf(false)
+    var localRepository : RoomStrategyRepository = RoomStrategyRepository(strategyDao)
 
     fun getStrategyById(strategyId: String): Strategy{
         return strategies!!.first { s -> s._id == strategyId }
@@ -40,7 +44,7 @@ class StrategyController(var langController: LanguageController, val strategyDao
                 call: Call<List<StrategyResponse>>,
                 response: Response<List<StrategyResponse>>
             ) {
-                var responseStrategies = response.body()
+                val responseStrategies = response.body()
                 strategies = responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
                     Collectors.toList())
 
@@ -48,7 +52,7 @@ class StrategyController(var langController: LanguageController, val strategyDao
                     "tradistonks-strategies",
                     "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $strategies"
                 )
-                GlobalScope.launch(Dispatchers.Unconfined) {
+                GlobalScope.launch(Dispatchers.IO) {
                     updateStrategiesInLocalBdd()
                     langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
                 }
@@ -57,14 +61,18 @@ class StrategyController(var langController: LanguageController, val strategyDao
     }
 
     suspend fun updateStrategiesInLocalBdd(){
-        /*for(strategy in strategies!!){
-            if(strategyDao.getById(strategy._id) != null){
-                strategyDao.insert(strategy)
+        for(strategy in strategies!!){
+            val strategyLocal = StrategyItem.toStrategy(localRepository.getStrategyById(strategy._id))
+            println(strategyLocal)
+            if(strategyLocal == null){
+                localRepository.addStrategy(strategy)
             }else{
-                strategyDao.update(strategy)
+                strategy.hasResults = strategyLocal.hasResults
+                strategy.last_run = strategyLocal.last_run
+                localRepository.updateStrategy(strategy)
             }
+            println(localRepository.getAllStrategies())
         }
-        println(strategyDao.getById(strategies!![0]._id))*/
     }
 
     fun runStrategyById(tokenResponse: TokenResponse, strategy: Strategy) {

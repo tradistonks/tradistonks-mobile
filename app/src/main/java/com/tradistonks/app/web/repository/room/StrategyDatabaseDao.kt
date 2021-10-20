@@ -8,7 +8,7 @@ import com.tradistonks.app.models.database.StrategyItem
 @Dao
 interface StrategyDatabaseDao {
     @Query("SELECT * from strategies")
-    fun getAll(): LiveData<List<StrategyItem>>
+    fun getAll(): List<StrategyItem>?
     @Query("SELECT * from strategies where _id = :id")
     fun getById(id: String) : StrategyItem?
     @Insert

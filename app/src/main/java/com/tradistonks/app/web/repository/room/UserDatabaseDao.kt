@@ -9,7 +9,7 @@ import com.tradistonks.app.models.responses.auth.UserResponse
 @Dao
 interface UserDatabaseDao {
     @Query("SELECT * from users")
-    fun getAll(): LiveData<List<UserItem>>
+    fun getAll(): List<UserItem>?
     @Query("SELECT * from users where _id = :id")
     fun getById(id: String) : UserItem?
     @Insert
