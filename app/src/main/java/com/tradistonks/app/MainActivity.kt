@@ -2,6 +2,7 @@ package com.tradistonks.app
 
 import android.content.Context
 import android.os.Bundle
+import android.os.storage.StorageManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -33,25 +34,12 @@ class MainActivity : ComponentActivity() {
 
         val db = AppDatabase.getInstance(this)
         val languageController: LanguageController = LanguageController()
-        val strategyController: StrategyController = StrategyController(languageController, db.strategyDao())
+        val strategyController: StrategyController = StrategyController(languageController, this.applicationContext)
         val authentificationController: AuthentificationController =
             AuthentificationController(strategyController, db.userDao())
 
-
-        val filename = "strategies"
-        val fileContents = "Hello world!"
-        this.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it.write(fileContents.toByteArray())
-        }
-
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
-        /*strategyController.getAllStrategiesFromLocalBdd()
-        print(strategyController.strategies?.get(1))
-        val results: ArrayList<RunResultDto>? =
-            strategyController.strategies?.stream()?.map(Strategy::results)?.collect(Collectors.toList()) as ArrayList<RunResultDto>
-        val orders = results?.stream()?.map(RunResultDto::orders)?.collect(Collectors.toList())
-        print(orders)*/
         setContent {
             displayMenu(authentificationController)
         }

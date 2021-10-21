@@ -1,7 +1,6 @@
 package com.tradistonks.app.web.repository.room
 
 import com.tradistonks.app.models.Strategy
-import com.tradistonks.app.models.database.StrategyItem
 import com.tradistonks.app.models.database.UserItem
 import com.tradistonks.app.models.requests.UserUpdateRequest
 import com.tradistonks.app.models.responses.auth.UserResponse
