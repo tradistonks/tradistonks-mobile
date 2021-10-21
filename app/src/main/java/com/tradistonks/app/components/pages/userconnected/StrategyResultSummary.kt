@@ -84,14 +84,14 @@ fun DisplayMainTitleStrategySummary(strategyName: String){
         Spacer(Modifier.height(defaultSpacerSize))
         Text(
             text = strategyName.uppercase(),
-            style = MaterialTheme.typography.h1,
+            style = MaterialTheme.typography.h2,
             color = colorWhite,
             textAlign = TextAlign.Center,
         )
         Spacer(Modifier.height(defaultSpacerSize))
         Text(
             text = "Orders Bought",
-            style = MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.h1,
             color = colorBlue,
             textAlign = TextAlign.Center,
         )
@@ -109,7 +109,7 @@ fun DisplaySecondaryTitleStrategySummary(){
         Spacer(Modifier.height(defaultSpacerSize))
         Text(
             text = "Orders Sold",
-            style = MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.h1,
             color = colorBlue,
             textAlign = TextAlign.Center
         )
@@ -125,7 +125,7 @@ fun NavigateButtonStrategies(navController: NavHostController){
         onClick = {
             navController.navigate("strategies")
         },
-        colors = ButtonDefaults.buttonColors(backgroundColor = colorWhite),
+        colors = ButtonDefaults.buttonColors(backgroundColor = colorPink),
     ) {
         Icon(
             Icons.Outlined.KeyboardArrowLeft,

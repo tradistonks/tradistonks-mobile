@@ -41,7 +41,7 @@ class Converters {
 
         @TypeConverter
         @JvmStatic
-        fun toResultsList(results: String?): RunResultDto? {
+        fun toResultsList(results: String): RunResultDto? {
             val type = object : TypeToken<RunResultDto>() {}.type
             return Gson().fromJson<RunResultDto>(results, type)
         }

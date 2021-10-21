@@ -56,7 +56,7 @@ data class StrategyItem(
     @TypeConverters(Converters::class)
     @Nullable
     @ColumnInfo(name = "results")
-    var results: String
+    var results: String?
 
 ) {
     constructor(strategy: Strategy) : this(
@@ -83,7 +83,7 @@ data class StrategyItem(
                     Converters.toMutableBoolean(strategyItem.loading),
                     Converters.toDateNullable(strategyItem.last_run),
                     Converters.toMutableBoolean(strategyItem.hasResults),
-                    Converters.toResultsList(strategyItem.results)
+                    Converters.toResultsList(strategyItem.results!!)
                 )
             }else{
                 return null

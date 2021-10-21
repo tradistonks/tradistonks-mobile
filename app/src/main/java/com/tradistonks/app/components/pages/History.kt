@@ -19,6 +19,7 @@ import com.tradistonks.app.models.Order
 import com.tradistonks.app.components.Page
 import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.responses.strategy.RunResultDto
+import com.tradistonks.app.ui.theme.colorBlue
 import com.tradistonks.app.ui.theme.colorFont
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
@@ -35,65 +36,86 @@ fun History(authController: AuthentificationController, openDrawer: () -> Unit) 
 
 @Composable
 fun pageHistory(authController: AuthentificationController){
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val stratController = authController.stratController
         var orders = stratController.getAllOrdersFromStrategies()
-        LiveDataComponentOrderList(orders)
+        if(orders.size > 0){
+            LiveDataComponentOrderList(orders)
+        }else{
+            printErrorHistoryPage()
+        }
+
     }
 }
 
 @Composable
 fun LiveDataComponentOrderList(orderList: List<Order>) {
     val sdf = SimpleDateFormat("dd/MM/yyyy")
-    LazyColumn(modifier = Modifier.fillMaxSize(),
+        LazyColumn(modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),) {
-        items(items = orderList, itemContent = { order ->
-            Card(
-                border = BorderStroke(1.dp, colorYellow),
-                shape = RoundedCornerShape(4.dp),
-                backgroundColor = colorFont,
-                modifier = Modifier
-                    .fillParentMaxWidth()
-            ) {
-                Column(modifier = Modifier.padding(16.dp)){
-                    Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                        Text(
-                            text = order.type.uppercase(),
-                            style = MaterialTheme.typography.h2,
-                            color = colorYellow
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Row() {
-                        Box{
-                            Column(modifier = Modifier.width(160.dp)){
+            items(items = orderList, itemContent = { order ->
+                Card(
+                    border = BorderStroke(1.dp, colorYellow),
+                    shape = RoundedCornerShape(4.dp),
+                    backgroundColor = colorFont,
+                    modifier = Modifier
+                        .fillParentMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)){
+                        Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                            Text(
+                                text = order.type.uppercase(),
+                                style = MaterialTheme.typography.h2,
+                                color = colorYellow
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Row() {
+                            Box{
+                                Column(modifier = Modifier.width(160.dp)){
+                                    Text(
+                                        text = "Currency: ${order.symbol} ",
+                                        style = MaterialTheme.typography.h2,
+                                        color = textColor
+                                    )
+                                }
+                            }
+                            Column(
+                                modifier = Modifier.fillMaxSize()
+                            ) {
                                 Text(
-                                    text = "Symbol: ${order.symbol} ",
-                                    style = MaterialTheme.typography.h2,
+                                    text = "Quantity : ${order.quantity}",
+                                    style = MaterialTheme.typography.body1,
+                                    color = textColor
+                                )
+                                Text(
+                                    text = "Date: ${sdf.format(Date(order.timestamp * 1000))}",
+                                    style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )
                             }
                         }
-                        Column(
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            Text(
-                                text = "Quantity : ${order.quantity}",
-                                style = MaterialTheme.typography.body1,
-                                color = textColor
-                            )
-                            Text(
-                                text = "Date: ${sdf.format(Date(order.timestamp * 1000))}",
-                                style = MaterialTheme.typography.body1,
-                                color = textColor
-                            )
-                        }
                     }
                 }
-            }
-        })
+            })
+        }
+    }
+
+@Composable
+fun printErrorHistoryPage(){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally)
+    {
+        Text(
+            text = "Launch a strategy to have data",
+            style = MaterialTheme.typography.h1,
+            color = colorYellow
+        )
     }
 }

@@ -13,6 +13,7 @@ import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import com.tradistonks.app.repository.StrategyRepository
+import com.tradistonks.app.web.helper.database.Converters
 import com.tradistonks.app.web.repository.room.RoomStrategyRepository
 import com.tradistonks.app.web.repository.room.StrategyDatabaseDao
 import com.tradistonks.app.web.services.language.LanguageController
@@ -26,7 +27,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class StrategyController(var langController: LanguageController, val strategyDao: StrategyDatabaseDao){
-    var strategies: List<Strategy>? = null
+    var strategies: ArrayList<Strategy>? = null
     val loading = mutableStateOf(false)
     var localRepository : RoomStrategyRepository = RoomStrategyRepository(strategyDao)
 
@@ -46,14 +47,13 @@ class StrategyController(var langController: LanguageController, val strategyDao
             ) {
                 val responseStrategies = response.body()
                 strategies = responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
-                    Collectors.toList())
+                    Collectors.toList()) as ArrayList<Strategy>
 
                 Log.d(
                     "tradistonks-strategies",
                     "Code ${response.code()}, body = getStrategies, message = ${response.message()}, json = $strategies"
                 )
                 GlobalScope.launch(Dispatchers.IO) {
-                    updateStrategiesInLocalBdd()
                     langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
                 }
             }
@@ -63,7 +63,6 @@ class StrategyController(var langController: LanguageController, val strategyDao
     suspend fun updateStrategiesInLocalBdd(){
         for(strategy in strategies!!){
             val strategyLocal = StrategyItem.toStrategy(localRepository.getStrategyById(strategy._id))
-            println(strategyLocal)
             if(strategyLocal == null){
                 localRepository.addStrategy(strategy)
             }else{
@@ -71,7 +70,6 @@ class StrategyController(var langController: LanguageController, val strategyDao
                 strategy.last_run = strategyLocal.last_run
                 localRepository.updateStrategy(strategy)
             }
-            println(localRepository.getAllStrategies())
         }
     }
 
@@ -99,6 +97,9 @@ class StrategyController(var langController: LanguageController, val strategyDao
                     if(results != null){
                         strategy.hasResults.value = true
                         strategy.results = results
+                        GlobalScope.launch(Dispatchers.IO) {
+                            updateStrategiesInLocalBdd()
+                        }
                     }
                 }
 
@@ -109,6 +110,14 @@ class StrategyController(var langController: LanguageController, val strategyDao
             })
         }
 
+    }
+
+    fun getAllStrategiesFromLocalBdd(){
+        GlobalScope.launch(Dispatchers.IO) {
+            strategies = localRepository.getAllStrategies()
+                ?.stream()?.filter(Objects::nonNull)?.map(StrategyItem::toStrategy)?.collect(Collectors.toList()) as ArrayList<Strategy>?
+            println(strategies)
+        }
     }
 
     fun getAllOrdersFromStrategies(): List<Order> {

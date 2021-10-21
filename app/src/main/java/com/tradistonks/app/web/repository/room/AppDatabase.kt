@@ -9,7 +9,7 @@ import com.tradistonks.app.models.database.StrategyItem
 import com.tradistonks.app.models.database.UserItem
 import com.tradistonks.app.web.helper.database.*
 
-@Database(entities = [UserItem::class, StrategyItem::class], version = 3)
+@Database(entities = [UserItem::class, StrategyItem::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDatabaseDao
