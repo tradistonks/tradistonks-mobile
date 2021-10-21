@@ -2,6 +2,7 @@ package com.tradistonks.app.web.services.strategy
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
@@ -41,6 +42,7 @@ class StrategyController(var langController: LanguageController, var application
         StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<StrategyResponse>>{
             override fun onFailure(call: Call<List<StrategyResponse>>, t: Throwable) {
                 Log.d("tradistonks-strategies", "Error : ${t.message}")
+                Toast.makeText(applicationContext, "Error during the retrieve of the strategies. Verify your connection", Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(
@@ -107,6 +109,8 @@ class StrategyController(var langController: LanguageController, var application
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     strategy.loading.value = false
                     Log.d("tradistonks-run", "Error : ${t.message}")
+                    Toast.makeText(applicationContext, "Error during the launch of the strategy. " +
+                            "Please verify the code of your strategy", Toast.LENGTH_LONG).show()
                 }
             })
         }
@@ -124,7 +128,7 @@ class StrategyController(var langController: LanguageController, var application
             if(strategies.isNullOrEmpty() and !strategiesDeserializable.isNullOrEmpty()) {
                 strategies = strategiesDeserializable as ArrayList<Strategy>?
             }else if(strategies.isNullOrEmpty() and strategiesDeserializable.isNullOrEmpty()){
-                //TODO ERROR
+                Toast.makeText(applicationContext, "You do not own any strategies. Please create one on the website", Toast.LENGTH_LONG).show()
             }else{
                 for(strategy in strategiesDeserializable!!){
                     strategies!!.stream().filter{ strat -> strat._id == strategy._id}.forEach {

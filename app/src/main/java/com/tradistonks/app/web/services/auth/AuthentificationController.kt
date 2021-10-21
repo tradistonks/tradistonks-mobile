@@ -21,14 +21,17 @@ import com.tradistonks.app.web.repository.room.UserDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Unconfined
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class AuthentificationController(var stratController: StrategyController, var userDao: UserDatabaseDao){
+class AuthentificationController(
+    var stratController: StrategyController,
+    var userDao: UserDatabaseDao,
+    var applicationContext: Context
+){
     val loading = mutableStateOf(false)
     var user: UserResponse? = null
     var localRepository : RoomUserRepository = RoomUserRepository(userDao)
@@ -82,6 +85,8 @@ class AuthentificationController(var stratController: StrategyController, var us
                         tokenResponse?.let { retrieveUser(it, navController) }
                         stratController.retrieveAllStrategiesOfCurrentUser(TokenResponse("", ""), navController)
                     }
+                }else{
+                    Toast.makeText(applicationContext, "Please verify your informations", Toast.LENGTH_LONG).show()
                 }
             }
         })

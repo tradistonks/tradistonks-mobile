@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         val languageController: LanguageController = LanguageController()
         val strategyController: StrategyController = StrategyController(languageController, this.applicationContext)
         val authentificationController: AuthentificationController =
-            AuthentificationController(strategyController, db.userDao())
+            AuthentificationController(strategyController, db.userDao(), this.applicationContext)
 
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
