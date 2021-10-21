@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.tradistonks.app.BuildConfig
 import com.tradistonks.app.BuildConfig.TOKEN
 import com.tradistonks.app.models.Register
 import com.tradistonks.app.models.requests.UserUpdateRequest
@@ -17,13 +16,12 @@ import com.tradistonks.app.models.responses.auth.UserResponse
 import com.tradistonks.app.repository.AuthentificationRepository
 import com.tradistonks.app.web.services.strategy.StrategyController
 import com.tradistonks.app.web.helper.AuthentificationHelper
-import com.tradistonks.app.web.repository.room.AppDatabase
 import com.tradistonks.app.web.repository.room.RoomUserRepository
 import com.tradistonks.app.web.repository.room.UserDatabaseDao
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Unconfined
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +31,7 @@ import retrofit2.Response
 class AuthentificationController(var stratController: StrategyController, var userDao: UserDatabaseDao){
     val loading = mutableStateOf(false)
     var user: UserResponse? = null
+    var localRepository : RoomUserRepository = RoomUserRepository(userDao)
 
     fun register(data : Register) {
         loading.value = true
@@ -109,8 +108,14 @@ class AuthentificationController(var stratController: StrategyController, var us
                 )
                 user = Gson().fromJson(json, UserResponse::class.java)
                 user!!.token = TOKEN
-                //userDao.insert(user!!)
-                //println(userDao.getAll())
+                GlobalScope.launch(Dispatchers.IO) {
+                    val userLocalRepo = localRepository.getUserById(user!!._id)
+                    if(userLocalRepo != null){
+                        localRepository.updateUser(user!!)
+                    }else{
+                        localRepository.addUser(user!!)
+                    }
+                }
             }
         })
     }
