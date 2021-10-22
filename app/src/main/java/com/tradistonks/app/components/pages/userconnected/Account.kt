@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -12,10 +13,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
 import com.tradistonks.app.components.Page
+import com.tradistonks.app.models.responses.auth.TokenResponse
 import com.tradistonks.app.ui.theme.colorPink
 import com.tradistonks.app.ui.theme.colorYellow
 import com.tradistonks.app.ui.theme.textColor
 import com.tradistonks.app.web.services.auth.AuthentificationController
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 @Composable
 fun Account(openDrawer: () -> Unit, navController: NavHostController, authController: AuthentificationController) {
@@ -34,6 +38,7 @@ fun pageAccount(navController: NavHostController, authController: Authentificati
 
 @Composable
 fun displayAccountInfo(navController: NavHostController, authController: AuthentificationController){
+    val coroutineScope = rememberCoroutineScope()
     val user = authController.user
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -81,8 +86,9 @@ fun displayAccountInfo(navController: NavHostController, authController: Authent
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                authController.user = null
-                navController.navigate("connexion")
+                coroutineScope.launch {
+                    authController.logout(navController)
+                }
             },
             modifier = Modifier.width(300.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = colorYellow)

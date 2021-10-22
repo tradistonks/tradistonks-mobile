@@ -73,6 +73,8 @@ fun LiveDataComponentList(
                 modifier = Modifier
                     .fillParentMaxWidth()
             ) {
+                var lang = langController.getNameOfLanguage(strategy.language)
+                if(lang == null) lang = strategy.name
                 Column(modifier = Modifier.padding(16.dp)) {
                     Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                         Text(
@@ -86,7 +88,7 @@ fun LiveDataComponentList(
                         Box{
                             Column(modifier = Modifier){
                                 Text(
-                                    text = "Language: ${langController.getNameOfLanguage(strategy.language)}",
+                                    text = "Language: $lang",
                                     style = MaterialTheme.typography.body1,
                                     color = textColor
                                 )

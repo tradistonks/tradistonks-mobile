@@ -1,5 +1,6 @@
 package com.tradistonks.app.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.material.*
@@ -25,9 +26,13 @@ import com.tradistonks.app.ui.theme.colors
 import com.tradistonks.app.ui.theme.textColor
 import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun SignInContent(navController: NavHostController, authController: AuthentificationController) {
     val coroutineScope = rememberCoroutineScope()
+    coroutineScope.launch {
+        authController.retrieveLocalUser(navController)
+    }
 
     Text(
         text = stringResource(id = R.string.sign_in),

@@ -35,7 +35,9 @@ data class UserItem(
 ){
     constructor(user: UserResponse) : this(
         user._id, user.username, user.email,
-        Converters.fromDateNullable(user.created_date), Converters.fromStringList(user.roles!!), user.token!!, user.isStayingConnected)
+        Converters.fromDateNullable(user.created_date),
+        Converters.fromStringList(user.roles!!), user.token!!,
+        user.isStayingConnected)
 
     companion object{
         fun toUserResponse(userItem: UserItem) = UserResponse(

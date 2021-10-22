@@ -67,21 +67,23 @@ class StrategyController(var langController: LanguageController, var application
                             "tradistonks-strategies",
                             "Code ${response.code()}, body = getStrategies, message = ${response.message()}"
                         )
-                        GlobalScope.launch(Dispatchers.Main) {
+                        GlobalScope.launch(Dispatchers.IO) {
                             async {
                                 getAllStrategiesFromLocalBdd()
-                            }.await()
+                            }.join()
                             langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
                         }
                     }
                 })
         }else{
-            GlobalScope.launch(Dispatchers.Main) {
-                async {
+            val job = GlobalScope
+                .launch(Dispatchers.IO) {
                     getAllStrategiesFromLocalBdd()
-                }.await()
+                }
+            job.join()
+            GlobalScope.launch(Dispatchers.Main) {
+                navController.navigate("strategies")
             }
-            navController.navigate("strategies")
         }
     }
 

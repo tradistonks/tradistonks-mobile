@@ -23,6 +23,7 @@ import com.tradistonks.app.web.repository.room.UserDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Unconfined
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -71,29 +72,36 @@ class AuthentificationController(
             loading.value = true
             authentificationLogin(email, password, stayConnected, navController)
         }else{
-            var localUser: UserResponse? = null
-            GlobalScope.launch(Dispatchers.IO) {
-                localUser = localRepository.getAllUsers()?.stream()?.map(UserItem::toUserResponse)?.findFirst()?.get()
-                println(localUser)
-            }.join()
-            if(localUser != null){
-                if(localUser!!.isStayingConnected){
-                    user = localUser
-                    GlobalScope.launch(Unconfined) {
-                        stratController.retrieveAllStrategiesOfCurrentUser(
-                            TokenResponse("", ""),
-                            navController
-                        )
-                    }
-                }else{
-                    Toast.makeText(applicationContext,"No connection. Please retry later.", Toast.LENGTH_LONG).show()
-                }
-            }else{
-                Toast.makeText(applicationContext,"No connection. Please retry later.", Toast.LENGTH_LONG).show()
-            }
+            retrieveLocalUser(navController)
         }
 
     }
+
+     suspend fun retrieveLocalUser(navController: NavHostController) {
+         loading.value = true
+        var localUser: UserResponse? = null
+        GlobalScope.launch(Dispatchers.IO) {
+            localUser = localRepository.getAllUsers()?.stream()?.map(UserItem::toUserResponse)?.findFirst()?.get()
+        }.join()
+        if(localUser != null){
+            if(localUser!!.isStayingConnected){
+                user = localUser
+                var job = GlobalScope.launch(Unconfined) {
+                    stratController.retrieveAllStrategiesOfCurrentUser(
+                        TokenResponse("", ""),
+                        navController
+                    )
+                }
+                job.join()
+            }else{
+                Toast.makeText(applicationContext,"No connection. Please retry later.", Toast.LENGTH_LONG).show()
+            }
+        }else{
+            Toast.makeText(applicationContext,"No connection. Please retry later.", Toast.LENGTH_LONG).show()
+        }
+         loading.value = false
+    }
+
 
     suspend fun authentificationLogin(
         email: String,
@@ -158,16 +166,21 @@ class AuthentificationController(
                     user = Gson().fromJson(json, UserResponse::class.java)
                     user!!.token = TOKEN
                     user!!.isStayingConnected = stayConnected
-                    GlobalScope.launch(Dispatchers.IO) {
-                        val userLocalRepo = localRepository.getUserById(user!!._id)
-                        if (userLocalRepo != null) {
-                            localRepository.updateUser(user!!)
-                        } else {
-                            localRepository.addUser(user!!)
-                        }
-                    }
+                    updateLocalBddUser()
                 }
             })
+        }
+    }
+
+    fun updateLocalBddUser() {
+        GlobalScope.launch(Dispatchers.IO) {
+            println(localRepository.getAllUsers())
+            val userLocalRepo = localRepository.getUserById(user!!._id)
+            if (userLocalRepo != null) {
+                localRepository.updateUser(user!!)
+            } else {
+                localRepository.addUser(user!!)
+            }
         }
     }
 
@@ -199,5 +212,19 @@ class AuthentificationController(
                 }
             }
         })
+    }
+
+    suspend fun logout(navController: NavHostController) {
+        var job = GlobalScope.launch(Dispatchers.IO) {
+            user!!.isStayingConnected = false
+            val userLocalRepo = localRepository.getUserById(user!!._id)
+            println(userLocalRepo)
+            if (userLocalRepo != null) {
+                localRepository.updateUser(user!!)
+            }
+        }
+        job.join()
+        user = null
+        navController.navigate("connexion")
     }
 }
