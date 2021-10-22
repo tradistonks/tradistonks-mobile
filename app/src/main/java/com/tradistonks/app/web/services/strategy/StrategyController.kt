@@ -18,6 +18,7 @@ import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.models.responses.strategy.StrategyResponse
 import com.tradistonks.app.models.responses.strategy.StrategySerializable
 import com.tradistonks.app.repository.StrategyRepository
+import com.tradistonks.app.web.helper.ConnectivityHelper
 import com.tradistonks.app.web.services.language.LanguageController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -33,37 +34,55 @@ class StrategyController(var langController: LanguageController, var application
     var strategies: ArrayList<Strategy>? = null
     val loading = mutableStateOf(false)
     val gson = GsonBuilder().setPrettyPrinting().create()
+    val connectivityHelper = ConnectivityHelper(applicationContext)
 
     fun getStrategyById(strategyId: String): Strategy{
         return strategies!!.first { s -> s._id == strategyId }
     }
 
     suspend fun retrieveAllStrategiesOfCurrentUser(tokenResponse: TokenResponse, navController: NavHostController) {
-        StrategyRepository.retrieveAllStrategiesOfCurrentUser(TOKEN, object : Callback<List<StrategyResponse>>{
-            override fun onFailure(call: Call<List<StrategyResponse>>, t: Throwable) {
-                Log.d("tradistonks-strategies", "Error : ${t.message}")
-                Toast.makeText(applicationContext, "Error during the retrieve of the strategies. Verify your connection", Toast.LENGTH_LONG).show()
-            }
+        if (connectivityHelper.isOnline()) {
+            StrategyRepository.retrieveAllStrategiesOfCurrentUser(
+                TOKEN,
+                object : Callback<List<StrategyResponse>> {
+                    override fun onFailure(call: Call<List<StrategyResponse>>, t: Throwable) {
+                        Log.d("tradistonks-strategies", "Error : ${t.message}")
+                        Toast.makeText(
+                            applicationContext,
+                            "Error during the retrieve of the strategies. Verify your connection",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
 
-            override fun onResponse(
-                call: Call<List<StrategyResponse>>,
-                response: Response<List<StrategyResponse>>
-            ) {
-                val responseStrategies = response.body()
-                strategies = responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
-                    Collectors.toList()) as ArrayList<Strategy>
-                Log.d(
-                    "tradistonks-strategies",
-                    "Code ${response.code()}, body = getStrategies, message = ${response.message()}"
-                )
-                GlobalScope.launch(Dispatchers.Main) {
-                    async {
-                        getAllStrategiesFromLocalBdd()
-                    }.await()
-                    langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
-                }
+                    override fun onResponse(
+                        call: Call<List<StrategyResponse>>,
+                        response: Response<List<StrategyResponse>>
+                    ) {
+                        val responseStrategies = response.body()
+                        strategies =
+                            responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
+                                Collectors.toList()
+                            ) as ArrayList<Strategy>
+                        Log.d(
+                            "tradistonks-strategies",
+                            "Code ${response.code()}, body = getStrategies, message = ${response.message()}"
+                        )
+                        GlobalScope.launch(Dispatchers.Main) {
+                            async {
+                                getAllStrategiesFromLocalBdd()
+                            }.await()
+                            langController.retrieveAllLanguagesOfUser(tokenResponse, navController)
+                        }
+                    }
+                })
+        }else{
+            GlobalScope.launch(Dispatchers.Main) {
+                async {
+                    getAllStrategiesFromLocalBdd()
+                }.await()
             }
-        })
+            navController.navigate("strategies")
+        }
     }
 
     suspend fun updateStrategiesInLocalBdd(){
@@ -76,44 +95,58 @@ class StrategyController(var langController: LanguageController, var application
     }
 
     fun runStrategyById(tokenResponse: TokenResponse, strategy: Strategy) {
-        strategy.loading.value = true
-        GlobalScope.launch(Dispatchers.Unconfined) {
-            StrategyRepository.runStrategyById(TOKEN, strategy._id, object : Callback<JsonObject>{
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    strategy.loading.value = false
-                    Log.d(
-                        "tradistonks-run",
-                        "Code ${response.code()}, body = runStrategy}"
-                    )
-                    val json =  response.body()
-                    var results: RunResultDto? = null
-                    try {
-                        results = gson.fromJson(json, RunResultDto::class.java)
-                    }
-                    catch (e: Exception){
-                        Log.d( "Exception",
-                            e.toString()
-                        )
-                    }
-                    if(results != null){
-                        strategy.hasResults.value = true
-                        strategy.results = results
-                        strategy.last_run = Date()
-                        GlobalScope.launch(Dispatchers.IO) {
-                            updateStrategiesInLocalBdd()
+        if (connectivityHelper.isOnline()) {
+            strategy.loading.value = true
+            GlobalScope.launch(Dispatchers.Unconfined) {
+                StrategyRepository.runStrategyById(
+                    TOKEN,
+                    strategy._id,
+                    object : Callback<JsonObject> {
+                        override fun onResponse(
+                            call: Call<JsonObject>,
+                            response: Response<JsonObject>
+                        ) {
+                            strategy.loading.value = false
+                            Log.d(
+                                "tradistonks-run",
+                                "Code ${response.code()}, body = runStrategy}"
+                            )
+                            val json = response.body()
+                            var results: RunResultDto? = null
+                            try {
+                                results = gson.fromJson(json, RunResultDto::class.java)
+                            } catch (e: Exception) {
+                                Log.d(
+                                    "Exception",
+                                    e.toString()
+                                )
+                            }
+                            if (results != null) {
+                                strategy.hasResults.value = true
+                                strategy.results = results
+                                strategy.last_run = Date()
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    updateStrategiesInLocalBdd()
+                                }
+                            }
                         }
-                    }
-                }
 
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    strategy.loading.value = false
-                    Log.d("tradistonks-run", "Error : ${t.message}")
-                    Toast.makeText(applicationContext, "Error during the launch of the strategy. " +
-                            "Please verify the code of your strategy", Toast.LENGTH_LONG).show()
-                }
-            })
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                            strategy.loading.value = false
+                            Log.d("tradistonks-run", "Error : ${t.message}")
+                            Toast.makeText(
+                                applicationContext, "Error during the launch of the strategy. " +
+                                        "Please verify the code of your strategy", Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    })
+            }
+
+        }else{
+            Toast.makeText(
+                applicationContext, "No connection. Please retry later.", Toast.LENGTH_LONG
+            ).show()
         }
-
     }
 
     fun getAllStrategiesFromLocalBdd(){
@@ -124,8 +157,10 @@ class StrategyController(var langController: LanguageController, var application
             val type = object : TypeToken<ArrayList<StrategySerializable>>() {}.type
             val strategiesSerializable = gson.fromJson<ArrayList<StrategySerializable>>(text, type)
             val strategiesDeserializable = strategiesSerializable.stream().map(StrategySerializable::toStrategy).collect(Collectors.toList())
+            println(strategiesDeserializable)
             if(strategies.isNullOrEmpty() and !strategiesDeserializable.isNullOrEmpty()) {
                 strategies = strategiesDeserializable as ArrayList<Strategy>?
+                println(strategies)
             }else if(strategies.isNullOrEmpty() and strategiesDeserializable.isNullOrEmpty()){
                 Toast.makeText(applicationContext, "You do not own any strategies. Please create one on the website", Toast.LENGTH_LONG).show()
             }else{

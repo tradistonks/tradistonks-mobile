@@ -27,16 +27,20 @@ data class UserItem(
     var roles: String,
 
     @ColumnInfo(name = "token")
-    var token: String
+    var token: String,
+
+    @ColumnInfo(name = "is_staying_connected")
+    var isStayingConnected: Boolean
+
 ){
     constructor(user: UserResponse) : this(
         user._id, user.username, user.email,
-        Converters.fromDateNullable(user.created_date), Converters.fromStringList(user.roles!!), user.token!!)
+        Converters.fromDateNullable(user.created_date), Converters.fromStringList(user.roles!!), user.token!!, user.isStayingConnected)
 
     companion object{
         fun toUserResponse(userItem: UserItem) = UserResponse(
             userItem._id, userItem.username, userItem.email, Converters.toDateNullable(userItem.created_date),
-            Converters.toStringList(userItem.roles), userItem.token
+            Converters.toStringList(userItem.roles), userItem.token, userItem.isStayingConnected
         )
     }
 }

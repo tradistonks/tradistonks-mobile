@@ -13,6 +13,7 @@ import com.tradistonks.app.models.Strategy
 import com.tradistonks.app.models.ProfilePreferences
 import com.tradistonks.app.models.responses.strategy.RunResultDto
 import com.tradistonks.app.ui.theme.TradistonksAndroidTheme
+import com.tradistonks.app.web.helper.ConnectivityHelper
 import com.tradistonks.app.web.helper.LineChartHelper
 import com.tradistonks.app.web.repository.room.AppDatabase
 import com.tradistonks.app.web.services.auth.AuthentificationController
@@ -37,7 +38,6 @@ class MainActivity : ComponentActivity() {
         val strategyController: StrategyController = StrategyController(languageController, this.applicationContext)
         val authentificationController: AuthentificationController =
             AuthentificationController(strategyController, db.userDao(), this.applicationContext)
-
         PREFERENCES = ProfilePreferences(this)
         super.onCreate(savedInstanceState)
         setContent {

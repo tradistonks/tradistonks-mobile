@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.tradistonks.app.models.database.UserItem
 import com.tradistonks.app.web.helper.database.*
 
-@Database(entities = [UserItem::class], version = 4, exportSchema = false)
+@Database(entities = [UserItem::class], version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDatabaseDao

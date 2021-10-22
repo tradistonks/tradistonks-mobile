@@ -1,12 +1,9 @@
 package com.tradistonks.app.components
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -36,6 +33,7 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
     Column(modifier = Modifier.fillMaxWidth()) {
         val focusRequester = remember { FocusRequester() }
         val emailState = remember { EmailField() }
+        val checkedState = remember { mutableStateOf(true) }
         Email(emailState, onImeAction = { focusRequester.requestFocus() })
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -48,11 +46,21 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
             /*onImeAction = { onSignInSubmitted(emailState.text, passwordState.text) }*/
         )
         Spacer(modifier = Modifier.height(16.dp))
+
+        Row(modifier = Modifier.padding(8.dp)) {
+            Checkbox(
+                checked = checkedState.value,
+                onCheckedChange = { checkedState.value = it },
+                enabled = true
+            )
+            Text(text = "Stay connected")
+        }
+
         Button(
             onClick = {
                 coroutineScope.launch {
                     authController.login(emailState.text,
-                        passwordState.text,
+                        passwordState.text, checkedState.value,
                         navController)
                     }
                 },
