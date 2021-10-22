@@ -3,14 +3,16 @@ package com.tradistonks.app.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.material.*
-import androidx.compose.mutableStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.tradistonks.app.R
@@ -18,6 +20,8 @@ import com.tradistonks.app.components.fields.Email
 import com.tradistonks.app.components.fields.EmailField
 import com.tradistonks.app.web.services.auth.AuthentificationController
 import com.tradistonks.app.ui.theme.colorPink
+import com.tradistonks.app.ui.theme.colorYellow
+import com.tradistonks.app.ui.theme.colors
 import com.tradistonks.app.ui.theme.textColor
 import kotlinx.coroutines.launch
 
@@ -33,8 +37,10 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
     Column(modifier = Modifier.fillMaxWidth()) {
         val focusRequester = remember { FocusRequester() }
         val emailState = remember { EmailField() }
-        val checkedState = remember { mutableStateOf(true) }
         Email(emailState, onImeAction = { focusRequester.requestFocus() })
+        val checkedState = remember {
+            androidx.compose.runtime.mutableStateOf(true)
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -47,13 +53,21 @@ fun SignInContent(navController: NavHostController, authController: Authentifica
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(modifier = Modifier.padding(8.dp)) {
+        Row(
+            Modifier.padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Checkbox(
                 checked = checkedState.value,
                 onCheckedChange = { checkedState.value = it },
-                enabled = true
+                colors = CheckboxDefaults.colors(colorYellow)
             )
-            Text(text = "Stay connected")
+
+            Text(
+                text = "Stay connected?",
+                modifier = Modifier
+                    .padding(start = 10.dp),
+            )
         }
 
         Button(
