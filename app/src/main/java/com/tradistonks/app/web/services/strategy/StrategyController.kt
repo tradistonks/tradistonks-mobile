@@ -52,7 +52,6 @@ class StrategyController(var langController: LanguageController, var application
                 val responseStrategies = response.body()
                 strategies = responseStrategies!!.stream().map(StrategyResponse::toStrategy).collect(
                     Collectors.toList()) as ArrayList<Strategy>
-
                 Log.d(
                     "tradistonks-strategies",
                     "Code ${response.code()}, body = getStrategies, message = ${response.message()}"
@@ -147,8 +146,8 @@ class StrategyController(var langController: LanguageController, var application
             .map(Strategy::results).filter(Objects::nonNull).collect(Collectors.toList()) as List<RunResultDto>
         val orders: ArrayList<Order> =
             results.stream().map(RunResultDto::orders).flatMap { it?.stream() }.collect(Collectors.toList()) as ArrayList<Order>
-         orders.stream().map(Order::timestamp).sorted()
-        return orders
+         orders.stream().map(Order::timestamp).sorted(Comparator.naturalOrder())
+        return orders.sortedBy { it.timestamp }.reversed()
     }
 
 
